@@ -12,12 +12,15 @@ var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
 ** END GLOBAL VARIABLES
 ******************************************************************************/
 
+/******************************************************************************
+** Helper functions
+******************************************************************************/
 
 /******************************************************************************
 ** OBJECT: Track
 ******************************************************************************/
 
-var Track = function(year, s3prefix, data) {
+var Track = function(data, year, s3prefix) {
   this.data = data;
   this.year = year;
   this.s3prefix = s3prefix;
@@ -40,13 +43,13 @@ Track.prototype.getLink = function() {
 ** OBJECT: Mix
 ******************************************************************************/
 
-var Mix = function(s3prefix, data) {
+var Mix = function(data, s3prefix) {
   this.data = data;
   this.s3prefix = s3prefix;
 
   var tracks = [];
   for (var i = 0; i < data.tracks.length; i++) {
-    tracks.push(new Track(this.data.year, s3prefix, data.tracks[i]));
+    tracks.push(new Track(data.tracks[i], this.data.year, s3prefix));
   }
   this.tracks = tracks;
 };
@@ -87,8 +90,9 @@ Mix.prototype.getTrack = function(i) {
 ** OBJECT: Mixes
 ******************************************************************************/
 
-var Mixes = function() {
+var Mixes = function(s3prefix) {
   this.mixes = {};
+  this.s3prefix = s3prefix || S3_PREFIX;
 };
 
 Mixes.prototype.getDataLink = function(year) {
@@ -96,9 +100,10 @@ Mixes.prototype.getDataLink = function(year) {
 };
 
 Mixes.prototype.load = function(year, callback) {
+  var that = this;
   var req = new XMLHttpRequest();
   req.addEventListener('load', function() {
-    console.log(req.responseText);
+    callback.call(null, new Mix(JSON.parse(req.responseText), that.s3prefix));
   });
   req.open('GET', this.getDataLink(year));
   req.send();
