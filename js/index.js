@@ -1,8 +1,13 @@
 (function() {
-  var frontCover = 'front.jpg';
-  var backCover = 'back.jpg';
-  var playIcon = '../images/play.png';
-  var pauseIcon = '../images/pause.png';
+  var YEAR = '2019';
+  var frontCover = 'years/' + YEAR + '/front.jpg';
+  var backCover = 'years/' + YEAR + '/back.jpg';
+  var playIcon = 'images/play.png';
+  var pauseIcon = 'images/pause.png';
+
+  var getTrackUrl = function(src) {
+    return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/tracks/' + src;
+  };
 
   var Player = function(tracks) {
     this.tracks = tracks;
@@ -30,7 +35,7 @@
   Player.prototype.setCurrentSrc = function(pos, keepPlaying) {
     var isPlaying = keepPlaying || !this.htmlPlayer.paused;
     var track = this.tracks[pos];
-    this.htmlPlayer.src = track.src;
+    this.htmlPlayer.src = getTrackUrl(track.src);
     this.htmlPlayer.load();
     if (isPlaying) {
       this.htmlPlayer.play();
@@ -130,7 +135,7 @@
     document.getElementById('albumartbackimg').alt = _DATA.title;
     document.getElementById('downloadLink').href = _DATA.title + '.zip';
     document.getElementById('spotifyLink').href = _DATA.spotify;
-    document.getElementById('audioplayer').src = _DATA.tracks[0].src;
+    document.getElementById('audioplayer').src = getTrackUrl(_DATA.tracks[0].src);
     document.getElementById('title').innerHTML = _DATA.tracks[0].title;
     document.getElementById('artist').innerHTML = _DATA.tracks[0].artist;
     document.getElementById('nexttrack').innerHTML = 'Next: ' + 
