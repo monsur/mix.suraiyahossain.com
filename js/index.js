@@ -151,8 +151,9 @@ Mix.prototype.isFinished = function() {
   return this.currentTrackId == this.tracks.length - 1;
 };
 
-Mix.prototype.startOver = function() {
-  return this.currentTrackId = 0;
+Mix.prototype.startOver = function(callback) {
+  this.currentTrackId = 0;
+  callback.call(null, this.getCurrentTrack());
 };
 
 /******************************************************************************
@@ -208,18 +209,22 @@ var Player = function(mix, playerId) {
   this.htmlPlayer.addEventListener('ended', function() {
     if (that.mix.isFinished()) {
       document.getElementById('playaction').src = playIcon;
-      that.setCurrentSrc(that.mix.startOver(), false);
+      that.mix.startOver(function(track) {
+        that.setCurrentSrc(track, false);
+      });
       return;
     }
-    that.nextTrack(true);
+    //that.nextTrack(true);
   });
 
-  this.setCurrentSrc();
+  this.setCurrentSrc(this.mix.getCurrentTrack());
 };
 
-Player.prototype.setCurrentSrc = function(keepPlaying) {
+Player.prototype.setCurrentSrc = function(track, keepPlaying) {
   var isPlaying = keepPlaying || !this.htmlPlayer.paused;
-  var track = this.mix.getCurrentTrack();
+  // TODO: There's an exception if you play a new track before the old track is finshed loading.
+  // Figure out if this is a problem.
+  // Error message: "The play() request was interrupted by a new load request."
   this.htmlPlayer.src = track.getLink();
   this.htmlPlayer.load();
   if (isPlaying) {
@@ -230,7 +235,7 @@ Player.prototype.setCurrentSrc = function(keepPlaying) {
   var nextTrackText = '&nbsp;';
   var nextTrack = this.mix.getNextTrack();
   if (nextTrack) {
-    nextTrackText = 'Next: ' + nextTrack.title + ' - ' + nextTrack.artist;
+    nextTrackText = 'Next: ' + nextTrack.getTitle() + ' - ' + nextTrack.getArtist();
   }
   document.getElementById('nexttrack').innerHTML = nextTrackText;
 };
@@ -254,7 +259,7 @@ Player.prototype.nextTrack = function(keepPlaying) {
     if (track == null) {
       return;
     }
-    that.setCurrentSrc(keepPlaying);
+    that.setCurrentSrc(track, keepPlaying);
     //track('next', that.currentTrackId);
   });
 };
@@ -265,7 +270,7 @@ Player.prototype.previousTrack = function(keepPlaying, callback) {
     if (track == null) {
       return;
     }
-    that.setCurrentSrc(keepPlaying);
+    that.setCurrentSrc(track, keepPlaying);
     //track('prev', that.currentTrackId);
   });
 };
