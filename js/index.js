@@ -16,8 +16,13 @@ var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
 ** Helper functions
 ******************************************************************************/
 
-// TODO delete after refactoring
-var track = function(label, count) {
+
+/******************************************************************************
+** OBJECT: Analytics
+******************************************************************************/
+
+var Analytics = function() {};
+Analytics.log = function(label, count) {
   count = count || 0;
   if (window.ga) {
     ga('send', 'event', label, 'click', 'player', count);
@@ -233,10 +238,10 @@ Player.prototype.setCurrentSrc = function(keepPlaying) {
 Player.prototype.togglePlay = function(callback) {
   if (this.htmlPlayer.paused) {
     this.htmlPlayer.play();
-    track('play', this.currentTrackId);
+    Analytics.log('play', this.currentTrackId);
   } else {
     this.htmlPlayer.pause();
-    track('pause', this.currentTrackId);
+    Analytics.log('pause', this.currentTrackId);
   }
   if (callback) {
     callback.call(null, !this.htmlPlayer.paused);
@@ -250,7 +255,7 @@ Player.prototype.nextTrack = function(keepPlaying) {
       return;
     }
     that.setCurrentSrc(keepPlaying);
-    //track('next', that.currentTrackId);
+    //Analytics.log('next', that.currentTrackId);
   });
 };
 
@@ -261,7 +266,7 @@ Player.prototype.previousTrack = function(keepPlaying, callback) {
       return;
     }
     that.setCurrentSrc(keepPlaying);
-    //track('prev', that.currentTrackId);
+    //Analytics.log('prev', that.currentTrackId);
   });
 };
 
@@ -395,7 +400,7 @@ var continueLoading = function(mix) {
 
   document.getElementById('downloadLink').addEventListener('click',
     function(evt) {
-      track('download', 1);
+      Analytics.log('download', 1);
     });
 
   document.getElementById('albumart').addEventListener('click',
