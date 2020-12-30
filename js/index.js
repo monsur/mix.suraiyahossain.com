@@ -210,18 +210,21 @@ var Player = function(mix, playerId) {
     if (that.mix.isFinished()) {
       document.getElementById('playaction').src = playIcon;
       that.mix.startOver(function(track) {
-        that.setCurrentSrc(track, false);
+        that.setCurrentSrc(false);
       });
       return;
     }
     //that.nextTrack(true);
   });
 
-  this.setCurrentSrc(this.mix.getCurrentTrack());
+  this.setCurrentSrc();
 };
 
-Player.prototype.setCurrentSrc = function(track, keepPlaying) {
+Player.prototype.setCurrentSrc = function(keepPlaying) {
   var isPlaying = keepPlaying || !this.htmlPlayer.paused;
+  var track = this.mix.getCurrentTrack();
+  var nextTrack = this.mix.getNextTrack();
+
   // TODO: There's an exception if you play a new track before the old track is finshed loading.
   // Figure out if this is a problem.
   // Error message: "The play() request was interrupted by a new load request."
@@ -259,7 +262,7 @@ Player.prototype.nextTrack = function(keepPlaying) {
     if (track == null) {
       return;
     }
-    that.setCurrentSrc(track, keepPlaying);
+    that.setCurrentSrc(keepPlaying);
     //track('next', that.currentTrackId);
   });
 };
@@ -270,7 +273,7 @@ Player.prototype.previousTrack = function(keepPlaying, callback) {
     if (track == null) {
       return;
     }
-    that.setCurrentSrc(track, keepPlaying);
+    that.setCurrentSrc(keepPlaying);
     //track('prev', that.currentTrackId);
   });
 };
