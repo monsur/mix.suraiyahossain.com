@@ -59,7 +59,15 @@ Mix.prototype.getTitle = function() {
   return this.data.title;
 };
 
-Mix.prototype.getBackgrounColor = function() {
+Mix.prototype.getFrontCoverLink = function() {
+  return 'years/' + this.getYear() + '/front.jpg';
+};
+
+Mix.prototype.getBackCoverLink = function() {
+  return 'years/' + this.getYear() + '/back.jpg';
+};
+
+Mix.prototype.getBackgroundColor = function() {
   return this.data.backgroundColor;
 };
 
