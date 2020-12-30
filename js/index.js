@@ -17,16 +17,6 @@ var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
 ******************************************************************************/
 
 // TODO delete after refactoring
-var getTrackUrl = function(src) {
-  return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/tracks/' + src;
-};
-
-// TODO delete after refactoring
-var getDownloadUrl = function(title) {
-  return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/' + title + '.zip';
-};
-
-// TODO delete after refactoring
 var track = function(label, count) {
   count = count || 0;
   if (window.ga) {
