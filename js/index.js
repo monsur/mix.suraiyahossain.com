@@ -34,6 +34,9 @@ var track = function(label, count) {
   }
 };
 
+var playIcon = 'images/play.png';
+var pauseIcon = 'images/pause.png';
+
 /******************************************************************************
 ** OBJECT: Track
 ******************************************************************************/
@@ -64,6 +67,7 @@ Track.prototype.getLink = function() {
 var Mix = function(data, s3prefix) {
   this.data = data;
   this.s3prefix = s3prefix;
+  this.currentTrackId = 0;
 
   var tracks = [];
   for (var i = 0; i < data.tracks.length; i++) {
@@ -104,6 +108,53 @@ Mix.prototype.getTrack = function(i) {
   return this.tracks[i];
 };
 
+Mix.prototype.getCurrentTrack = function() {
+  return this.getTrack(this.currentTrackId);
+};
+
+Mix.prototype.getNextTrack = function() {
+  var pos = this.currentTrackId + 1;
+  if (pos < this.tracks.length) {
+    return this.tracks[pos];
+  }
+  return null;
+};
+
+Mix.prototype.getPreviousTrack = function() {
+  if (this.currentTrackId > 0) {
+    return this.tracks[this.currentTrackId - 1];
+  }
+  return null;
+};
+
+Mix.prototype.playNextTrack = function(callback) {
+  var track = this.getNextTrack();
+  if (track) {
+    this.currentTrackId++;
+    callback.call(null, track);
+  } else {
+    callback.call(null, null);
+  }
+};
+
+Mix.prototype.playPreviousTrack = function(callback) {
+  var track = this.getPreviousTrack();
+  if (track) {
+    this.currentTrackId--;
+    callback.call(null, track);
+  } else {
+    callback.call(null, null);
+  }
+};
+
+Mix.prototype.isFinished = function() {
+  return this.currentTrackId == this.tracks.length - 1;
+};
+
+Mix.prototype.startOver = function() {
+  return this.currentTrackId = 0;
+};
+
 /******************************************************************************
 ** OBJECT: Mixes
 ******************************************************************************/
@@ -142,42 +193,43 @@ Mixes.prototype.get = function(year, callback) {
 ** OBJECT: Player
 ******************************************************************************/
 
-var Player = function(tracks) {
-  this.tracks = tracks;
-  this.currentTrackId = 0;
-  this.htmlPlayer = document.getElementById('audioplayer');
+var Player = function(mix, playerId) {
+  this.mix = mix;
+  this.htmlPlayer = document.getElementById(playerId || 'audioplayer');
   var that = this;
+
   this.htmlPlayer.addEventListener('error', function() {
     document.getElementById('playaction').src = playIcon;
     if (!that.htmlPlayer.paused) {
       that.htmlPlayer.pause();
     }
   });
+
   this.htmlPlayer.addEventListener('ended', function() {
-    if (that.currentTrackId == that.tracks.length - 1) {
+    if (that.mix.isFinished()) {
       document.getElementById('playaction').src = playIcon;
-      that.currentTrackId = 0;
-      that.setCurrentSrc(0, false);
+      that.setCurrentSrc(that.mix.startOver(), false);
       return;
     }
     that.nextTrack(true);
   });
-  this.setCurrentSrc(this.currentTrackId);
+
+  this.setCurrentSrc();
 };
 
-Player.prototype.setCurrentSrc = function(pos, keepPlaying) {
+Player.prototype.setCurrentSrc = function(keepPlaying) {
   var isPlaying = keepPlaying || !this.htmlPlayer.paused;
-  var track = this.tracks[pos];
-  this.htmlPlayer.src = getTrackUrl(track.src);
+  var track = this.mix.getCurrentTrack();
+  this.htmlPlayer.src = track.getLink();
   this.htmlPlayer.load();
   if (isPlaying) {
     this.htmlPlayer.play();
   }
-  document.getElementById('title').innerHTML = track.title;
-  document.getElementById('artist').innerHTML = track.artist;
+  document.getElementById('title').innerHTML = track.getTitle();
+  document.getElementById('artist').innerHTML = track.getArtist();
   var nextTrackText = '&nbsp;';
-  if (++pos < this.tracks.length) {
-    var nextTrack = this.tracks[pos];
+  var nextTrack = this.mix.getNextTrack();
+  if (nextTrack) {
     nextTrackText = 'Next: ' + nextTrack.title + ' - ' + nextTrack.artist;
   }
   document.getElementById('nexttrack').innerHTML = nextTrackText;
@@ -196,22 +248,26 @@ Player.prototype.togglePlay = function(callback) {
   }
 };
 
-Player.prototype.nextTrack = function(keepPlaying, callback) {
-  if (this.currentTrackId == this.tracks.length - 1) {
-    return;
-  }
-  this.currentTrackId++;
-  this.setCurrentSrc(this.currentTrackId, keepPlaying);
-  track('next', this.currentTrackId);
+Player.prototype.nextTrack = function(keepPlaying) {
+  var that = this;
+  this.mix.playNextTrack(function(track) {
+    if (track == null) {
+      return;
+    }
+    that.setCurrentSrc(keepPlaying);
+    //track('next', that.currentTrackId);
+  });
 };
 
 Player.prototype.previousTrack = function(keepPlaying, callback) {
-  if (this.currentTrackId === 0) {
-    return;
-  }
-  this.currentTrackId--;
-  this.setCurrentSrc(this.currentTrackId, keepPlaying);
-  track('prev', this.currentTrackId);
+  var that = this;
+  this.mix.playPreviousTrack(function(track) {
+    if (track == null) {
+      return;
+    }
+    that.setCurrentSrc(keepPlaying);
+    //track('prev', that.currentTrackId);
+  });
 };
 
 /******************************************************************************
@@ -221,8 +277,6 @@ Player.prototype.previousTrack = function(keepPlaying, callback) {
 (function() {
   var frontCover = 'years/2019/front.jpg';
   var backCover = 'years/2019/back.jpg';
-  var playIcon = 'images/play.png';
-  var pauseIcon = 'images/pause.png';
 
   var mode = 'large';
   var resize = function() {
@@ -265,7 +319,7 @@ Player.prototype.previousTrack = function(keepPlaying, callback) {
    // Globals on purpose to preserve existing functionality, todo refactor later.
     _DATA = mix.data;
     YEAR = mix.getYear();
-    player = new Player(_DATA.tracks);
+    player = new Player(mix);
 
     document.title = _DATA.title;
     document.body.style.backgroundColor = _DATA.backgroundColor;
