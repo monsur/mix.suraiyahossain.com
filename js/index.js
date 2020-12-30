@@ -34,9 +34,6 @@ var track = function(label, count) {
   }
 };
 
-var playIcon = 'images/play.png';
-var pauseIcon = 'images/pause.png';
-
 /******************************************************************************
 ** OBJECT: Track
 ******************************************************************************/
@@ -279,113 +276,169 @@ Player.prototype.previousTrack = function(keepPlaying, callback) {
 };
 
 /******************************************************************************
+** OBJECT: UiController
+******************************************************************************/
+var UiController = function() {
+  document.getElementById('albumart').style.display = 'block';
+  this.showPlay();
+};
+
+UiController.PLAY_ICON = 'images/play.png';
+UiController.PAUSE_ICON = 'images/pause.png';
+
+UiController.prototype.togglePlay = function() {
+  if (this.isPlay()) {
+    this.showPause();
+  } else {
+    this.showPlay();
+  }
+};
+
+UiController.prototype.isPlay = function() {
+  return document.getElementById('playaction').src == UiController.PLAY_ICON;
+};
+
+UiController.prototype.showPlay = function() {
+  document.getElementById('playaction').src = UiController.PLAY_ICON;
+};
+
+UiController.prototype.showPause = function() {
+  document.getElementById('playaction').src = UiController.PAUSE_ICON;
+};
+
+UiController.prototype.setCurrentTrack = function(track) {
+  document.getElementById('title').innerHTML = track.getTitle();
+  document.getElementById('artist').innerHTML = track.getArtist();
+};
+
+UiController.prototype.setNextTrack = function(track) {
+  var text = '&nbsp';
+  if (track) {
+    text = 'Next: ' + track.getTitle() + ' - ' + track.getArtist();
+  }
+  document.getElementById('nexttrack').innerHTML = text;
+};
+
+UiController.prototype.setPageTitle = function(title) {
+  document.title = title;
+};
+
+UiController.prototype.setBackgroundColor = function(color) {
+  document.body.style.backgroundColor = color;
+};
+
+UiController.prototype.setAlbumArt = function(frontSrc, backSrc, altText) {
+ document.getElementById('albumartfrontimg').src = frontSrc;
+ document.getElementById('albumartfrontimg').alt = altText;
+ document.getElementById('albumartbackimg').src = backSrc;
+ document.getElementById('albumartbackimg').alt = altText;
+};
+
+UiController.prototype.setDownloadLink = function(link) {
+  document.getElementById('downloadLink').href = link;
+};
+
+UiController.prototype.setSpotifyLink = function(link) {
+  document.getElementById('spotifyLink').href = link;
+};
+
+/******************************************************************************
 ** Main function
 ******************************************************************************/
 
-(function() {
-  var frontCover = 'years/2019/front.jpg';
-  var backCover = 'years/2019/back.jpg';
+var frontCover = 'years/2019/front.jpg';
+var backCover = 'years/2019/back.jpg';
 
-  var mode = 'large';
-  var resize = function() {
-    var imgWidth, contentWidth, marginTop;
-    var viewportWidth = window.innerWidth;
-    if (viewportWidth <= 505) {
-      mode = 'small';
-      contentWidth = viewportWidth;
-      imgWidth = contentWidth;
-      marginTop = 0;
-    } else if (viewportWidth <= 900) {
-      mode = 'medium';
-      contentWidth = viewportWidth;
-      imgWidth = contentWidth/2;
-      marginTop = 60;
-    } else {
-      mode = 'large';
-      contentWidth = 900;
-      imgWidth = contentWidth/2;
-      marginTop = 60;
-    }
-    if (mode == 'small') {
-      document.getElementById('albumartback').style.display = 'none';
-    } else {
-      document.getElementById('albumartback').style.display = 'block';
-      document.getElementById('albumartfrontimg').src = frontCover;
-    }
-    document.getElementById('albumart').style.marginTop = marginTop + 'px';
-    document.getElementById('content').style.width = contentWidth + 'px';
-
-    var width = imgWidth + 'px';
-    document.getElementById('albumartbackimg').style.width = width;
-    document.getElementById('albumartbackimg').style.height = width;
-    document.getElementById('albumartfrontimg').style.width = width;
-    document.getElementById('albumartfrontimg').style.height = width;
-  };
-
-  var continueLoading = function(mix) {
-
-   // Globals on purpose to preserve existing functionality, todo refactor later.
-    _DATA = mix.data;
-    YEAR = mix.getYear();
-    player = new Player(mix);
-
-    document.title = _DATA.title;
-    document.body.style.backgroundColor = _DATA.backgroundColor;
+var mode = 'large';
+var resize = function() {
+  var imgWidth, contentWidth, marginTop;
+  var viewportWidth = window.innerWidth;
+  if (viewportWidth <= 505) {
+    mode = 'small';
+    contentWidth = viewportWidth;
+    imgWidth = contentWidth;
+    marginTop = 0;
+  } else if (viewportWidth <= 900) {
+    mode = 'medium';
+    contentWidth = viewportWidth;
+    imgWidth = contentWidth/2;
+    marginTop = 60;
+  } else {
+    mode = 'large';
+    contentWidth = 900;
+    imgWidth = contentWidth/2;
+    marginTop = 60;
+  }
+  if (mode == 'small') {
+    document.getElementById('albumartback').style.display = 'none';
+  } else {
+    document.getElementById('albumartback').style.display = 'block';
     document.getElementById('albumartfrontimg').src = frontCover;
-    document.getElementById('albumartfrontimg').alt = _DATA.title;
-    document.getElementById('albumartbackimg').src = backCover;
-    document.getElementById('albumartbackimg').alt = _DATA.title;
-    document.getElementById('downloadLink').href = getDownloadUrl(_DATA.title);
-    document.getElementById('spotifyLink').href = _DATA.spotify;
-    document.getElementById('audioplayer').src = getTrackUrl(_DATA.tracks[0].src);
-    document.getElementById('title').innerHTML = _DATA.tracks[0].title;
-    document.getElementById('artist').innerHTML = _DATA.tracks[0].artist;
-    document.getElementById('nexttrack').innerHTML = 'Next: ' + 
-        _DATA.tracks[1].artist + ' - ' + _DATA.tracks[1].title;
+  }
+  document.getElementById('albumart').style.marginTop = marginTop + 'px';
+  document.getElementById('content').style.width = contentWidth + 'px';
 
-    resize();
+  var width = imgWidth + 'px';
+  document.getElementById('albumartbackimg').style.width = width;
+  document.getElementById('albumartbackimg').style.height = width;
+  document.getElementById('albumartfrontimg').style.width = width;
+  document.getElementById('albumartfrontimg').style.height = width;
+};
 
-    window.addEventListener('resize', resize);
+var continueLoading = function(mix) {
 
-    document.getElementById('downloadLink').addEventListener('click',
-      function(evt) {
-        track('download', 1);
+  var player = new Player(mix);
+  var ui = new UiController();
+
+  ui.setPageTitle(mix.getTitle());
+  ui.setBackgroundColor(mix.getBackgroundColor());
+  ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
+  ui.setDownloadLink(mix.getDownloadLink());
+  ui.setSpotifyLink(mix.getSpotifyLink());
+  ui.setCurrentTrack(mix.getCurrentTrack());
+  ui.setNextTrack(mix.getNextTrack());
+  document.getElementById('audioplayer').src = mix.getCurrentTrack().getLink();
+
+  resize();
+
+  window.addEventListener('resize', resize);
+
+  document.getElementById('downloadLink').addEventListener('click',
+    function(evt) {
+      track('download', 1);
+    });
+
+  document.getElementById('albumart').addEventListener('click',
+    function(evt) {
+      if (mode != 'small') {
+        return;
+      }
+      var newImg = frontCover;
+      if (document.getElementById('albumartfrontimg').src.toLowerCase().indexOf(frontCover) >= 0) {
+        newImg = backCover;
+      }
+      document.getElementById('albumartfrontimg').src = newImg;
+    });
+
+  document.getElementById('playaction').addEventListener('click',
+    function(evt) {
+      player.togglePlay(function(isPlaying) {
+        evt.target.src = isPlaying ? UiController.PAUSE_ICON : UiController.PLAY_ICON;
       });
+    });
 
-    document.getElementById('albumart').style.display = 'block';
-    document.getElementById('albumart').addEventListener('click',
-      function(evt) {
-        if (mode != 'small') {
-          return;
-        }
-        var newImg = frontCover;
-        if (document.getElementById('albumartfrontimg').src.toLowerCase().indexOf(frontCover) >= 0) {
-          newImg = backCover;
-        }
-        document.getElementById('albumartfrontimg').src = newImg;
-      });
-
-    document.getElementById('playaction').addEventListener('click',
-      function(evt) {
-        player.togglePlay(function(isPlaying) {
-          evt.target.src = isPlaying ? pauseIcon : playIcon;
-        });
-      });
-
-    document.getElementById('prevaction').addEventListener('click',
-      function() { player.previousTrack(); }
+  document.getElementById('prevaction').addEventListener('click',
+    function() { player.previousTrack(); }
     );
 
-    document.getElementById('nextaction').addEventListener('click',
-      function() { player.nextTrack(); }
+  document.getElementById('nextaction').addEventListener('click',
+    function() { player.nextTrack(); }
     );
-  };
+};
 
 
-  window.onload = function() {
-    var mixes = new Mixes();
-    mixes.get(2019, continueLoading);
-  };
-
-})();
+window.onload = function() {
+  var mixes = new Mixes();
+  mixes.get(2019, continueLoading);
+};
 
