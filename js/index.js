@@ -16,6 +16,24 @@ var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
 ** Helper functions
 ******************************************************************************/
 
+// TODO delete after refactoring
+var getTrackUrl = function(src) {
+  return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/tracks/' + src;
+};
+
+// TODO delete after refactoring
+var getDownloadUrl = function(title) {
+  return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/' + title + '.zip';
+};
+
+// TODO delete after refactoring
+var track = function(label, count) {
+  count = count || 0;
+  if (window.ga) {
+    ga('send', 'event', label, 'click', 'player', count);
+  }
+};
+
 /******************************************************************************
 ** OBJECT: Track
 ******************************************************************************/
@@ -120,104 +138,91 @@ Mixes.prototype.get = function(year, callback) {
   this.load(year, callback);
 };
 
+/******************************************************************************
+** OBJECT: Player
+******************************************************************************/
+
+var Player = function(tracks) {
+  this.tracks = tracks;
+  this.currentTrackId = 0;
+  this.htmlPlayer = document.getElementById('audioplayer');
+  var that = this;
+  this.htmlPlayer.addEventListener('error', function() {
+    document.getElementById('playaction').src = playIcon;
+    if (!that.htmlPlayer.paused) {
+      that.htmlPlayer.pause();
+    }
+  });
+  this.htmlPlayer.addEventListener('ended', function() {
+    if (that.currentTrackId == that.tracks.length - 1) {
+      document.getElementById('playaction').src = playIcon;
+      that.currentTrackId = 0;
+      that.setCurrentSrc(0, false);
+      return;
+    }
+    that.nextTrack(true);
+  });
+  this.setCurrentSrc(this.currentTrackId);
+};
+
+Player.prototype.setCurrentSrc = function(pos, keepPlaying) {
+  var isPlaying = keepPlaying || !this.htmlPlayer.paused;
+  var track = this.tracks[pos];
+  this.htmlPlayer.src = getTrackUrl(track.src);
+  this.htmlPlayer.load();
+  if (isPlaying) {
+    this.htmlPlayer.play();
+  }
+  document.getElementById('title').innerHTML = track.title;
+  document.getElementById('artist').innerHTML = track.artist;
+  var nextTrackText = '&nbsp;';
+  if (++pos < this.tracks.length) {
+    var nextTrack = this.tracks[pos];
+    nextTrackText = 'Next: ' + nextTrack.title + ' - ' + nextTrack.artist;
+  }
+  document.getElementById('nexttrack').innerHTML = nextTrackText;
+};
+
+Player.prototype.togglePlay = function(callback) {
+  if (this.htmlPlayer.paused) {
+    this.htmlPlayer.play();
+    track('play', this.currentTrackId);
+  } else {
+    this.htmlPlayer.pause();
+    track('pause', this.currentTrackId);
+  }
+  if (callback) {
+    callback.call(null, !this.htmlPlayer.paused);
+  }
+};
+
+Player.prototype.nextTrack = function(keepPlaying, callback) {
+  if (this.currentTrackId == this.tracks.length - 1) {
+    return;
+  }
+  this.currentTrackId++;
+  this.setCurrentSrc(this.currentTrackId, keepPlaying);
+  track('next', this.currentTrackId);
+};
+
+Player.prototype.previousTrack = function(keepPlaying, callback) {
+  if (this.currentTrackId === 0) {
+    return;
+  }
+  this.currentTrackId--;
+  this.setCurrentSrc(this.currentTrackId, keepPlaying);
+  track('prev', this.currentTrackId);
+};
 
 /******************************************************************************
 ** Main function
 ******************************************************************************/
 
 (function() {
-  var YEAR = '2019';
-  var frontCover = 'years/' + YEAR + '/front.jpg';
-  var backCover = 'years/' + YEAR + '/back.jpg';
+  var frontCover = 'years/2019/front.jpg';
+  var backCover = 'years/2019/back.jpg';
   var playIcon = 'images/play.png';
   var pauseIcon = 'images/pause.png';
-
-  var getTrackUrl = function(src) {
-    return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/tracks/' + src;
-  };
-
-  var getDownloadUrl = function(title) {
-    return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/' + title + '.zip';
-  };
-
-  var Player = function(tracks) {
-    this.tracks = tracks;
-    this.currentTrackId = 0;
-    this.htmlPlayer = document.getElementById('audioplayer');
-    var that = this;
-    this.htmlPlayer.addEventListener('error', function() {
-      document.getElementById('playaction').src = playIcon;
-      if (!that.htmlPlayer.paused) {
-        that.htmlPlayer.pause();
-      }
-    });
-    this.htmlPlayer.addEventListener('ended', function() {
-      if (that.currentTrackId == that.tracks.length - 1) {
-        document.getElementById('playaction').src = playIcon;
-        that.currentTrackId = 0;
-        that.setCurrentSrc(0, false);
-        return;
-      }
-      that.nextTrack(true);
-    });
-    this.setCurrentSrc(this.currentTrackId);
-  };
-
-  Player.prototype.setCurrentSrc = function(pos, keepPlaying) {
-    var isPlaying = keepPlaying || !this.htmlPlayer.paused;
-    var track = this.tracks[pos];
-    this.htmlPlayer.src = getTrackUrl(track.src);
-    this.htmlPlayer.load();
-    if (isPlaying) {
-      this.htmlPlayer.play();
-    }
-    document.getElementById('title').innerHTML = track.title;
-    document.getElementById('artist').innerHTML = track.artist;
-    var nextTrackText = '&nbsp;';
-    if (++pos < this.tracks.length) {
-      var nextTrack = this.tracks[pos];
-      nextTrackText = 'Next: ' + nextTrack.title + ' - ' + nextTrack.artist;
-    }
-    document.getElementById('nexttrack').innerHTML = nextTrackText;
-  };
-
-  Player.prototype.togglePlay = function(callback) {
-    if (this.htmlPlayer.paused) {
-      this.htmlPlayer.play();
-      track('play', this.currentTrackId);
-    } else {
-      this.htmlPlayer.pause();
-      track('pause', this.currentTrackId);
-    }
-    if (callback) {
-      callback.call(null, !this.htmlPlayer.paused);
-    }
-  };
-
-  Player.prototype.nextTrack = function(keepPlaying, callback) {
-    if (this.currentTrackId == this.tracks.length - 1) {
-      return;
-    }
-    this.currentTrackId++;
-    this.setCurrentSrc(this.currentTrackId, keepPlaying);
-    track('next', this.currentTrackId);
-  };
-
-  Player.prototype.previousTrack = function(keepPlaying, callback) {
-    if (this.currentTrackId === 0) {
-      return;
-    }
-    this.currentTrackId--;
-    this.setCurrentSrc(this.currentTrackId, keepPlaying);
-    track('prev', this.currentTrackId);
-  };
-
-  var track = function(label, count) {
-    count = count || 0;
-    if (window.ga) {
-      ga('send', 'event', label, 'click', 'player', count);
-    }
-  };
 
   var mode = 'large';
   var resize = function() {
@@ -255,9 +260,13 @@ Mixes.prototype.get = function(year, callback) {
     document.getElementById('albumartfrontimg').style.height = width;
   };
 
-  var player = new Player(_DATA.tracks);
+  var continueLoading = function(mix) {
 
-  window.onload = function() {
+   // Globals on purpose to preserve existing functionality, todo refactor later.
+    _DATA = mix.data;
+    YEAR = mix.getYear();
+    player = new Player(_DATA.tracks);
+
     document.title = _DATA.title;
     document.body.style.backgroundColor = _DATA.backgroundColor;
     document.getElementById('albumartfrontimg').src = frontCover;
@@ -309,5 +318,12 @@ Mixes.prototype.get = function(year, callback) {
       function() { player.nextTrack(); }
     );
   };
+
+
+  window.onload = function() {
+    var mixes = new Mixes();
+    mixes.get(2019, continueLoading);
+  };
+
 })();
 
