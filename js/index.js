@@ -91,8 +91,17 @@ var Mixes = function() {
   this.mixes = {};
 };
 
+Mixes.prototype.getDataLink = function(year) {
+  return 'years/' + year + '/data.js';
+};
+
 Mixes.prototype.load = function(year, callback) {
-  
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", function() {
+    console.log(arguments);
+  });
+  oReq.open("GET", this.getDataLink(year));
+  oReq.send();
 };
 
 Mixes.prototype.get = function(year, callback) {
