@@ -1,3 +1,58 @@
+var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
+
+var Track = function(year, s3prefix, data) {
+  this.data = data;
+  this.year = year;
+  this.s3prefix = s3prefix;
+};
+
+Track.prototype.getTitle = function() {
+  return this.data.title;
+};
+
+Track.prototype.getArtist = function() {
+  return this.data.artist;
+};
+
+Track.prototype.getLink = function() {
+  return this.s3prefix + this.year + '/tracks/' + this.data.src;
+};
+
+var Mix = function(s3prefix, data) {
+  this.data = data;
+  this.s3prefix = s3prefix;
+
+  var tracks = [];
+  for (var i = 0; i < data.tracks.length; i++) {
+    tracks.push(new Track(this.data.year, s3prefix, data.tracks[i]));
+  }
+  this.tracks = tracks;
+};
+
+Mix.prototype.getYear = function() {
+  return this.data.year;
+};
+
+Mix.prototype.getTitle = function() {
+  return this.data.title;
+};
+
+Mix.prototype.getBackgrounColor = function() {
+  return this.data.backgroundColor;
+};
+
+Mix.prototype.getSpotifyLink = function() {
+  return this.data.spotify;
+};
+
+Mix.prototype.getDownloadLink = function() {
+  return this.s3prefix + this.getYear() + '/' + this.getTitle() + '.zip'
+};
+
+Mix.prototype.getTrack = function(i) {
+  return this.tracks[i];
+};
+
 (function() {
   var YEAR = '2019';
   var frontCover = 'years/' + YEAR + '/front.jpg';
@@ -7,6 +62,10 @@
 
   var getTrackUrl = function(src) {
     return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/tracks/' + src;
+  };
+
+  var getDownloadUrl = function(title) {
+    return 'https://s3.amazonaws.com/mix.suraiyahossain.com/' + YEAR + '/' + title + '.zip';
   };
 
   var Player = function(tracks) {
@@ -133,7 +192,7 @@
     document.getElementById('albumartfrontimg').alt = _DATA.title;
     document.getElementById('albumartbackimg').src = backCover;
     document.getElementById('albumartbackimg').alt = _DATA.title;
-    document.getElementById('downloadLink').href = _DATA.title + '.zip';
+    document.getElementById('downloadLink').href = getDownloadUrl(_DATA.title);
     document.getElementById('spotifyLink').href = _DATA.spotify;
     document.getElementById('audioplayer').src = getTrackUrl(_DATA.tracks[0].src);
     document.getElementById('title').innerHTML = _DATA.tracks[0].title;
