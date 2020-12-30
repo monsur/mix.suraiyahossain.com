@@ -96,12 +96,12 @@ Mixes.prototype.getDataLink = function(year) {
 };
 
 Mixes.prototype.load = function(year, callback) {
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener("load", function() {
-    console.log(arguments);
+  var req = new XMLHttpRequest();
+  req.addEventListener('load', function() {
+    console.log(req.responseText);
   });
-  oReq.open("GET", this.getDataLink(year));
-  oReq.send();
+  req.open('GET', this.getDataLink(year));
+  req.send();
 };
 
 Mixes.prototype.get = function(year, callback) {

@@ -1,4 +1,4 @@
-var _DATA = {
+{
   year: 2019,
   title: 'TwentyNineteen',
   backgroundColor: '#ccc',
@@ -81,4 +81,4 @@ var _DATA = {
       artist: 'Ranveer Singh, Dub Sharma'
     }
   ]
-};
+}
