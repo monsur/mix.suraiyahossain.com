@@ -95,7 +95,7 @@ var Mixes = function(s3prefix) {
   this.s3prefix = s3prefix || S3_PREFIX;
 };
 
-Mixes.prototype.getDataLink = function(year) {
+Mixes.getDataLink = function(year) {
   return 'years/' + year + '/data.js';
 };
 
@@ -107,7 +107,7 @@ Mixes.prototype.load = function(year, callback) {
     that.mixes[year] = mix;
     callback.call(null, mix);
   });
-  req.open('GET', this.getDataLink(year));
+  req.open('GET', Mixes.getDataLink(year));
   req.send();
 };
 
@@ -117,7 +117,6 @@ Mixes.prototype.get = function(year, callback) {
     callback.call(null, mix);
     return;
   }
-
   this.load(year, callback);
 };
 
