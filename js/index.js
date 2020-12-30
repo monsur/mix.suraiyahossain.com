@@ -103,7 +103,9 @@ Mixes.prototype.load = function(year, callback) {
   var that = this;
   var req = new XMLHttpRequest();
   req.addEventListener('load', function() {
-    callback.call(null, new Mix(JSON.parse(req.responseText), that.s3prefix));
+    var mix = new Mix(JSON.parse(req.responseText), that.s3prefix);
+    that.mixes[year] = mix;
+    callback.call(null, mix);
   });
   req.open('GET', this.getDataLink(year));
   req.send();
@@ -113,6 +115,7 @@ Mixes.prototype.get = function(year, callback) {
   var mix = this.mixes[year];
   if (mix) {
     callback.call(null, mix);
+    return;
   }
 
   this.load(year, callback);
