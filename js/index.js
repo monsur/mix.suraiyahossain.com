@@ -123,6 +123,7 @@ Mix.prototype.playNextTrack = function(callback) {
   var track = this.getNextTrack();
   if (track) {
     this.currentTrackId++;
+    Analytics.log('next', this.currentTrackId);
     callback.call(null, track);
   } else {
     callback.call(null, null);
@@ -133,6 +134,7 @@ Mix.prototype.playPreviousTrack = function(callback) {
   var track = this.getPreviousTrack();
   if (track) {
     this.currentTrackId--;
+    Analytics.log('prev', this.currentTrackId);
     callback.call(null, track);
   } else {
     callback.call(null, null);
@@ -186,37 +188,26 @@ Mixes.prototype.get = function(year, callback) {
 ** OBJECT: Player
 ******************************************************************************/
 
-var Player = function(mix, playerId) {
-  this.mix = mix;
-  this.htmlPlayer = document.getElementById(playerId || 'audioplayer');
-  var that = this;
+var Player = function() {
+  this.htmlPlayer = document.getElementById('audioplayer');
+};
 
+Player.prototype.onError = function(callback) {
+  var that = this;
   this.htmlPlayer.addEventListener('error', function() {
-    document.getElementById('playaction').src = playIcon;
     if (!that.htmlPlayer.paused) {
       that.htmlPlayer.pause();
     }
+    callback.call(null);
   });
-
-  this.htmlPlayer.addEventListener('ended', function() {
-    if (that.mix.isFinished()) {
-      document.getElementById('playaction').src = playIcon;
-      that.mix.startOver(function(track) {
-        that.setCurrentSrc(false);
-      });
-      return;
-    }
-    //that.nextTrack(true);
-  });
-
-  this.setCurrentSrc();
 };
 
-Player.prototype.setCurrentSrc = function(keepPlaying) {
-  var isPlaying = keepPlaying || !this.htmlPlayer.paused;
-  var track = this.mix.getCurrentTrack();
-  var nextTrack = this.mix.getNextTrack();
+Player.prototype.onEnded = function(callback) {
+  this.htmlPlayer.addEventListener('ended', callback);
+};
 
+Player.prototype.setCurrentTrack = function(track, callback) {
+  var isPlaying = !this.htmlPlayer.paused;
   // TODO: There's an exception if you play a new track before the old track is finshed loading.
   // Figure out if this is a problem.
   // Error message: "The play() request was interrupted by a new load request."
@@ -225,14 +216,9 @@ Player.prototype.setCurrentSrc = function(keepPlaying) {
   if (isPlaying) {
     this.htmlPlayer.play();
   }
-  document.getElementById('title').innerHTML = track.getTitle();
-  document.getElementById('artist').innerHTML = track.getArtist();
-  var nextTrackText = '&nbsp;';
-  var nextTrack = this.mix.getNextTrack();
-  if (nextTrack) {
-    nextTrackText = 'Next: ' + nextTrack.getTitle() + ' - ' + nextTrack.getArtist();
+  if (callback) {
+    callback.call(null, track);
   }
-  document.getElementById('nexttrack').innerHTML = nextTrackText;
 };
 
 Player.prototype.togglePlay = function(callback) {
@@ -248,28 +234,6 @@ Player.prototype.togglePlay = function(callback) {
   }
 };
 
-Player.prototype.nextTrack = function(keepPlaying) {
-  var that = this;
-  this.mix.playNextTrack(function(track) {
-    if (track == null) {
-      return;
-    }
-    that.setCurrentSrc(keepPlaying);
-    //Analytics.log('next', that.currentTrackId);
-  });
-};
-
-Player.prototype.previousTrack = function(keepPlaying, callback) {
-  var that = this;
-  this.mix.playPreviousTrack(function(track) {
-    if (track == null) {
-      return;
-    }
-    that.setCurrentSrc(keepPlaying);
-    //Analytics.log('prev', that.currentTrackId);
-  });
-};
-
 /******************************************************************************
 ** OBJECT: UiController
 ******************************************************************************/
@@ -281,8 +245,9 @@ var UiController = function() {
 UiController.PLAY_ICON = 'images/play.png';
 UiController.PAUSE_ICON = 'images/pause.png';
 
-UiController.prototype.togglePlay = function() {
-  if (this.isPlay()) {
+UiController.prototype.togglePlay = function(isPlaying) {
+  isPlaying = isPlaying || this.isPlay();
+  if (isPlaying) {
     this.showPause();
   } else {
     this.showPlay();
@@ -395,8 +360,24 @@ var continueLoading = function(mix) {
   document.getElementById('audioplayer').src = mix.getCurrentTrack().getLink();
 
   resize();
-
   window.addEventListener('resize', resize);
+
+  player.onError = (function(ui) {
+    return function() {
+      ui.showPlay();
+    };
+  })(ui);
+
+  player.onEnded = (function(mix, ui) {
+    return function() {
+      if (mix.isFinished()) {
+        ui.showPlay();
+        mix.startOver();
+        ui.setCurrentTrack(mix.getCurrentTrack());
+        ui.setNextTrack(mix.getNextTrack());
+      }
+    };
+  })(mix, ui);
 
   document.getElementById('downloadLink').addEventListener('click',
     function(evt) {
@@ -418,17 +399,30 @@ var continueLoading = function(mix) {
   document.getElementById('playaction').addEventListener('click',
     function(evt) {
       player.togglePlay(function(isPlaying) {
-        evt.target.src = isPlaying ? UiController.PAUSE_ICON : UiController.PLAY_ICON;
+        ui.togglePlay(isPlaying);
       });
     });
 
+  var updateTrack = (function(player, ui) {
+      return function(track) {
+        if (track) {
+          player.setCurrentTrack(track, function() {
+            ui.setCurrentTrack(track);
+            ui.setNextTrack(mix.getNextTrack());
+          });
+        }
+      }; 
+    })(player, ui);
+
   document.getElementById('prevaction').addEventListener('click',
-    function() { player.previousTrack(); }
-    );
+    function() {
+      mix.playPreviousTrack(updateTrack); 
+    });
 
   document.getElementById('nextaction').addEventListener('click',
-    function() { player.nextTrack(); }
-    );
+    function() {
+      mix.playNextTrack(updateTrack); 
+    });
 };
 
 
