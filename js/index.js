@@ -83,6 +83,27 @@ Mix.prototype.getTrack = function(i) {
   return this.tracks[i];
 };
 
+/******************************************************************************
+** OBJECT: Mixes
+******************************************************************************/
+
+var Mixes = function() {
+  this.mixes = {};
+};
+
+Mixes.prototype.load = function(year, callback) {
+  
+};
+
+Mixes.prototype.get = function(year, callback) {
+  var mix = this.mixes[year];
+  if (mix) {
+    callback.call(null, mix);
+  }
+
+  this.load(year, callback);
+};
+
 
 /******************************************************************************
 ** Main function
