@@ -183,7 +183,9 @@ Mix.prototype.isFinished = function() {
 
 Mix.prototype.startOver = function(callback) {
   this.currentTrackId = 0;
-  callback.call(null, this.getCurrentTrack());
+  if (callback) {
+    callback.call(null, this.getCurrentTrack());
+  }
 };
 
 /******************************************************************************
@@ -205,7 +207,9 @@ Mixes.prototype.load = function(year, callback) {
   req.addEventListener('load', function() {
     var mix = new Mix(JSON.parse(req.responseText), that.s3prefix);
     that.mixes[year] = mix;
-    callback.call(null, mix);
+    if (callback) {
+      callback.call(null, mix);
+    }
   });
   req.open('GET', Mixes.getDataLink(year));
   req.send();
@@ -214,7 +218,9 @@ Mixes.prototype.load = function(year, callback) {
 Mixes.prototype.get = function(year, callback) {
   var mix = this.mixes[year];
   if (mix) {
-    callback.call(null, mix);
+    if (callback) {
+      callback.call(null, mix);
+    }
     return;
   }
   this.load(year, callback);
@@ -234,7 +240,9 @@ Player.prototype.onError = function(callback) {
     if (!that.htmlPlayer.paused) {
       that.htmlPlayer.pause();
     }
-    callback.call(null);
+    if (callback) {
+      callback.call(null);
+    }
   });
 };
 
@@ -363,22 +371,18 @@ window.onload = function() {
     resize();
     window.addEventListener('resize', resize);
 
-    player.onError = (function(ui) {
-      return function() {
-        ui.showPlay();
-      };
-    })(ui);
+    player.onError(function() {
+      ui.showPlay();
+    });
 
-    player.onEnded = (function(mix, ui) {
-      return function() {
-        if (mix.isFinished()) {
-          ui.showPlay();
-          mix.startOver();
-          ui.setCurrentTrack(mix.getCurrentTrack());
-          ui.setNextTrack(mix.getNextTrack());
-        }
-      };
-    })(mix, ui);
+    player.onEnded(function() {
+      if (mix.isFinished()) {
+        ui.showPlay();
+        mix.startOver();
+        ui.setCurrentTrack(mix.getCurrentTrack());
+        ui.setNextTrack(mix.getNextTrack());
+      }
+    });
 
     document.getElementById('downloadLink').addEventListener('click',
       function(evt) {
