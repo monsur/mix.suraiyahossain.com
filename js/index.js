@@ -362,7 +362,17 @@ UiController.prototype.setSpotifyLink = function(link) {
 
 window.onload = function() {
   var mixes = new Mixes();
-  mixes.get(parseYearFromQuery(), function(mix) {
+
+  var year = parseYearFromQuery();
+
+  // Older years haven't been converted to the new UI yet.
+  // If the request is for an older year, redirect to the old UI.
+  if (year < 2014) {
+    window.location.href = year + '/index.html';
+    return;
+  }
+
+  mixes.get(year, function(mix) {
 
     var player = new Player(mix);
     var ui = new UiController();
