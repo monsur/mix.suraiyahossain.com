@@ -1,18 +1,18 @@
 <html>
 <head>
-	<script type="text/javascript">
-		console.log('404 url: ' + window.location);
-		var redirect = '/index.html';
-		var re = /(20\d\d)/;
-		var matches = re.exec(window.location);
+    <script type="text/javascript">
+        console.log('404 url: ' + window.location);
+        var redirect = '/index.html';
+        var re = /(20\d\d)/;
+        var matches = re.exec(window.location);
         if (matches && matches.length > 1) {
-        	var year = parseInt(matches[1]);
-        	if (year >= 2007 && year <= 2019) {
-          	  redirect += '?year=' + year;
-        	}
+            var year = parseInt(matches[1]);
+            if (year >= 2007 && year <= 2019) {
+              redirect += '?year=' + year;
+            }
         }
         console.log('Redirect url: ' + redirect);
         window.location.href = redirect;
-	</script>
+    </script>
 </head>
 </html>
