@@ -208,7 +208,7 @@ var Mixes = function(s3prefix) {
 };
 
 Mixes.getDataLink = function(year) {
-  return 'years/' + year + '/data.js';
+  return 'years/' + year + '/data.json';
 };
 
 Mixes.prototype.load = function(year, callback) {
