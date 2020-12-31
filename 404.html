@@ -1,7 +1,16 @@
 <html>
 <head>
 	<script type="text/javascript">
-		console.log(window.location.search);
+		var redirect = '/index.html';
+		var re = /(20\d\d)/;
+		var matches = re.exec(window.location.search);
+        if (matches && matches.length > 1) {
+        	var year = parseInt(matches[1]);
+        	if (year >= 2007 && year <= 2019) {
+          	  redirect += '?year=' + year;
+        	}
+        }
+        window.location.search = redirect;
 	</script>
 </head>
 </html>
