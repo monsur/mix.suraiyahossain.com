@@ -342,10 +342,10 @@ UiController.prototype.setBackgroundColor = function(color) {
 };
 
 UiController.prototype.setAlbumArt = function(frontSrc, backSrc, altText) {
- document.getElementById('albumartfrontimg').src = frontSrc;
  document.getElementById('albumartfrontimg').alt = altText;
- document.getElementById('albumartbackimg').src = backSrc;
  document.getElementById('albumartbackimg').alt = altText;
+ document.getElementById('albumartfrontimg').src = frontSrc;
+ document.getElementById('albumartbackimg').src = backSrc;
 };
 
 UiController.prototype.setDownloadLink = function(link) {
