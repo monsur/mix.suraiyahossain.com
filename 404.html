@@ -1,6 +1,7 @@
 <html>
 <head>
 	<script type="text/javascript">
+		console.log('404 url: ' + window.location.search);
 		var redirect = '/index.html';
 		var re = /(20\d\d)/;
 		var matches = re.exec(window.location.search);
@@ -10,6 +11,7 @@
           	  redirect += '?year=' + year;
         	}
         }
+        console.log('Redirect url' + redirect);
         window.location.search = redirect;
 	</script>
 </head>
