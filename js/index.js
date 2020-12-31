@@ -7,6 +7,7 @@
 ******************************************************************************/
 
 var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
+var CURRENT_YEAR = 2019;
 var frontCover;
 var backCover;
 var mode = 'large';
@@ -18,6 +19,14 @@ var mode = 'large';
 /******************************************************************************
 ** Helper functions
 ******************************************************************************/
+var parseYearFromQuery = function() {
+  var re = /\?year=(\d\d\d\d)/;
+  var matches = re.exec(window.location.search);
+  if (matches && matches.length > 1) {
+    return parseInt(matches[1]);
+  }
+  return CURRENT_YEAR;
+};
 
 var resize = function() {
   var imgWidth, contentWidth, marginTop;
@@ -352,7 +361,7 @@ UiController.prototype.setSpotifyLink = function(link) {
 
 window.onload = function() {
   var mixes = new Mixes();
-  mixes.get(2019, function(mix) {
+  mixes.get(parseYearFromQuery(), function(mix) {
 
     var player = new Player(mix);
     var ui = new UiController();
