@@ -7,6 +7,9 @@
 ******************************************************************************/
 
 var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
+var frontCover;
+var backCover;
+var mode = 'large';
 
 /******************************************************************************
 ** END GLOBAL VARIABLES
@@ -16,6 +19,40 @@ var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
 ** Helper functions
 ******************************************************************************/
 
+var resize = function() {
+  var imgWidth, contentWidth, marginTop;
+  var viewportWidth = window.innerWidth;
+  if (viewportWidth <= 505) {
+    mode = 'small';
+    contentWidth = viewportWidth;
+    imgWidth = contentWidth;
+    marginTop = 0;
+  } else if (viewportWidth <= 900) {
+    mode = 'medium';
+    contentWidth = viewportWidth;
+    imgWidth = contentWidth/2;
+    marginTop = 60;
+  } else {
+    mode = 'large';
+    contentWidth = 900;
+    imgWidth = contentWidth/2;
+    marginTop = 60;
+  }
+  if (mode == 'small') {
+    document.getElementById('albumartback').style.display = 'none';
+  } else {
+    document.getElementById('albumartback').style.display = 'block';
+    document.getElementById('albumartfrontimg').src = frontCover;
+  }
+  document.getElementById('albumart').style.marginTop = marginTop + 'px';
+  document.getElementById('content').style.width = contentWidth + 'px';
+
+  var width = imgWidth + 'px';
+  document.getElementById('albumartbackimg').style.width = width;
+  document.getElementById('albumartbackimg').style.height = width;
+  document.getElementById('albumartfrontimg').style.width = width;
+  document.getElementById('albumartfrontimg').style.height = width;
+};
 
 /******************************************************************************
 ** OBJECT: Analytics
@@ -50,7 +87,6 @@ Track.prototype.getArtist = function() {
 Track.prototype.getLink = function() {
   return this.s3prefix + this.year + '/tracks/' + this.data.src;
 };
-
 
 /******************************************************************************
 ** OBJECT: Mix
@@ -306,128 +342,86 @@ UiController.prototype.setSpotifyLink = function(link) {
 ** Main function
 ******************************************************************************/
 
-var frontCover = 'years/2019/front.jpg';
-var backCover = 'years/2019/back.jpg';
-
-var mode = 'large';
-var resize = function() {
-  var imgWidth, contentWidth, marginTop;
-  var viewportWidth = window.innerWidth;
-  if (viewportWidth <= 505) {
-    mode = 'small';
-    contentWidth = viewportWidth;
-    imgWidth = contentWidth;
-    marginTop = 0;
-  } else if (viewportWidth <= 900) {
-    mode = 'medium';
-    contentWidth = viewportWidth;
-    imgWidth = contentWidth/2;
-    marginTop = 60;
-  } else {
-    mode = 'large';
-    contentWidth = 900;
-    imgWidth = contentWidth/2;
-    marginTop = 60;
-  }
-  if (mode == 'small') {
-    document.getElementById('albumartback').style.display = 'none';
-  } else {
-    document.getElementById('albumartback').style.display = 'block';
-    document.getElementById('albumartfrontimg').src = frontCover;
-  }
-  document.getElementById('albumart').style.marginTop = marginTop + 'px';
-  document.getElementById('content').style.width = contentWidth + 'px';
-
-  var width = imgWidth + 'px';
-  document.getElementById('albumartbackimg').style.width = width;
-  document.getElementById('albumartbackimg').style.height = width;
-  document.getElementById('albumartfrontimg').style.width = width;
-  document.getElementById('albumartfrontimg').style.height = width;
-};
-
-var continueLoading = function(mix) {
-
-  var player = new Player(mix);
-  var ui = new UiController();
-
-  ui.setPageTitle(mix.getTitle());
-  ui.setBackgroundColor(mix.getBackgroundColor());
-  ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
-  ui.setDownloadLink(mix.getDownloadLink());
-  ui.setSpotifyLink(mix.getSpotifyLink());
-  ui.setCurrentTrack(mix.getCurrentTrack());
-  ui.setNextTrack(mix.getNextTrack());
-  document.getElementById('audioplayer').src = mix.getCurrentTrack().getLink();
-
-  resize();
-  window.addEventListener('resize', resize);
-
-  player.onError = (function(ui) {
-    return function() {
-      ui.showPlay();
-    };
-  })(ui);
-
-  player.onEnded = (function(mix, ui) {
-    return function() {
-      if (mix.isFinished()) {
-        ui.showPlay();
-        mix.startOver();
-        ui.setCurrentTrack(mix.getCurrentTrack());
-        ui.setNextTrack(mix.getNextTrack());
-      }
-    };
-  })(mix, ui);
-
-  document.getElementById('downloadLink').addEventListener('click',
-    function(evt) {
-      Analytics.log('download', 1);
-    });
-
-  document.getElementById('albumart').addEventListener('click',
-    function(evt) {
-      if (mode != 'small') {
-        return;
-      }
-      var newImg = frontCover;
-      if (document.getElementById('albumartfrontimg').src.toLowerCase().indexOf(frontCover) >= 0) {
-        newImg = backCover;
-      }
-      document.getElementById('albumartfrontimg').src = newImg;
-    });
-
-  document.getElementById('playaction').addEventListener('click',
-    function(evt) {
-      player.togglePlay(function(isPlaying) {
-        ui.togglePlay(isPlaying);
-      });
-    });
-
-  var updateTrack = (function(player, ui) {
-      return function(track) {
-        if (track) {
-          player.setCurrentTrack(track, function() {
-            ui.setCurrentTrack(track);
-            ui.setNextTrack(mix.getNextTrack());
-          });
-        }
-      }; 
-    })(player, ui);
-
-  document.getElementById('prevaction').addEventListener('click',
-    function() {
-      mix.playPreviousTrack(updateTrack); 
-    });
-
-  document.getElementById('nextaction').addEventListener('click',
-    function() {
-      mix.playNextTrack(updateTrack); 
-    });
-};
-
-
 window.onload = function() {
   var mixes = new Mixes();
-  mixes.get(2019, continueLoading);
+  mixes.get(2019, function(mix) {
+
+    var player = new Player(mix);
+    var ui = new UiController();
+
+    frontCover = mix.getFrontCoverLink();
+    backCover = mix.getBackCoverLink();
+    ui.setPageTitle(mix.getTitle());
+    ui.setBackgroundColor(mix.getBackgroundColor());
+    ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
+    ui.setDownloadLink(mix.getDownloadLink());
+    ui.setSpotifyLink(mix.getSpotifyLink());
+    ui.setCurrentTrack(mix.getCurrentTrack());
+    ui.setNextTrack(mix.getNextTrack());
+    document.getElementById('audioplayer').src = mix.getCurrentTrack().getLink();
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    player.onError = (function(ui) {
+      return function() {
+        ui.showPlay();
+      };
+    })(ui);
+
+    player.onEnded = (function(mix, ui) {
+      return function() {
+        if (mix.isFinished()) {
+          ui.showPlay();
+          mix.startOver();
+          ui.setCurrentTrack(mix.getCurrentTrack());
+          ui.setNextTrack(mix.getNextTrack());
+        }
+      };
+    })(mix, ui);
+
+    document.getElementById('downloadLink').addEventListener('click',
+      function(evt) {
+        Analytics.log('download', 1);
+      });
+
+    document.getElementById('albumart').addEventListener('click',
+      function(evt) {
+        if (mode != 'small') {
+          return;
+        }
+        var newImg = frontCover;
+        if (document.getElementById('albumartfrontimg').src.toLowerCase().indexOf(frontCover) >= 0) {
+          newImg = backCover;
+        }
+        document.getElementById('albumartfrontimg').src = newImg;
+      });
+
+    document.getElementById('playaction').addEventListener('click',
+      function(evt) {
+        player.togglePlay(function(isPlaying) {
+          ui.togglePlay(isPlaying);
+        });
+      });
+
+    var updateTrack = function(track) {
+      if (track) {
+        player.setCurrentTrack(track, function() {
+          ui.setCurrentTrack(track);
+          ui.setNextTrack(mix.getNextTrack());
+        });
+      }
+    }; 
+
+    document.getElementById('prevaction').addEventListener('click',
+      function() {
+        mix.playPreviousTrack(updateTrack); 
+      });
+
+    document.getElementById('nextaction').addEventListener('click',
+      function() {
+        mix.playNextTrack(updateTrack); 
+      });
+  });
 };
 
