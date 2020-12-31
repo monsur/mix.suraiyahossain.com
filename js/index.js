@@ -20,10 +20,11 @@ var mode = 'large';
 ** Helper functions
 ******************************************************************************/
 var parseYearFromQuery = function() {
-  var re = /\?year=(\d\d\d\d)/;
+  var re = /\?year=(20\d\d)/;
   var matches = re.exec(window.location.search);
   if (matches && matches.length > 1) {
-    return parseInt(matches[1]);
+    var year = parseInt(matches[1]);
+    return year;
   }
   return CURRENT_YEAR;
 };
