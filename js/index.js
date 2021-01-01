@@ -7,7 +7,7 @@
 ******************************************************************************/
 
 var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
-var CURRENT_YEAR = 2019;
+var CURRENT_YEAR = 2020;
 var frontCover;
 var backCover;
 var mode = 'large';
