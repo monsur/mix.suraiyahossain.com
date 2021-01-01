@@ -291,7 +291,6 @@ UiController.PLAY_ICON = 'images/play.png';
 UiController.PAUSE_ICON = 'images/pause.png';
 
 UiController.prototype.togglePlay = function(isPlaying) {
-  isPlaying = isPlaying || this.isPlay();
   if (isPlaying) {
     this.showPause();
   } else {
@@ -383,6 +382,7 @@ window.onload = function() {
     window.addEventListener('resize', resize);
 
     player.onError(function() {
+      // TODO: Test that this works.
       ui.showPlay();
     });
 
