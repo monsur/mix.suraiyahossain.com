@@ -309,10 +309,6 @@ var UiController = function() {
 UiController.PLAY_ICON = 'images/play.png';
 UiController.PAUSE_ICON = 'images/pause.png';
 
-UiController.prototype.vibrate = function() {
-  window.navigator.vibrate(200);
-};
-
 UiController.prototype.togglePlay = function(isPlaying) {
   if (isPlaying) {
     this.showPause();
@@ -448,14 +444,12 @@ window.onload = function() {
 
     document.getElementById('playaction').addEventListener('click',
       function() {
-        ui.vibrate();
         var isPlaying = player.togglePlay();
         ui.togglePlay(isPlaying);
       });
 
     document.getElementById('prevaction').addEventListener('click',
       function() {
-        ui.vibrate();
         var track = mix.playPreviousTrack();
         if (track) {
           player.setCurrentTrack(track);
@@ -466,7 +460,6 @@ window.onload = function() {
 
     document.getElementById('nextaction').addEventListener('click',
       function() {
-        ui.vibrate();
         var track = mix.playNextTrack(); 
         if (track) {
           player.setCurrentTrack(track);
