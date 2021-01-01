@@ -1,0 +1,72 @@
+{
+  "year": 2011,
+  "title": "TwentyEleven",
+  "backgroundColor": "#333",
+  "spotify": "",
+  "tracks": [
+    { "src": "01-CutCopy-NeedYouNow.mp3",
+      "title": "Need You Now",
+      "artist": "Cut Copy"
+    },
+    { "src": "02-HASEEB-AtHome.mp3",
+      "title": "At Home",
+      "artist": "HASEEB"
+    },
+    { "src": "03-Monsune-OUTTAMYMIND.mp3",
+      "title": "OUTTAMYMIND",
+      "artist": "Monsune"
+    },
+    { "src": "04-JustingBieber-Intentions.mp3",
+      "title": "Intentions",
+      "artist": "Justing Bieber & Quavo"
+    },
+    { "src": "05-RizAhmed-AnyDay.mp3",
+      "title": "Any Day",
+      "artist": "Riz Ahmed & Jay Sean"
+    },
+    { "src": "06-TheWeeknd-BlidingLights.mp3",
+      "title": "Blinding Lights",
+      "artist": "The Weeknd"
+    },
+    { "src": "07-TroyeSivan-Easy.mp3",
+      "title": "Easy",
+      "artist": "Troye Sivan (with Kacey Musgraves feat. Mark Ronson)"
+    },
+    { "src": "08-PhoebeBridgers-Kyoto.mp3",
+      "title": "Kyoto",
+      "artist": "Phoebe Bridgers"
+    },
+    { "src": "09-Rostam-UnfoldYou.mp3",
+      "title": "Unfold You",
+      "artist": "Rostam"
+    },
+    { "src": "10-Phoenix-Identical.mp3",
+      "title": "Identical",
+      "artist": "Phoenix"
+    },
+    { "src": "11-ParekhAndSingh-DrumMachine.mp3",
+      "title": "DrumMachine",
+      "artist": "Parekh & Singh"
+    },
+    { "src": "12-SoccerMommy-circlethedrain.mp3",
+      "title": "circle the drain",
+      "artist": "Soccer Mommy"
+    },
+    { "src": "13-PawPawRod-HITEMWHEREITHURTS.mp3",
+      "title": "PawPaw Rod",
+      "artist": "HIT EM WHERE IT HURTS"
+    },
+    { "src": "14-PrateekKuhad-Kasoor.mp3",
+      "title": "Kasoor",
+      "artist": "Prateek Kuhad"
+    },
+    { "src": "15-PerfumeGenius-OnTheFloor.mp3",
+      "title": "On the Floor",
+      "artist": "Perfume Genius"
+    },
+    { "src": "16-JeffRosenstock-Scram.mp3",
+      "title": "Scram!",
+      "artist": "Jeff Rosenstock"
+    }
+  ]
+}
