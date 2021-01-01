@@ -30,6 +30,8 @@ var parseYearFromQuery = function() {
 };
 
 var resize = function() {
+  // This function needs to be called once onload (after the mix is loaded),
+  // and then once every time the window is resized.
   var imgWidth, contentWidth, marginTop;
   var viewportWidth = window.innerWidth;
   if (viewportWidth <= 505) {
