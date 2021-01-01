@@ -165,37 +165,32 @@ Mix.prototype.getPreviousTrack = function() {
   return null;
 };
 
-Mix.prototype.playNextTrack = function(callback) {
+Mix.prototype.playNextTrack = function() {
   var track = this.getNextTrack();
   if (track) {
     this.currentTrackId++;
     Analytics.log('next', this.currentTrackId);
-    callback.call(null, track);
-  } else {
-    callback.call(null, null);
+    return track;
   }
+  return null;
 };
 
-Mix.prototype.playPreviousTrack = function(callback) {
+Mix.prototype.playPreviousTrack = function() {
   var track = this.getPreviousTrack();
   if (track) {
     this.currentTrackId--;
     Analytics.log('prev', this.currentTrackId);
-    callback.call(null, track);
-  } else {
-    callback.call(null, null);
+    return track;
   }
+  return null;
 };
 
 Mix.prototype.isFinished = function() {
   return this.currentTrackId == this.tracks.length - 1;
 };
 
-Mix.prototype.startOver = function(callback) {
+Mix.prototype.startOver = function() {
   this.currentTrackId = 0;
-  if (callback) {
-    callback.call(null, this.getCurrentTrack());
-  }
 };
 
 /******************************************************************************
@@ -273,7 +268,7 @@ Player.prototype.setCurrentTrack = function(track) {
   }
 };
 
-Player.prototype.togglePlay = function(callback) {
+Player.prototype.togglePlay = function() {
   if (this.htmlPlayer.paused) {
     this.htmlPlayer.play();
     Analytics.log('play', this.currentTrackId);
@@ -281,9 +276,7 @@ Player.prototype.togglePlay = function(callback) {
     this.htmlPlayer.pause();
     Analytics.log('pause', this.currentTrackId);
   }
-  if (callback) {
-    callback.call(null, !this.htmlPlayer.paused);
-  }
+  return !this.htmlPlayer.paused;
 };
 
 /******************************************************************************
@@ -421,27 +414,28 @@ window.onload = function() {
 
     document.getElementById('playaction').addEventListener('click',
       function() {
-        player.togglePlay(function(isPlaying) {
-          ui.togglePlay(isPlaying);
-        });
+        var isPlaying = player.togglePlay();
+        ui.togglePlay(isPlaying);
       });
-
-    var updateTrack = function(track) {
-      if (track) {
-        player.setCurrentTrack(track);
-        ui.setCurrentTrack(track);
-        ui.setNextTrack(mix.getNextTrack());
-      }
-    }; 
 
     document.getElementById('prevaction').addEventListener('click',
       function() {
-        mix.playPreviousTrack(updateTrack); 
+        var track = mix.playPreviousTrack();
+        if (track) {
+          player.setCurrentTrack(track);
+          ui.setCurrentTrack(track);
+          ui.setNextTrack(mix.getNextTrack());
+        }
       });
 
     document.getElementById('nextaction').addEventListener('click',
       function() {
-        mix.playNextTrack(updateTrack); 
+        var track = mix.playNextTrack(); 
+        if (track) {
+          player.setCurrentTrack(track);
+          ui.setCurrentTrack(track);
+          ui.setNextTrack(mix.getNextTrack());
+        }
       });
   });
 };
