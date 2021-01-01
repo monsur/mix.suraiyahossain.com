@@ -384,9 +384,9 @@ window.onload = function() {
     ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
     ui.setDownloadLink(mix.getDownloadLink());
     ui.setSpotifyLink(mix.getSpotifyLink());
-    ui.setCurrentTrack(mix.getCurrentTrack());
     ui.setNextTrack(mix.getNextTrack());
-    document.getElementById('audioplayer').src = mix.getCurrentTrack().getLink();
+    ui.setCurrentTrack(mix.getCurrentTrack());
+    player.setCurrentTrack(mix.getCurrentTrack());
 
     resize();
     window.addEventListener('resize', resize);
