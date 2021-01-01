@@ -200,6 +200,7 @@ Mix.prototype.startOver = function() {
 var Mixes = function(s3prefix) {
   this.mixes = {};
   this.s3prefix = s3prefix || S3_PREFIX;
+  this.year = CURRENT_YEAR;
 };
 
 Mixes.getDataLink = function(year) {
@@ -222,14 +223,29 @@ Mixes.prototype.load = function(year, callback) {
 
 Mixes.prototype.get = function(year, callback) {
   var mix = this.mixes[year];
-  if (mix) {
+  var that = this;
+
+  var callbackWrapper = function(mix) {
+    // If the loading was successful, set the current year before calling the
+    // user's callback.
+    that.year = year;
     if (callback) {
       callback.call(null, mix);
     }
+  };
+
+  if (mix) {
+    callbackWrapper.call(null, mix);
     return;
   }
-  this.load(year, callback);
+
+  this.load(year, callbackWrapper);
 };
+
+Mixes.prototype.getCurrentMix = function() {
+  // get() must have been called successfully once before calling getCurrentMix()
+  return this.mixes[this.year];
+}
 
 /******************************************************************************
 ** OBJECT: Player
@@ -282,6 +298,7 @@ Player.prototype.togglePlay = function() {
 /******************************************************************************
 ** OBJECT: UiController
 ******************************************************************************/
+
 var UiController = function() {
   document.getElementById('albumart').style.display = 'block';
   this.showPlay();
@@ -349,9 +366,11 @@ UiController.prototype.setSpotifyLink = function(link) {
 /******************************************************************************
 ** Main function
 ******************************************************************************/
+var mixes = new Mixes();
+var player = new Player();
+var ui = new UiController();
 
 window.onload = function() {
-  var mixes = new Mixes();
 
   var year = parseYearFromQuery();
 
@@ -362,10 +381,9 @@ window.onload = function() {
     return;
   }
 
-  mixes.get(year, function(mix) {
+  mixes.get(year, function() {
 
-    var player = new Player();
-    var ui = new UiController();
+    var mix = mixes.getCurrentMix();
 
     frontCover = mix.getFrontCoverLink();
     backCover = mix.getBackCoverLink();
