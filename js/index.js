@@ -364,7 +364,7 @@ window.onload = function() {
 
   mixes.get(year, function(mix) {
 
-    var player = new Player(mix);
+    var player = new Player();
     var ui = new UiController();
 
     frontCover = mix.getFrontCoverLink();
