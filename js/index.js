@@ -402,7 +402,6 @@ window.onload = function() {
     window.addEventListener('resize', resize);
 
     player.onError(function() {
-      // TODO: Test that this works.
       ui.showPlay();
     });
 
