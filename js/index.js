@@ -261,13 +261,13 @@ Player.prototype.onEnded = function(callback) {
 };
 
 Player.prototype.setCurrentTrack = function(track, callback) {
-  var isPlaying = !this.htmlPlayer.paused;
   // TODO: There's an exception if you play a new track before the old track is finshed loading.
   // Figure out if this is a problem.
   // Error message: "The play() request was interrupted by a new load request."
   this.htmlPlayer.src = track.getLink();
   this.htmlPlayer.load();
-  if (isPlaying) {
+  if (!this.htmlPlayer.paused) {
+    // If the player is playing, keep playing.
     this.htmlPlayer.play();
   }
   if (callback) {
@@ -405,12 +405,12 @@ window.onload = function() {
     });
 
     document.getElementById('downloadLink').addEventListener('click',
-      function(evt) {
+      function() {
         Analytics.log('download', 1);
       });
 
     document.getElementById('albumart').addEventListener('click',
-      function(evt) {
+      function() {
         if (mode != 'small') {
           return;
         }
@@ -422,7 +422,7 @@ window.onload = function() {
       });
 
     document.getElementById('playaction').addEventListener('click',
-      function(evt) {
+      function() {
         player.togglePlay(function(isPlaying) {
           ui.togglePlay(isPlaying);
         });
