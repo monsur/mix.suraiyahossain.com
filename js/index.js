@@ -7,7 +7,8 @@
 ******************************************************************************/
 
 var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
-var CURRENT_YEAR = 2020;
+var MIN_YEAR = 2007;
+var MAX_YEAR = 2020;
 var frontCover;
 var backCover;
 var mode = 'large';
@@ -26,7 +27,11 @@ var parseYearFromQuery = function() {
     var year = parseInt(matches[1]);
     return year;
   }
-  return CURRENT_YEAR;
+  return MAX_YEAR;
+};
+
+var createMixLink = function(year) {
+  return 'index.html?year=' + year;
 };
 
 var resize = function() {
@@ -202,7 +207,7 @@ Mix.prototype.startOver = function() {
 var Mixes = function(s3prefix) {
   this.mixes = {};
   this.s3prefix = s3prefix || S3_PREFIX;
-  this.year = CURRENT_YEAR;
+  this.year = MAX_YEAR;
 };
 
 Mixes.getDataLink = function(year) {
@@ -365,6 +370,20 @@ UiController.prototype.setSpotifyLink = function(link) {
   document.getElementById('spotifyLink').href = link;
 };
 
+UiController.prototype.setYearLink = function(elem, year, text) {
+  elem.href = createMixLink(year);
+  elem.innerHTML = year;
+  elem.style.display = 'inline';
+};
+
+UiController.prototype.setPreviousYearLink = function(year) {
+  this.setYearLink(document.getElementById('prevYearLink'), year, year);
+};
+
+UiController.prototype.setNextYearLink = function(year) {
+  this.setYearLink(document.getElementById('nextYearLink'), year, year);
+};
+
 /******************************************************************************
 ** Main function
 ******************************************************************************/
@@ -390,6 +409,16 @@ window.onload = function() {
     ui.setNextTrack(mix.getNextTrack());
     ui.setCurrentTrack(mix.getCurrentTrack());
     player.setCurrentTrack(mix.getCurrentTrack());
+
+    var prevYear = year - 1;
+    if (prevYear >= MIN_YEAR) {
+      ui.setPreviousYearLink(prevYear);
+    }
+
+    var nextYear = year + 1;
+    if (nextYear <= MAX_YEAR) {
+      ui.setNextYearLink(nextYear);
+    }
 
     resize();
     window.addEventListener('resize', resize);
