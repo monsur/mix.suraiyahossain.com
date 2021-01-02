@@ -11,6 +11,15 @@ a {
   color: #fff;
   font-size: 16px;
 }
+.yearLink {
+  display: none;
+}
+#prevYearLink {
+  padding-right: 50px;
+}
+#nextYearLink {
+  padding-left: 50px;
+}
 #content {
   margin-left: auto;
   margin-right: auto;
