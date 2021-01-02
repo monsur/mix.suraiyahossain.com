@@ -422,6 +422,15 @@ window.onload = function() {
       //ui.setNextYearLink(nextYear);
     }
 
+    var yearLinks = document.getElementById('yearLinks');
+    for (var i = MIN_YEAR; i <= MAX_YEAR; i++) {
+      var a = document.createElement('a');
+      a.href = createMixLink(i);
+      a.innerHTML = i;
+      yearLinks.append(a);
+      yearLinks.append(document.createTextNode(' '));
+    }
+
     resize();
     window.addEventListener('resize', resize);
 
