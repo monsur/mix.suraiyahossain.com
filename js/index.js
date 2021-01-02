@@ -378,7 +378,7 @@ window.onload = function() {
 
   // Older years haven't been converted to the new UI yet.
   // If the request is for an older year, redirect to the old UI.
-  if (year < 2014) {
+  if (year < 2008) {
     window.location.href = year + '/index.html';
     return;
   }
