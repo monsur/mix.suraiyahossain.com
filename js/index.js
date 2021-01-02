@@ -412,12 +412,14 @@ window.onload = function() {
 
     var prevYear = year - 1;
     if (prevYear >= MIN_YEAR) {
-      ui.setPreviousYearLink(prevYear);
+      // TODO: Uncomment once ready for next/prev year links.
+      //ui.setPreviousYearLink(prevYear);
     }
 
     var nextYear = year + 1;
     if (nextYear <= MAX_YEAR) {
-      ui.setNextYearLink(nextYear);
+      // TODO: Uncomment once ready for next/prev year links.
+      //ui.setNextYearLink(nextYear);
     }
 
     resize();
