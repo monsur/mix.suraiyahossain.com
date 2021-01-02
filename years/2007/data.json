@@ -1,0 +1,12 @@
+{
+  "year": 2007,
+  "title": "OhSeven",
+  "backgroundColor": "#606060",
+  "spotify": "https://open.spotify.com/playlist/77fVNbKy6CRnaJg3SRnpx3",
+  "tracks": [
+    { "src": "01-.mp3",
+      "title": "Get Myself Into It",
+      "artist": "The Rapture"
+    }
+  ]
+}
