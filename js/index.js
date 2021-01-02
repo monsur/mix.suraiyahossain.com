@@ -376,13 +376,6 @@ window.onload = function() {
 
   var year = parseYearFromQuery();
 
-  // Older years haven't been converted to the new UI yet.
-  // If the request is for an older year, redirect to the old UI.
-  if (year < 2008) {
-    window.location.href = year + '/index.html';
-    return;
-  }
-
   mixes.get(year, function() {
 
     var mix = mixes.getCurrentMix();
