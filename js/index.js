@@ -372,16 +372,16 @@ UiController.prototype.setSpotifyLink = function(link) {
 
 UiController.prototype.setYearLink = function(elem, year, text) {
   elem.href = createMixLink(year);
-  elem.innerHTML = year;
+  elem.innerHTML = text;
   elem.style.display = 'inline';
 };
 
 UiController.prototype.setPreviousYearLink = function(year) {
-  this.setYearLink(document.getElementById('prevYearLink'), year, year);
+  this.setYearLink(document.getElementById('prevYearLink'), year, '<< ' + year);
 };
 
 UiController.prototype.setNextYearLink = function(year) {
-  this.setYearLink(document.getElementById('nextYearLink'), year, year);
+  this.setYearLink(document.getElementById('nextYearLink'), year, year + ' >>');
 };
 
 /******************************************************************************
