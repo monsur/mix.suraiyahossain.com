@@ -411,6 +411,8 @@ Page.prototype.loadPage = function() {
 };
 
 Page.prototype.setup = function() {
+  var that = this;
+
   // Create links to mixes from previous year.
   // This is done early because it doesn't rely on any mix-specific data.
   var yearLinks = document.getElementById("yearLinks");
@@ -426,8 +428,13 @@ Page.prototype.setup = function() {
     pos++;
 
     var a = document.createElement("a");
-    a.href = createMixLink(i);
+    a.href = '#' + i;
     a.innerHTML = i;
+    a.addEventListener("click", function(year) {
+      return function() {
+        that.loadYear(year);
+      }
+    }(i));
     yearLinks.append(a);
   }
 };
