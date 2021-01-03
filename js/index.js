@@ -370,20 +370,6 @@ UiController.prototype.setSpotifyLink = function(link) {
   document.getElementById('spotifyLink').href = link;
 };
 
-UiController.prototype.setYearLink = function(elem, year, text) {
-  elem.href = createMixLink(year);
-  elem.innerHTML = text;
-  elem.style.display = 'inline';
-};
-
-UiController.prototype.setPreviousYearLink = function(year) {
-  this.setYearLink(document.getElementById('prevYearLink'), year, '<< ' + year);
-};
-
-UiController.prototype.setNextYearLink = function(year) {
-  this.setYearLink(document.getElementById('nextYearLink'), year, year + ' >>');
-};
-
 /******************************************************************************
 ** Main function
 ******************************************************************************/
@@ -392,6 +378,26 @@ var player = new Player();
 var ui = new UiController();
 
 window.onload = function() {
+
+  // Create links to mixes from previous year.
+  // This is done early because it doesn't rely on any mix-specific data.
+  var yearLinks = document.getElementById('yearLinks');
+  var pos = 0;
+  for (var i = MAX_YEAR; i >= MIN_YEAR; i--) {
+    if (pos > 0) {
+      if (pos % 5 == 0) {
+        yearLinks.append(document.createElement('br'));
+      } else {
+        yearLinks.append(document.createTextNode(' | '));
+      }
+    }
+    pos++;
+  
+    var a = document.createElement('a');
+    a.href = createMixLink(i);
+    a.innerHTML = i;
+    yearLinks.append(a);
+  }
 
   var year = parseYearFromQuery();
 
@@ -409,36 +415,6 @@ window.onload = function() {
     ui.setNextTrack(mix.getNextTrack());
     ui.setCurrentTrack(mix.getCurrentTrack());
     player.setCurrentTrack(mix.getCurrentTrack());
-
-    var prevYear = year - 1;
-    if (prevYear >= MIN_YEAR) {
-      // TODO: Uncomment once ready for next/prev year links.
-      //ui.setPreviousYearLink(prevYear);
-    }
-
-    var nextYear = year + 1;
-    if (nextYear <= MAX_YEAR) {
-      // TODO: Uncomment once ready for next/prev year links.
-      //ui.setNextYearLink(nextYear);
-    }
-
-    var yearLinks = document.getElementById('yearLinks');
-    var pos = 0;
-    for (var i = MAX_YEAR; i >= MIN_YEAR; i--) {
-      if (pos > 0) {
-        if (pos % 5 == 0) {
-          yearLinks.append(document.createElement('br'));
-        } else {
-          yearLinks.append(document.createTextNode(' | '));
-        }
-      }
-      pos++;
-  
-      var a = document.createElement('a');
-      a.href = createMixLink(i);
-      a.innerHTML = i;
-      yearLinks.append(a);
-    }
 
     resize();
     window.addEventListener('resize', resize);
