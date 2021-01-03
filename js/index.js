@@ -81,7 +81,9 @@ Analytics.year = null;
 
 Analytics.log = function(action, count) {
   count = count || 0;
-  console.log('LOG: ' + year + ', ' + action + ', ' + count);
+  if (window.console) {
+    console.log('LOG: ' + year + ', ' + action + ', ' + count);
+  }
   if (window.ga) {
     ga('send', 'event', Analytics.year, action, null, count);
   }
