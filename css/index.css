@@ -1,4 +1,8 @@
+html {
+    height: 100%;
+}
 body {
+  height: 100%;
   padding: 0;
   margin: 0px 0px 0px 0px;
   font-family: "Pontano Sans", "MyriadPro-Regular", "Myriad Pro Regular", MyriadPro, "Myriad Pro", Helvetica, Arial, sans-serif;
@@ -6,6 +10,10 @@ body {
   font-weight: normal;
   text-align: center;
   color: #fff;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #000000;
+  background-image: linear-gradient(#3c3c3e, #171719, #000000);
 }
 #yearLinks {
   color: #4c4c4c;

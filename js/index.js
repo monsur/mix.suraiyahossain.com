@@ -159,9 +159,7 @@ Mix.prototype.getBackCoverLink = function() {
 };
 
 Mix.prototype.getBackgroundColor = function() {
-  // Using a consistent background color across all years.
-  // Uncomment the line below to use a per-mix background.
-  return "#0c0404"; //this.data.backgroundColor;
+  return this.data.backgroundColor;
 };
 
 Mix.prototype.getSpotifyLink = function() {
@@ -431,7 +429,6 @@ window.onload = function() {
     frontCover = mix.getFrontCoverLink();
     backCover = mix.getBackCoverLink();
     ui.setPageTitle(mix.getTitle());
-    ui.setBackgroundColor(mix.getBackgroundColor());
     ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
     ui.setDownloadLink(mix.getDownloadLink());
     ui.setSpotifyLink(mix.getSpotifyLink());
