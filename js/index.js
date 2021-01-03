@@ -423,12 +423,21 @@ window.onload = function() {
     }
 
     var yearLinks = document.getElementById('yearLinks');
+    var pos = 0;
     for (var i = MIN_YEAR; i <= MAX_YEAR; i++) {
+      if (pos > 0) {
+        if (pos % 5 == 0) {
+          yearLinks.append(document.createElement('br'));
+        } else {
+          yearLinks.append(document.createTextNode(' | '));
+        }
+      }
+      pos++;
+  
       var a = document.createElement('a');
       a.href = createMixLink(i);
       a.innerHTML = i;
       yearLinks.append(a);
-      yearLinks.append(document.createTextNode(' '));
     }
 
     resize();
