@@ -406,7 +406,7 @@ window.onload = function() {
   var pos = 0;
   for (var i = MAX_YEAR; i >= MIN_YEAR; i--) {
     if (pos > 0) {
-      if (pos % 5 == 0) {
+      if (pos % 7 == 0) {
         yearLinks.append(document.createElement("br"));
       } else {
         yearLinks.append(document.createTextNode(" | "));
