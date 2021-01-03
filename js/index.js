@@ -155,7 +155,9 @@ Mix.prototype.getBackCoverLink = function() {
 };
 
 Mix.prototype.getBackgroundColor = function() {
-  return this.data.backgroundColor;
+  // Using a consistent background color across all years.
+  // Uncomment the line below to use a per-mix background.
+  return '#0c0404'; //this.data.backgroundColor;
 };
 
 Mix.prototype.getSpotifyLink = function() {
