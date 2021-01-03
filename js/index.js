@@ -22,16 +22,6 @@ var mode = "large";
 /******************************************************************************
 ** Helper functions
 ******************************************************************************/
-var parseYearFromQuery = function() {
-  var re = /\?year=(20\d\d)/;
-  var matches = re.exec(window.location.search);
-  if (matches && matches.length > 1) {
-    var year = parseInt(matches[1]);
-    return year;
-  }
-  return MAX_YEAR;
-};
-
 var createMixLink = function(year) {
   return "index.html?year=" + year;
 };
@@ -390,14 +380,37 @@ UiController.prototype.setSpotifyLink = function(link) {
 };
 
 /******************************************************************************
-** Main function
+** Object: Page
 ******************************************************************************/
-var mixes = new Mixes();
-var player = new Player();
-var ui = new UiController();
 
-window.onload = function() {
+var Page = function() {
+  this.mixes = new Mixes();
+  this.player = new Player();
+  this.ui = new UiController();
+};
 
+Page.prototype.getYear = function() {
+  var re = /\?year=(20\d\d)/;
+  var matches = re.exec(window.location.search);
+  if (matches && matches.length > 1) {
+    var year = parseInt(matches[1]);
+    return year;
+  }
+  return MAX_YEAR;
+};
+
+Page.prototype.loadPage = function() {
+  var that = this;
+
+  this.setup();
+
+  var year = this.getYear();
+  this.loadYear(year, function() {
+    that.loadPageEnd();
+  });
+};
+
+Page.prototype.setup = function() {
   // Create links to mixes from previous year.
   // This is done early because it doesn't rely on any mix-specific data.
   var yearLinks = document.getElementById("yearLinks");
@@ -417,34 +430,14 @@ window.onload = function() {
     a.innerHTML = i;
     yearLinks.append(a);
   }
+};
 
-  var year = parseYearFromQuery();
-
-  Analytics.year = year;
-
-  mixes.get(year, function() {
-
-    var mix = mixes.getCurrentMix();
-
-    frontCover = mix.getFrontCoverLink();
-    backCover = mix.getBackCoverLink();
-    ui.setPageTitle(mix.getTitle());
-    ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
-    ui.setDownloadLink(mix.getDownloadLink());
-    ui.setSpotifyLink(mix.getSpotifyLink());
-    ui.setNextTrack(mix.getNextTrack());
-    ui.setCurrentTrack(mix.getCurrentTrack());
-    player.setCurrentTrack(mix.getCurrentTrack());
+Page.prototype.loadPageEnd = function() {
+    var mix = this.mixes.getCurrentMix();
+    var ui = this.ui;
+    var player = this.player;
 
     resize();
-
-    // The page is hidden by default on page load.
-    // Once the entire page's UI is set, show the page.
-    document.getElementById('content').style.display = 'block';
-
-
-    // Set up event handlers
-
     window.addEventListener("resize", resize);
 
     player.onError(function() {
@@ -519,5 +512,45 @@ window.onload = function() {
           Analytics.log("next", track.toString());
         }
       });
+
+    // The page is hidden by default on page load.
+    // Once the entire page's UI is set, show the page.
+    document.getElementById('content').style.display = 'block';
+};
+
+Page.prototype.loadYear = function(year, callback) {
+  var that = this;
+  Analytics.year = year;
+  this.mixes.get(year, function() {
+    that.loadYearEnd(callback);
   });
+}
+
+Page.prototype.loadYearEnd = function(callback) {
+
+    var mix = this.mixes.getCurrentMix();
+    var ui = this.ui;
+    var player = this.player;
+
+    frontCover = mix.getFrontCoverLink();
+    backCover = mix.getBackCoverLink();
+    ui.setPageTitle(mix.getTitle());
+    ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
+    ui.setDownloadLink(mix.getDownloadLink());
+    ui.setSpotifyLink(mix.getSpotifyLink());
+    ui.setNextTrack(mix.getNextTrack());
+    ui.setCurrentTrack(mix.getCurrentTrack());
+    player.setCurrentTrack(mix.getCurrentTrack());
+
+    if (callback) {
+      callback.call();
+    }
+};
+
+/******************************************************************************
+** Main function
+******************************************************************************/
+var _PAGE = new Page();
+window.onload = function() {
+  _PAGE.loadPage();
 };
