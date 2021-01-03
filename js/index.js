@@ -390,8 +390,8 @@ var Page = function() {
 };
 
 Page.prototype.getYear = function() {
-  var re = /\?year=(20\d\d)/;
-  var matches = re.exec(window.location.search);
+  var re = /(20\d\d)/;
+  var matches = re.exec(window.location.toString());
   if (matches && matches.length > 1) {
     var year = parseInt(matches[1]);
     return year;
