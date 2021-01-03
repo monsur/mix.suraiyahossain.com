@@ -22,10 +22,6 @@ var mode = "large";
 /******************************************************************************
 ** Helper functions
 ******************************************************************************/
-var createMixLink = function(year) {
-  return "index.html?year=" + year;
-};
-
 var resize = function() {
   // This function needs to be called once onload (after the mix is loaded),
   // and then once every time the window is resized.
