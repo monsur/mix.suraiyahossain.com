@@ -424,7 +424,7 @@ window.onload = function() {
 
     var yearLinks = document.getElementById('yearLinks');
     var pos = 0;
-    for (var i = MIN_YEAR; i <= MAX_YEAR; i++) {
+    for (var i = MAX_YEAR; i >= MIN_YEAR; i--) {
       if (pos > 0) {
         if (pos % 5 == 0) {
           yearLinks.append(document.createElement('br'));
