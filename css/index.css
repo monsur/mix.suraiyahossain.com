@@ -8,10 +8,11 @@ body {
   color: #fff;
 }
 #yearLinks {
+  color: #4c4c4c;
   padding-top: 20px;
 }
 #yearLinks a {
-  color: #fff;
+  color: #4c4c4c;
   font-weight: bold;
   text-decoration: none;
 }
