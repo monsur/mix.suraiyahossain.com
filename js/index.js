@@ -460,7 +460,7 @@ window.onload = function() {
 
     document.getElementById('downloadLink').addEventListener('click',
       function() {
-        Analytics.log('download', 1);
+        Analytics.log('download');
       });
 
     document.getElementById('albumart').addEventListener('click',
@@ -478,14 +478,8 @@ window.onload = function() {
     document.getElementById('playaction').addEventListener('click',
       function() {
         var isPlaying = player.togglePlay();
-
         ui.togglePlay(isPlaying);
-
-        var action = 'pause';
-        if (isPlaying) {
-          action = 'play';
-        }
-        Analytics.log(action, mix.getCurrentTrack().toString());
+        Analytics.log(isPlaying ? 'play' : 'pause', mix.getCurrentTrack().toString());
       });
 
     document.getElementById('prevaction').addEventListener('click',
