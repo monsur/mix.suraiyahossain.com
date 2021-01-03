@@ -437,6 +437,14 @@ window.onload = function() {
     player.setCurrentTrack(mix.getCurrentTrack());
 
     resize();
+
+    // The page is hidden by default on page load.
+    // Once the entire page's UI is set, show the page.
+    document.getElementById('content').style.display = 'block';
+
+
+    // Set up event handlers
+
     window.addEventListener("resize", resize);
 
     player.onError(function() {
