@@ -446,10 +446,12 @@ window.onload = function() {
         ui.showPlay();
         mix.startOver();
         track = mix.getCurrentTrack();
+        Analytics.log('end');
       } else {
         // Otherwise, load next track and continue playing.
         track = mix.playNextTrack();
         isPlaying = true;
+        Analytics.log('play', track.toString());
       }
       if (track) {
         player.setCurrentTrack(track, isPlaying);
