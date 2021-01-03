@@ -312,12 +312,13 @@ Player.prototype.setCurrentTrack = function(track, isPlaying) {
 };
 
 Player.prototype.togglePlay = function() {
-  if (this.htmlPlayer.paused) {
-    this.htmlPlayer.play();
-  } else {
+  var isPlaying = !this.htmlPlayer.paused;
+  if (isPlaying) {
     this.htmlPlayer.pause();
+  } else {
+    this.htmlPlayer.play();
   }
-  return !this.htmlPlayer.paused;
+  return !isPlaying;
 };
 
 /******************************************************************************
