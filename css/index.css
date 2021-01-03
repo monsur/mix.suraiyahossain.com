@@ -8,7 +8,7 @@ body {
   color: #fff;
 }
 #yearLinks {
-  padding-top: 30px;
+  padding-top: 20px;
 }
 #yearLinks a {
   color: #fff;
@@ -30,7 +30,7 @@ body {
 }
 #albumart {
   display: none;
-  margin-top: 60px;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -42,7 +42,7 @@ body {
   float: left;
 }
 #player {
-  padding-top: 30px;
+  padding-top: 20px;
   padding-bottom: 10px;
   clear: both;
 }
@@ -57,7 +57,7 @@ body {
   font-size: 16px;
 }
 #downloads {
-  padding-top: 30px;
+  padding-top: 20px;
 }
 #downloads img {
   padding-right: 10px;
