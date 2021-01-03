@@ -488,6 +488,7 @@ window.onload = function() {
           newImg = backCover;
         }
         document.getElementById("albumartfrontimg").src = newImg;
+        Analytics.log('albumart', newImg);
       });
 
     document.getElementById("playaction").addEventListener("click",
