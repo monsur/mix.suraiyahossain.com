@@ -6,12 +6,12 @@
 **
 ******************************************************************************/
 
-var S3_PREFIX = 'https://s3.amazonaws.com/mix.suraiyahossain.com/';
+var S3_PREFIX = "https://s3.amazonaws.com/mix.suraiyahossain.com/";
 var MIN_YEAR = 2007;
 var MAX_YEAR = 2020;
 var frontCover;
 var backCover;
-var mode = 'large';
+var mode = "large";
 
 /******************************************************************************
 ** END GLOBAL VARIABLES
@@ -31,44 +31,46 @@ var parseYearFromQuery = function() {
 };
 
 var createMixLink = function(year) {
-  return 'index.html?year=' + year;
+  return "index.html?year=" + year;
 };
 
 var resize = function() {
   // This function needs to be called once onload (after the mix is loaded),
   // and then once every time the window is resized.
-  var imgWidth, contentWidth, marginTop;
+  var imgWidth;
+  var contentWidth;
+  var marginTop;
   var viewportWidth = window.innerWidth;
   if (viewportWidth <= 505) {
-    mode = 'small';
+    mode = "small";
     contentWidth = viewportWidth;
     imgWidth = contentWidth;
     marginTop = 0;
   } else if (viewportWidth <= 900) {
-    mode = 'medium';
+    mode = "medium";
     contentWidth = viewportWidth;
     imgWidth = contentWidth/2;
     marginTop = 60;
   } else {
-    mode = 'large';
+    mode = "large";
     contentWidth = 900;
     imgWidth = contentWidth/2;
     marginTop = 60;
   }
-  if (mode == 'small') {
-    document.getElementById('albumartback').style.display = 'none';
+  if (mode == "small") {
+    document.getElementById("albumartback").style.display = "none";
   } else {
-    document.getElementById('albumartback').style.display = 'block';
-    document.getElementById('albumartfrontimg').src = frontCover;
+    document.getElementById("albumartback").style.display = "block";
+    document.getElementById("albumartfrontimg").src = frontCover;
   }
-  document.getElementById('albumart').style.marginTop = marginTop + 'px';
-  document.getElementById('content').style.width = contentWidth + 'px';
+  document.getElementById("albumart").style.marginTop = marginTop + "px";
+  document.getElementById("content").style.width = contentWidth + "px";
 
-  var width = imgWidth + 'px';
-  document.getElementById('albumartbackimg').style.width = width;
-  document.getElementById('albumartbackimg').style.height = width;
-  document.getElementById('albumartfrontimg').style.width = width;
-  document.getElementById('albumartfrontimg').style.height = width;
+  var width = imgWidth + "px";
+  document.getElementById("albumartbackimg").style.width = width;
+  document.getElementById("albumartbackimg").style.height = width;
+  document.getElementById("albumartfrontimg").style.width = width;
+  document.getElementById("albumartfrontimg").style.height = width;
 };
 
 /******************************************************************************
@@ -81,18 +83,18 @@ Analytics.year = null;
 
 Analytics.log = function(action, label) {
   if (Analytics.year == null) {
-    console.log('Analytics not available until year is available.');
+    console.log("Analytics not available until year is available.");
     return;
   }
   if (window.console) {
-    var logstr = 'LOG: ' + Analytics.year + ', ' + action;
+    var logstr = "LOG: " + Analytics.year + ", " + action;
     if (label) {
-      logstr += ', ' + label;
+      logstr += ", " + label;
     }
     console.log(logstr);
   }
   if (window.ga) {
-    ga('send', 'event', Analytics.year, action, label);
+    ga("send", "event", Analytics.year, action, label);
   }
 };
 
@@ -115,11 +117,11 @@ Track.prototype.getArtist = function() {
 };
 
 Track.prototype.getLink = function() {
-  return this.s3prefix + this.year + '/tracks/' + this.data.src;
+  return this.s3prefix + this.year + "/tracks/" + this.data.src;
 };
 
 Track.prototype.toString = function() {
-  return this.getArtist() + ' - ' + this.getTitle();
+  return this.getArtist() + " - " + this.getTitle();
 };
 
 /******************************************************************************
@@ -147,17 +149,17 @@ Mix.prototype.getTitle = function() {
 };
 
 Mix.prototype.getFrontCoverLink = function() {
-  return 'years/' + this.getYear() + '/front.jpg';
+  return "years/" + this.getYear() + "/front.jpg";
 };
 
 Mix.prototype.getBackCoverLink = function() {
-  return 'years/' + this.getYear() + '/back.jpg';
+  return "years/" + this.getYear() + "/back.jpg";
 };
 
 Mix.prototype.getBackgroundColor = function() {
   // Using a consistent background color across all years.
   // Uncomment the line below to use a per-mix background.
-  return '#0c0404'; //this.data.backgroundColor;
+  return "#0c0404"; //this.data.backgroundColor;
 };
 
 Mix.prototype.getSpotifyLink = function() {
@@ -165,7 +167,7 @@ Mix.prototype.getSpotifyLink = function() {
 };
 
 Mix.prototype.getDownloadLink = function() {
-  return this.s3prefix + this.getYear() + '/' + this.getTitle() + '.zip'
+  return this.s3prefix + this.getYear() + "/" + this.getTitle() + ".zip"
 };
 
 Mix.prototype.getTrack = function(i) {
@@ -228,20 +230,20 @@ var Mixes = function(s3prefix) {
 };
 
 Mixes.getDataLink = function(year) {
-  return 'years/' + year + '/data.json';
+  return "years/" + year + "/data.json";
 };
 
 Mixes.prototype.load = function(year, callback) {
   var that = this;
   var req = new XMLHttpRequest();
-  req.addEventListener('load', function() {
+  req.addEventListener("load", function() {
     var mix = new Mix(JSON.parse(req.responseText), that.s3prefix);
     that.mixes[year] = mix;
     if (callback) {
       callback.call(null, mix);
     }
   });
-  req.open('GET', Mixes.getDataLink(year));
+  req.open("GET", Mixes.getDataLink(year));
   req.send();
 };
 
@@ -267,7 +269,8 @@ Mixes.prototype.get = function(year, callback) {
 };
 
 Mixes.prototype.getCurrentMix = function() {
-  // get() must have been called successfully once before calling getCurrentMix()
+  // get() must have been called successfully once before calling
+  // getCurrentMix()
   return this.mixes[this.year];
 }
 
@@ -276,12 +279,12 @@ Mixes.prototype.getCurrentMix = function() {
 ******************************************************************************/
 
 var Player = function() {
-  this.htmlPlayer = document.getElementById('audioplayer');
+  this.htmlPlayer = document.getElementById("audioplayer");
 };
 
 Player.prototype.onError = function(callback) {
   var that = this;
-  this.htmlPlayer.addEventListener('error', function() {
+  this.htmlPlayer.addEventListener("error", function() {
     if (!that.htmlPlayer.paused) {
       that.htmlPlayer.pause();
     }
@@ -292,13 +295,13 @@ Player.prototype.onError = function(callback) {
 };
 
 Player.prototype.onEnded = function(callback) {
-  this.htmlPlayer.addEventListener('ended', callback);
+  this.htmlPlayer.addEventListener("ended", callback);
 };
 
 Player.prototype.setCurrentTrack = function(track, isPlaying) {
   var isPlaying = isPlaying || !this.htmlPlayer.paused;
-  // TODO: There's an exception if you play a new track before the old track is finshed loading.
-  // Figure out if this is a problem.
+  // TODO: There's an exception if you play a new track before the old track is
+  // finshed loading. Figure out if this is a problem.
   // Error message: "The play() request was interrupted by a new load request."
   this.htmlPlayer.src = track.getLink();
   this.htmlPlayer.load();
@@ -322,12 +325,12 @@ Player.prototype.togglePlay = function() {
 ******************************************************************************/
 
 var UiController = function() {
-  document.getElementById('albumart').style.display = 'block';
+  document.getElementById("albumart").style.display = "block";
   this.showPlay();
 };
 
-UiController.PLAY_ICON = 'images/play.png';
-UiController.PAUSE_ICON = 'images/pause.png';
+UiController.PLAY_ICON = "images/play.png";
+UiController.PAUSE_ICON = "images/pause.png";
 
 UiController.prototype.togglePlay = function(isPlaying) {
   if (isPlaying) {
@@ -338,28 +341,28 @@ UiController.prototype.togglePlay = function(isPlaying) {
 };
 
 UiController.prototype.isPlay = function() {
-  return document.getElementById('playaction').src == UiController.PLAY_ICON;
+  return document.getElementById("playaction").src == UiController.PLAY_ICON;
 };
 
 UiController.prototype.showPlay = function() {
-  document.getElementById('playaction').src = UiController.PLAY_ICON;
+  document.getElementById("playaction").src = UiController.PLAY_ICON;
 };
 
 UiController.prototype.showPause = function() {
-  document.getElementById('playaction').src = UiController.PAUSE_ICON;
+  document.getElementById("playaction").src = UiController.PAUSE_ICON;
 };
 
 UiController.prototype.setCurrentTrack = function(track) {
-  document.getElementById('title').innerHTML = track.getTitle();
-  document.getElementById('artist').innerHTML = track.getArtist();
+  document.getElementById("title").innerHTML = track.getTitle();
+  document.getElementById("artist").innerHTML = track.getArtist();
 };
 
 UiController.prototype.setNextTrack = function(track) {
-  var text = '&nbsp';
+  var text = "&nbsp";
   if (track) {
-    text = 'Next: ' + track.getTitle() + ' - ' + track.getArtist();
+    text = "Next: " + track.getTitle() + " - " + track.getArtist();
   }
-  document.getElementById('nexttrack').innerHTML = text;
+  document.getElementById("nexttrack").innerHTML = text;
 };
 
 UiController.prototype.setPageTitle = function(title) {
@@ -371,18 +374,18 @@ UiController.prototype.setBackgroundColor = function(color) {
 };
 
 UiController.prototype.setAlbumArt = function(frontSrc, backSrc, altText) {
- document.getElementById('albumartfrontimg').alt = altText;
- document.getElementById('albumartbackimg').alt = altText;
- document.getElementById('albumartfrontimg').src = frontSrc;
- document.getElementById('albumartbackimg').src = backSrc;
+ document.getElementById("albumartfrontimg").alt = altText;
+ document.getElementById("albumartbackimg").alt = altText;
+ document.getElementById("albumartfrontimg").src = frontSrc;
+ document.getElementById("albumartbackimg").src = backSrc;
 };
 
 UiController.prototype.setDownloadLink = function(link) {
-  document.getElementById('downloadLink').href = link;
+  document.getElementById("downloadLink").href = link;
 };
 
 UiController.prototype.setSpotifyLink = function(link) {
-  document.getElementById('spotifyLink').href = link;
+  document.getElementById("spotifyLink").href = link;
 };
 
 /******************************************************************************
@@ -396,19 +399,19 @@ window.onload = function() {
 
   // Create links to mixes from previous year.
   // This is done early because it doesn't rely on any mix-specific data.
-  var yearLinks = document.getElementById('yearLinks');
+  var yearLinks = document.getElementById("yearLinks");
   var pos = 0;
   for (var i = MAX_YEAR; i >= MIN_YEAR; i--) {
     if (pos > 0) {
       if (pos % 5 == 0) {
-        yearLinks.append(document.createElement('br'));
+        yearLinks.append(document.createElement("br"));
       } else {
-        yearLinks.append(document.createTextNode(' | '));
+        yearLinks.append(document.createTextNode(" | "));
       }
     }
     pos++;
-  
-    var a = document.createElement('a');
+
+    var a = document.createElement("a");
     a.href = createMixLink(i);
     a.innerHTML = i;
     yearLinks.append(a);
@@ -434,7 +437,7 @@ window.onload = function() {
     player.setCurrentTrack(mix.getCurrentTrack());
 
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     player.onError(function() {
       ui.showPlay();
@@ -448,12 +451,12 @@ window.onload = function() {
         ui.showPlay();
         mix.startOver();
         track = mix.getCurrentTrack();
-        Analytics.log('end');
+        Analytics.log("end");
       } else {
         // Otherwise, load next track and continue playing.
         track = mix.playNextTrack();
         isPlaying = true;
-        Analytics.log('play', track.toString());
+        Analytics.log("play", track.toString());
       }
       if (track) {
         player.setCurrentTrack(track, isPlaying);
@@ -462,51 +465,50 @@ window.onload = function() {
       }
     });
 
-    document.getElementById('downloadLink').addEventListener('click',
+    document.getElementById("downloadLink").addEventListener("click",
       function() {
-        Analytics.log('download');
+        Analytics.log("download");
       });
 
-    document.getElementById('albumart').addEventListener('click',
+    document.getElementById("albumart").addEventListener("click",
       function() {
-        if (mode != 'small') {
+        if (mode != "small") {
           return;
         }
         var newImg = frontCover;
-        if (document.getElementById('albumartfrontimg').src.toLowerCase().indexOf(frontCover) >= 0) {
+        if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(frontCover) >= 0) {
           newImg = backCover;
         }
-        document.getElementById('albumartfrontimg').src = newImg;
+        document.getElementById("albumartfrontimg").src = newImg;
       });
 
-    document.getElementById('playaction').addEventListener('click',
+    document.getElementById("playaction").addEventListener("click",
       function() {
         var isPlaying = player.togglePlay();
         ui.togglePlay(isPlaying);
-        Analytics.log(isPlaying ? 'play' : 'pause', mix.getCurrentTrack().toString());
+        Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
       });
 
-    document.getElementById('prevaction').addEventListener('click',
+    document.getElementById("prevaction").addEventListener("click",
       function() {
         var track = mix.playPreviousTrack();
         if (track) {
           player.setCurrentTrack(track);
           ui.setCurrentTrack(track);
           ui.setNextTrack(mix.getNextTrack());
-          Analytics.log('prev', track.toString());
+          Analytics.log("prev", track.toString());
         }
       });
 
-    document.getElementById('nextaction').addEventListener('click',
+    document.getElementById("nextaction").addEventListener("click",
       function() {
-        var track = mix.playNextTrack(); 
+        var track = mix.playNextTrack();
         if (track) {
           player.setCurrentTrack(track);
           ui.setCurrentTrack(track);
           ui.setNextTrack(mix.getNextTrack());
-          Analytics.log('next', track.toString());
+          Analytics.log("next", track.toString());
         }
       });
   });
 };
-
