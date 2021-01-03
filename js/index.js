@@ -79,13 +79,20 @@ var Analytics = function() { };
 
 Analytics.year = null;
 
-Analytics.log = function(action, count) {
-  count = count || 0;
+Analytics.log = function(action, label) {
+  if (Analytics.year == null) {
+    console.log('Analytics not available until year is available.');
+    return;
+  }
   if (window.console) {
-    console.log('LOG: ' + Analytics.year + ', ' + action + ', ' + count);
+    var logstr = 'LOG: ' + Analytics.year + ', ' + action;
+    if (label) {
+      logstr += ', ' + label;
+    }
+    console.log(logstr);
   }
   if (window.ga) {
-    ga('send', 'event', Analytics.year, action, null, count);
+    ga('send', 'event', Analytics.year, action, label);
   }
 };
 
@@ -109,6 +116,10 @@ Track.prototype.getArtist = function() {
 
 Track.prototype.getLink = function() {
   return this.s3prefix + this.year + '/tracks/' + this.data.src;
+};
+
+Track.prototype.toString = function() {
+  return this.getArtist() + ' - ' + this.getTitle();
 };
 
 /******************************************************************************
@@ -182,7 +193,6 @@ Mix.prototype.playNextTrack = function() {
   var track = this.getNextTrack();
   if (track) {
     this.currentTrackId++;
-    Analytics.log('next', this.currentTrackId);
     return track;
   }
   return null;
@@ -192,7 +202,6 @@ Mix.prototype.playPreviousTrack = function() {
   var track = this.getPreviousTrack();
   if (track) {
     this.currentTrackId--;
-    Analytics.log('prev', this.currentTrackId);
     return track;
   }
   return null;
@@ -300,10 +309,8 @@ Player.prototype.setCurrentTrack = function(track, isPlaying) {
 Player.prototype.togglePlay = function() {
   if (this.htmlPlayer.paused) {
     this.htmlPlayer.play();
-    Analytics.log('play', this.currentTrackId);
   } else {
     this.htmlPlayer.pause();
-    Analytics.log('pause', this.currentTrackId);
   }
   return !this.htmlPlayer.paused;
 };
@@ -471,7 +478,14 @@ window.onload = function() {
     document.getElementById('playaction').addEventListener('click',
       function() {
         var isPlaying = player.togglePlay();
+
         ui.togglePlay(isPlaying);
+
+        var action = 'pause';
+        if (isPlaying) {
+          action = 'play';
+        }
+        Analytics.log(action, mix.getCurrentTrack().toString());
       });
 
     document.getElementById('prevaction').addEventListener('click',
@@ -481,6 +495,7 @@ window.onload = function() {
           player.setCurrentTrack(track);
           ui.setCurrentTrack(track);
           ui.setNextTrack(mix.getNextTrack());
+          Analytics.log('prev', track.toString());
         }
       });
 
@@ -491,6 +506,7 @@ window.onload = function() {
           player.setCurrentTrack(track);
           ui.setCurrentTrack(track);
           ui.setNextTrack(mix.getNextTrack());
+          Analytics.log('next', track.toString());
         }
       });
   });
