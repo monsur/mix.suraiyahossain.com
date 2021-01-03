@@ -75,11 +75,14 @@ var resize = function() {
 ** OBJECT: Analytics
 ******************************************************************************/
 
-var Analytics = function() {};
-Analytics.log = function(label, count) {
+var Analytics = function() { };
+
+Analytics.year = null;
+
+Analytics.log = function(action, count) {
   count = count || 0;
   if (window.ga) {
-    ga('send', 'event', label, 'click', 'player', count);
+    ga('send', 'event', Analytics.year, action, null, count);
   }
 };
 
@@ -400,6 +403,8 @@ window.onload = function() {
   }
 
   var year = parseYearFromQuery();
+
+  Analytics.year = year;
 
   mixes.get(year, function() {
 
