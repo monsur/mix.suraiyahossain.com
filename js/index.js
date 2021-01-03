@@ -440,23 +440,22 @@ Page.prototype.setup = function() {
 };
 
 Page.prototype.loadPageEnd = function() {
-    var mix = this.mixes.getCurrentMix();
-    var ui = this.ui;
-    var player = this.player;
+  var that = this;
 
     resize();
     window.addEventListener("resize", resize);
 
-    player.onError(function() {
-      ui.showPlay();
+    this.player.onError(function() {
+      that.ui.showPlay();
     });
 
-    player.onEnded(function() {
+    this.player.onEnded(function() {
+      var mix = that.mixes.getCurrentMix();
       var track = null;
       var isPlaying = false;
       if (mix.isFinished()) {
         // If mixed is finished, reset to the beginning and stop playing.
-        ui.showPlay();
+        that.ui.showPlay();
         mix.startOver();
         track = mix.getCurrentTrack();
         Analytics.log("end");
@@ -467,9 +466,9 @@ Page.prototype.loadPageEnd = function() {
         Analytics.log("play", track.toString());
       }
       if (track) {
-        player.setCurrentTrack(track, isPlaying);
-        ui.setCurrentTrack(track);
-        ui.setNextTrack(mix.getNextTrack());
+        that.player.setCurrentTrack(track, isPlaying);
+        that.ui.setCurrentTrack(track);
+        that.ui.setNextTrack(mix.getNextTrack());
       }
     });
 
@@ -493,29 +492,32 @@ Page.prototype.loadPageEnd = function() {
 
     document.getElementById("playaction").addEventListener("click",
       function() {
-        var isPlaying = player.togglePlay();
-        ui.togglePlay(isPlaying);
+        var mix = that.mixes.getCurrentMix();
+        var isPlaying = that.player.togglePlay();
+        that.ui.togglePlay(isPlaying);
         Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
       });
 
     document.getElementById("prevaction").addEventListener("click",
       function() {
+        var mix = that.mixes.getCurrentMix();
         var track = mix.playPreviousTrack();
         if (track) {
-          player.setCurrentTrack(track);
-          ui.setCurrentTrack(track);
-          ui.setNextTrack(mix.getNextTrack());
+          that.player.setCurrentTrack(track);
+          that.ui.setCurrentTrack(track);
+          that.ui.setNextTrack(mix.getNextTrack());
           Analytics.log("prev", track.toString());
         }
       });
 
     document.getElementById("nextaction").addEventListener("click",
       function() {
+        var mix = that.mixes.getCurrentMix();
         var track = mix.playNextTrack();
         if (track) {
-          player.setCurrentTrack(track);
-          ui.setCurrentTrack(track);
-          ui.setNextTrack(mix.getNextTrack());
+          that.player.setCurrentTrack(track);
+          that.ui.setCurrentTrack(track);
+          that.ui.setNextTrack(mix.getNextTrack());
           Analytics.log("next", track.toString());
         }
       });
