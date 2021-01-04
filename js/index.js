@@ -272,12 +272,14 @@ var UiController = function() {
   document.getElementById("albumart").style.display = "block";
   this.showPlay();
   this.mode = null;
+  this.frontCover = null;
+  this.backCover = null;
 };
 
 UiController.PLAY_ICON = "images/play.png";
 UiController.PAUSE_ICON = "images/pause.png";
 
-UiController.prototype.resize = function(frontCover) {
+UiController.prototype.resize = function() {
   // This function needs to be called once onload (after the mix is loaded),
   // and then once every time the window is resized.
   var imgWidth;
@@ -304,7 +306,7 @@ UiController.prototype.resize = function(frontCover) {
     document.getElementById("albumartback").style.display = "none";
   } else {
     document.getElementById("albumartback").style.display = "block";
-    document.getElementById("albumartfrontimg").src = frontCover;
+    document.getElementById("albumartfrontimg").src = this.frontCover;
   }
   document.getElementById("albumart").style.marginTop = marginTop + "px";
   document.getElementById("content").style.width = contentWidth + "px";
@@ -362,6 +364,8 @@ UiController.prototype.setAlbumArt = function(frontSrc, backSrc, altText) {
  document.getElementById("albumartbackimg").alt = altText;
  document.getElementById("albumartfrontimg").src = frontSrc;
  document.getElementById("albumartbackimg").src = backSrc;
+ this.frontCover = frontSrc;
+ this.backCover = backSrc;
 };
 
 UiController.prototype.setDownloadLink = function(link) {
@@ -372,13 +376,13 @@ UiController.prototype.setSpotifyLink = function(link) {
   document.getElementById("spotifyLink").href = link;
 };
 
-UiController.prototype.toggleAlbumArt = function(frontCover, backCover) {
+UiController.prototype.toggleAlbumArt = function() {
   if (this.mode != "small") {
     return;
   }
-  var newImg = frontCover;
-  if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(frontCover) >= 0) {
-    newImg = backCover;
+  var newImg = this.frontCover;
+  if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(newImg) >= 0) {
+    newImg = this.backCover;
   }
   document.getElementById("albumartfrontimg").src = newImg;
   return newImg;
@@ -399,8 +403,7 @@ Events.clickDownloadLink = function() {
 };
 
 Events.clickAlbumArt = function(page) {
-  var mix = page.mixes.getCurrentMix();
-  var newImg = page.ui.toggleAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink());
+  var newImg = page.ui.toggleAlbumArt();
   Analytics.log('albumart', newImg);
 };
 
@@ -445,8 +448,7 @@ Events.clickNextTrack = function(page) {
 };
 
 Events.onResize = function(page) {
-  var frontCover = page.mixes.getCurrentMix().getFrontCoverLink();
-  page.ui.resize(frontCover);
+  page.ui.resize();
 }
 
 /******************************************************************************
@@ -525,7 +527,7 @@ Page.prototype.createYearNav = function() {
 
 Page.prototype.loadPageEnd = function() {
 
-  this.ui.resize(this.mixes.getCurrentMix().getFrontCoverLink());
+  this.ui.resize();
 
   this.addEventListeners();
 
