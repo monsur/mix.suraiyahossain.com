@@ -266,6 +266,7 @@ Mixes.prototype.getCurrentMix = function() {
 
 var Player = function() {
   this.htmlPlayer = document.getElementById("audioplayer");
+  this.isPlaying = false;
 };
 
 Player.prototype.onError = function(callback) {
@@ -284,14 +285,13 @@ Player.prototype.onEnded = function(callback) {
   this.htmlPlayer.addEventListener("ended", callback);
 };
 
-Player.prototype.setCurrentTrack = function(track, isPlaying) {
-  var isPlaying = isPlaying || !this.htmlPlayer.paused;
+Player.prototype.setCurrentTrack = function(track) {
   // TODO: There's an exception if you play a new track before the old track is
   // finshed loading. Figure out if this is a problem.
   // Error message: "The play() request was interrupted by a new load request."
   this.htmlPlayer.src = track.getLink();
   this.htmlPlayer.load();
-  if (isPlaying) {
+  if (this.isPlaying) {
     // If the player is playing, keep playing.
     this.htmlPlayer.play();
   }
@@ -301,11 +301,17 @@ Player.prototype.togglePlay = function() {
   var isPlaying = !this.htmlPlayer.paused;
   if (isPlaying) {
     this.htmlPlayer.pause();
+    this.isPlaying = false;
   } else {
     this.htmlPlayer.play();
+    this.isPlaying = true;
   }
-  return !isPlaying;
+  return this.isPlaying;
 };
+
+Player.prototype.isPlaying = function() {
+  return this.isPlaying;
+}
 
 /******************************************************************************
 ** OBJECT: UiController
@@ -387,7 +393,7 @@ var Page = function() {
 
 Page.prototype.getYear = function() {
   var re = /(20\d\d)/;
-  var matches = re.exec(window.location.toString());
+  var matches = re.exec(window.location.hash);
   if (matches && matches.length > 1) {
     var year = parseInt(matches[1]);
     return year;
@@ -454,18 +460,13 @@ Page.prototype.loadPageEnd = function() {
         that.ui.showPlay();
         mix.startOver();
         track = mix.getCurrentTrack();
-        Analytics.log("end");
       } else {
         // Otherwise, load next track and continue playing.
         track = mix.playNextTrack();
         isPlaying = true;
-        Analytics.log("play", track.toString());
       }
-      if (track) {
-        that.player.setCurrentTrack(track, isPlaying);
-        that.ui.setCurrentTrack(track);
-        that.ui.setNextTrack(mix.getNextTrack());
-      }
+      // TODO: Propograte isPlaying value.
+      that.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end");
     });
 
     document.getElementById("downloadLink").addEventListener("click",
@@ -498,29 +499,28 @@ Page.prototype.loadPageEnd = function() {
       function() {
         var mix = that.mixes.getCurrentMix();
         var track = mix.playPreviousTrack();
-        if (track) {
-          that.player.setCurrentTrack(track);
-          that.ui.setCurrentTrack(track);
-          that.ui.setNextTrack(mix.getNextTrack());
-          Analytics.log("prev", track.toString());
-        }
+        that.updateTrack(track, mix.getNextTrack(), "prev");
       });
 
     document.getElementById("nextaction").addEventListener("click",
       function() {
         var mix = that.mixes.getCurrentMix();
         var track = mix.playNextTrack();
-        if (track) {
-          that.player.setCurrentTrack(track);
-          that.ui.setCurrentTrack(track);
-          that.ui.setNextTrack(mix.getNextTrack());
-          Analytics.log("next", track.toString());
-        }
+        that.updateTrack(track, mix.getNextTrack(), "next");
       });
 
     // The page is hidden by default on page load.
     // Once the entire page's UI is set, show the page.
     document.getElementById('content').style.display = 'block';
+};
+
+Page.prototype.updateTrack = function(track, nextTrack, action) {
+  if (track) {
+    this.player.setCurrentTrack(track);
+    this.ui.setCurrentTrack(track);
+    this.ui.setNextTrack(nextTrack);
+    Analytics.log(action, track.toString());
+  }
 };
 
 Page.prototype.loadYear = function(year, callback) {
@@ -543,9 +543,7 @@ Page.prototype.loadYearEnd = function(callback) {
     ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
     ui.setDownloadLink(mix.getDownloadLink());
     ui.setSpotifyLink(mix.getSpotifyLink());
-    ui.setNextTrack(mix.getNextTrack());
-    ui.setCurrentTrack(mix.getCurrentTrack());
-    player.setCurrentTrack(mix.getCurrentTrack());
+    this.updateTrack(mix.getCurrentTrack(), mix.getNextTrack(), "load");
 
     if (callback) {
       callback.call();
