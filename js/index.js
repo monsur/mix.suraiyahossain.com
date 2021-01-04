@@ -186,14 +186,17 @@ Mixes.prototype.load = function(year, callback) {
   req.send();
 };
 
-Mixes.prototype.get = function(year, callback) {
+Mixes.prototype.get = function(year, callback, background) {
   var mix = this.mixes[year];
+  background = background || false;
   var that = this;
 
   var callbackWrapper = function(mix) {
     // If the loading was successful, set the current year before calling the
     // user's callback.
-    that.year = year;
+    if (!background) {
+      that.year = year;
+    }
     if (callback) {
       callback.call(null, mix);
     }
@@ -226,7 +229,7 @@ Mixes.prototype.loadAll = function(year, callback) {
   }
   this.get(year, function(mix) {
     that.loadAllProgress(mix, callback);
-  });
+  }, true);
 };
 
 Mixes.prototype.loadAllProgress = function(mix, callback) {
