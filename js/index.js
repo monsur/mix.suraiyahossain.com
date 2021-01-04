@@ -428,6 +428,20 @@ Events.onPlayerEnded = function(mix, page, ui) {
   page.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end");
 };
 
+Events.clickPlay = function(mix, player, ui) {
+  var isPlaying = player.togglePlay();
+  ui.togglePlay(isPlaying);
+  Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
+};
+
+Events.clickPreviousTrack = function() {
+
+};
+
+Events.clickNextTrack = function() {
+
+};
+
 /******************************************************************************
 ** Object: Page
 ******************************************************************************/
@@ -534,10 +548,7 @@ Page.prototype.addEventListeners = function() {
 
   document.getElementById("playaction").addEventListener("click",
     function() {
-      var mix = that.mixes.getCurrentMix();
-      var isPlaying = that.player.togglePlay();
-      that.ui.togglePlay(isPlaying);
-      Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
+      Events.clickPlay(that.mixes.getCurrentMix(), that.player, that.ui);
     });
 
   document.getElementById("prevaction").addEventListener("click",
