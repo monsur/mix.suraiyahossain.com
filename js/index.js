@@ -382,6 +382,20 @@ UiController.prototype.setSpotifyLink = function(link) {
 };
 
 /******************************************************************************
+** Object: Events
+******************************************************************************/
+
+var Events = function() { };
+
+Events.clickYearNav = function(page, year) {
+  page.loadYear(year);
+};
+
+Events.onPlayerError = function(ui) {
+  ui.showPlay();
+};
+
+/******************************************************************************
 ** Object: Page
 ******************************************************************************/
 
@@ -448,7 +462,7 @@ Page.prototype.createYearNav = function() {
     a.innerHTML = i;
     a.addEventListener("click", function(year) {
       return function() {
-        that.loadYear(year);
+        Events.clickYearNav(that, year);
       }
     }(i));
     yearLinks.append(a);
@@ -474,7 +488,7 @@ Page.prototype.addEventListeners = function() {
   window.addEventListener("resize", resize);
 
   this.player.onError(function() {
-    that.ui.showPlay();
+    Events.onPlayerError(that.ui);
   });
 
   this.player.onEnded(function() {
