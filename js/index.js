@@ -219,13 +219,12 @@ Mixes.prototype.getCurrentMix = function() {
 
 var Player = function() {
   this.htmlPlayer = document.getElementById("audioplayer");
-  this.isPlaying = false;
 };
 
 Player.prototype.onError = function(callback) {
   var that = this;
   this.htmlPlayer.addEventListener("error", function() {
-    if (!that.htmlPlayer.paused) {
+    if (that.isPlaying()) {
       that.htmlPlayer.pause();
     }
     if (callback) {
@@ -242,28 +241,27 @@ Player.prototype.setCurrentTrack = function(track) {
   // TODO: There's an exception if you play a new track before the old track is
   // finshed loading. Figure out if this is a problem.
   // Error message: "The play() request was interrupted by a new load request."
+  var isPlaying = this.isPlaying();
   this.htmlPlayer.src = track.getLink();
   this.htmlPlayer.load();
-  if (this.isPlaying) {
+  if (isPlaying) {
     // If the player is playing, keep playing.
     this.htmlPlayer.play();
   }
 };
 
 Player.prototype.togglePlay = function() {
-  var isPlaying = !this.htmlPlayer.paused;
+  var isPlaying = this.isPlaying();
   if (isPlaying) {
     this.htmlPlayer.pause();
-    this.isPlaying = false;
   } else {
     this.htmlPlayer.play();
-    this.isPlaying = true;
   }
-  return this.isPlaying;
+  return !isPlaying;
 };
 
 Player.prototype.isPlaying = function() {
-  return this.isPlaying;
+  return !this.htmlPlayer.paused;
 }
 
 /******************************************************************************
@@ -424,7 +422,6 @@ Events.onPlayerEnded = function(page) {
     track = mix.playNextTrack();
     isPlaying = true;
   }
-  // TODO: Propograte isPlaying value.
   page.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end");
 };
 
@@ -489,8 +486,7 @@ Page.prototype.loadPage = function() {
 
   this.createYearNav();
 
-  var year = this.getYear();
-  this.loadYear(year, function() {
+  this.loadYear(this.getYear(), function() {
     that.loadPageEnd();
   });
 };
@@ -498,15 +494,16 @@ Page.prototype.loadPage = function() {
 // Create the navigation links for each year at the bottom of the page.
 // Doesn't rely on state so can be run once when the page loads.
 Page.prototype.createYearNav = function() {
+  var itemsPerLine = 7;
   var that = this;
 
   // Create links to mixes from previous year.
   // This is done early because it doesn't rely on any mix-specific data.
   var yearLinks = document.getElementById("yearLinks");
   var pos = 0;
-  for (var i = MAX_YEAR; i >= MIN_YEAR; i--) {
+  for (var year = MAX_YEAR; year >= MIN_YEAR; year--) {
     if (pos > 0) {
-      if (pos % 7 == 0) {
+      if (pos % itemsPerLine == 0) {
         yearLinks.append(document.createElement("br"));
       } else {
         yearLinks.append(document.createTextNode(" | "));
@@ -515,13 +512,13 @@ Page.prototype.createYearNav = function() {
     pos++;
 
     var a = document.createElement("a");
-    a.href = '#' + i;
-    a.innerHTML = i;
+    a.href = '#' + year;
+    a.innerHTML = year;
     a.addEventListener("click", function(year) {
       return function() {
         Events.clickYearNav(that, year);
       }
-    }(i));
+    }(year));
     yearLinks.append(a);
   }
 };
@@ -556,25 +553,21 @@ Page.prototype.addEventListeners = function() {
 
   document.getElementById("downloadLink").addEventListener("click", Events.clickDownloadLink);
 
-  document.getElementById("albumart").addEventListener("click",
-    function() {
-      Events.clickAlbumArt(that);
-    });
+  document.getElementById("albumart").addEventListener("click", function() {
+    Events.clickAlbumArt(that);
+  });
 
-  document.getElementById("playaction").addEventListener("click",
-    function() {
-      Events.clickPlay(that);
-    });
+  document.getElementById("playaction").addEventListener("click", function() {
+    Events.clickPlay(that);
+  });
 
-  document.getElementById("prevaction").addEventListener("click",
-    function() {
-      Events.clickPreviousTrack(that);
-    });
+  document.getElementById("prevaction").addEventListener("click", function() {
+    Events.clickPreviousTrack(that);
+  });
 
-  document.getElementById("nextaction").addEventListener("click",
-    function() {
-      Events.clickNextTrack(that);
-    });
+  document.getElementById("nextaction").addEventListener("click", function() {
+    Events.clickNextTrack(that);
+  });
 };
 
 Page.prototype.updateTrack = function(track, nextTrack, action) {
