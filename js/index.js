@@ -395,6 +395,18 @@ Events.clickDownloadLink = function() {
   Analytics.log("download");
 };
 
+Events.clickAlbumArt = function() {
+  if (mode != "small") {
+    return;
+  }
+  var newImg = frontCover;
+  if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(frontCover) >= 0) {
+    newImg = backCover;
+  }
+  document.getElementById("albumartfrontimg").src = newImg;
+  Analytics.log('albumart', newImg);
+};
+
 Events.onPlayerError = function(ui) {
   ui.showPlay();
 };
@@ -518,18 +530,7 @@ Page.prototype.addEventListeners = function() {
 
   document.getElementById("downloadLink").addEventListener("click", Events.clickDownloadLink);
 
-  document.getElementById("albumart").addEventListener("click",
-    function() {
-      if (mode != "small") {
-        return;
-      }
-      var newImg = frontCover;
-      if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(frontCover) >= 0) {
-        newImg = backCover;
-      }
-      document.getElementById("albumartfrontimg").src = newImg;
-      Analytics.log('albumart', newImg);
-    });
+  document.getElementById("albumart").addEventListener("click", Events.clickAlbumArt);
 
   document.getElementById("playaction").addEventListener("click",
     function() {
