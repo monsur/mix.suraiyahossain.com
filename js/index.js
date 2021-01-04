@@ -391,8 +391,29 @@ Events.clickYearNav = function(page, year) {
   page.loadYear(year);
 };
 
+Events.clickDownloadLink = function() {
+  Analytics.log("download");
+};
+
 Events.onPlayerError = function(ui) {
   ui.showPlay();
+};
+
+Events.onPlayerEnded = function(mix, page, ui) {
+  var track = null;
+  var isPlaying = false;
+  if (mix.isFinished()) {
+    // If mixed is finished, reset to the beginning and stop playing.
+    ui.showPlay();
+    mix.startOver();
+    track = mix.getCurrentTrack();
+  } else {
+    // Otherwise, load next track and continue playing.
+    track = mix.playNextTrack();
+    isPlaying = true;
+  }
+  // TODO: Propograte isPlaying value.
+  page.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end");
 };
 
 /******************************************************************************
@@ -492,27 +513,10 @@ Page.prototype.addEventListeners = function() {
   });
 
   this.player.onEnded(function() {
-    var mix = that.mixes.getCurrentMix();
-    var track = null;
-    var isPlaying = false;
-    if (mix.isFinished()) {
-        // If mixed is finished, reset to the beginning and stop playing.
-        that.ui.showPlay();
-        mix.startOver();
-        track = mix.getCurrentTrack();
-      } else {
-        // Otherwise, load next track and continue playing.
-        track = mix.playNextTrack();
-        isPlaying = true;
-      }
-      // TODO: Propograte isPlaying value.
-      that.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end");
-    });
+    Events.onPlayerEnded(that.mixes.getCurrentMix(), page, ui);
+  });
 
-  document.getElementById("downloadLink").addEventListener("click",
-    function() {
-      Analytics.log("download");
-    });
+  document.getElementById("downloadLink").addEventListener("click", Events.clickDownloadLink);
 
   document.getElementById("albumart").addEventListener("click",
     function() {
