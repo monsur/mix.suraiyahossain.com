@@ -407,16 +407,17 @@ Events.clickAlbumArt = function() {
   Analytics.log('albumart', newImg);
 };
 
-Events.onPlayerError = function(ui) {
-  ui.showPlay();
+Events.onPlayerError = function(page) {
+  page.ui.showPlay();
 };
 
-Events.onPlayerEnded = function(mix, page, ui) {
+Events.onPlayerEnded = function(page) {
+  var mix = page.mixes.getCurrentMix();
   var track = null;
   var isPlaying = false;
   if (mix.isFinished()) {
     // If mixed is finished, reset to the beginning and stop playing.
-    ui.showPlay();
+    page.ui.showPlay();
     mix.startOver();
     track = mix.getCurrentTrack();
   } else {
@@ -428,18 +429,21 @@ Events.onPlayerEnded = function(mix, page, ui) {
   page.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end");
 };
 
-Events.clickPlay = function(mix, player, ui) {
-  var isPlaying = player.togglePlay();
-  ui.togglePlay(isPlaying);
+Events.clickPlay = function(page) {
+  var mix = page.mixes.getCurrentMix();
+  var isPlaying = page.player.togglePlay();
+  page.ui.togglePlay(isPlaying);
   Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
 };
 
-Events.clickPreviousTrack = function(mix, page) {
+Events.clickPreviousTrack = function(page) {
+  var mix = page.mixes.getCurrentMix();
   var track = mix.playPreviousTrack();
   page.updateTrack(track, mix.getNextTrack(), "prev");
 };
 
-Events.clickNextTrack = function(mix, page) {
+Events.clickNextTrack = function(page) {
+  var mix = page.mixes.getCurrentMix();
   var track = mix.playNextTrack();
   page.updateTrack(track, mix.getNextTrack(), "next");
 };
@@ -537,11 +541,11 @@ Page.prototype.addEventListeners = function() {
   window.addEventListener("resize", resize);
 
   this.player.onError(function() {
-    Events.onPlayerError(that.ui);
+    Events.onPlayerError(that);
   });
 
   this.player.onEnded(function() {
-    Events.onPlayerEnded(that.mixes.getCurrentMix(), page, ui);
+    Events.onPlayerEnded(that);
   });
 
   document.getElementById("downloadLink").addEventListener("click", Events.clickDownloadLink);
@@ -550,17 +554,17 @@ Page.prototype.addEventListeners = function() {
 
   document.getElementById("playaction").addEventListener("click",
     function() {
-      Events.clickPlay(that.mixes.getCurrentMix(), that.player, that.ui);
+      Events.clickPlay(that);
     });
 
   document.getElementById("prevaction").addEventListener("click",
     function() {
-      Events.clickPreviousTrack(that.mixes.getCurrentMix(), that);
+      Events.clickPreviousTrack(that);
     });
 
   document.getElementById("nextaction").addEventListener("click",
     function() {
-      Events.clickNextTrack(that.mixes.getCurrentMix(), that);
+      Events.clickNextTrack(that);
     });
 };
 
