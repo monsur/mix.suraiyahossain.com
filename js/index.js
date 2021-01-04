@@ -434,12 +434,14 @@ Events.clickPlay = function(mix, player, ui) {
   Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
 };
 
-Events.clickPreviousTrack = function() {
-
+Events.clickPreviousTrack = function(mix, page) {
+  var track = mix.playPreviousTrack();
+  page.updateTrack(track, mix.getNextTrack(), "prev");
 };
 
-Events.clickNextTrack = function() {
-
+Events.clickNextTrack = function(mix, page) {
+  var track = mix.playNextTrack();
+  page.updateTrack(track, mix.getNextTrack(), "next");
 };
 
 /******************************************************************************
@@ -553,16 +555,12 @@ Page.prototype.addEventListeners = function() {
 
   document.getElementById("prevaction").addEventListener("click",
     function() {
-      var mix = that.mixes.getCurrentMix();
-      var track = mix.playPreviousTrack();
-      that.updateTrack(track, mix.getNextTrack(), "prev");
+      Events.clickPreviousTrack(that.mixes.getCurrentMix(), that);
     });
 
   document.getElementById("nextaction").addEventListener("click",
     function() {
-      var mix = that.mixes.getCurrentMix();
-      var track = mix.playNextTrack();
-      that.updateTrack(track, mix.getNextTrack(), "next");
+      Events.clickNextTrack(that.mixes.getCurrentMix(), that);
     });
 };
 
