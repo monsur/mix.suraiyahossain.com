@@ -385,12 +385,22 @@ UiController.prototype.setSpotifyLink = function(link) {
 ** Object: Page
 ******************************************************************************/
 
+// Holds methods related to loading the entire page.
+// This is a single-page web app, and there are four
+// distinct phases to loading the page:
+//
+// 1) loadPage (runs once per page)
+// 2) loadYear (runs every time the mix changes, could be multiple times per page)
+// 3) loadYearEnd (runs after the year data is loaded, could be multiple times per page)
+// 4) loadPageEnd (runs before the page is done loading, runs once per page)
 var Page = function() {
   this.mixes = new Mixes();
   this.player = new Player();
   this.ui = new UiController();
 };
 
+// Retrive the year from the url.
+// The year is expected to be in the url hash, e.g. #2020
 Page.prototype.getYear = function() {
   var re = /(20\d\d)/;
   var matches = re.exec(window.location.hash);
@@ -401,10 +411,12 @@ Page.prototype.getYear = function() {
   return MAX_YEAR;
 };
 
+// Entry point for loading the entire page.
+// Runs once per-page load.
 Page.prototype.loadPage = function() {
   var that = this;
 
-  this.setup();
+  this.createYearNav();
 
   var year = this.getYear();
   this.loadYear(year, function() {
@@ -412,7 +424,9 @@ Page.prototype.loadPage = function() {
   });
 };
 
-Page.prototype.setup = function() {
+// Create the navigation links for each year at the bottom of the page.
+// Doesn't rely on state so can be run once when the page loads.
+Page.prototype.createYearNav = function() {
   var that = this;
 
   // Create links to mixes from previous year.
@@ -442,20 +456,32 @@ Page.prototype.setup = function() {
 };
 
 Page.prototype.loadPageEnd = function() {
+
+  resize();
+
+  this.addEventListeners();
+
+  // The page is hidden by default on page load.
+  // Once the entire page's UI is set, show the page.
+  document.getElementById('content').style.display = 'block';
+};
+
+// Configure all the event listeners for the page.
+// Event listeners should be stateless.
+Page.prototype.addEventListeners = function() {
   var that = this;
 
-    resize();
-    window.addEventListener("resize", resize);
+  window.addEventListener("resize", resize);
 
-    this.player.onError(function() {
-      that.ui.showPlay();
-    });
+  this.player.onError(function() {
+    that.ui.showPlay();
+  });
 
-    this.player.onEnded(function() {
-      var mix = that.mixes.getCurrentMix();
-      var track = null;
-      var isPlaying = false;
-      if (mix.isFinished()) {
+  this.player.onEnded(function() {
+    var mix = that.mixes.getCurrentMix();
+    var track = null;
+    var isPlaying = false;
+    if (mix.isFinished()) {
         // If mixed is finished, reset to the beginning and stop playing.
         that.ui.showPlay();
         mix.startOver();
@@ -469,49 +495,45 @@ Page.prototype.loadPageEnd = function() {
       that.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end");
     });
 
-    document.getElementById("downloadLink").addEventListener("click",
-      function() {
-        Analytics.log("download");
-      });
+  document.getElementById("downloadLink").addEventListener("click",
+    function() {
+      Analytics.log("download");
+    });
 
-    document.getElementById("albumart").addEventListener("click",
-      function() {
-        if (mode != "small") {
-          return;
-        }
-        var newImg = frontCover;
-        if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(frontCover) >= 0) {
-          newImg = backCover;
-        }
-        document.getElementById("albumartfrontimg").src = newImg;
-        Analytics.log('albumart', newImg);
-      });
+  document.getElementById("albumart").addEventListener("click",
+    function() {
+      if (mode != "small") {
+        return;
+      }
+      var newImg = frontCover;
+      if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(frontCover) >= 0) {
+        newImg = backCover;
+      }
+      document.getElementById("albumartfrontimg").src = newImg;
+      Analytics.log('albumart', newImg);
+    });
 
-    document.getElementById("playaction").addEventListener("click",
-      function() {
-        var mix = that.mixes.getCurrentMix();
-        var isPlaying = that.player.togglePlay();
-        that.ui.togglePlay(isPlaying);
-        Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
-      });
+  document.getElementById("playaction").addEventListener("click",
+    function() {
+      var mix = that.mixes.getCurrentMix();
+      var isPlaying = that.player.togglePlay();
+      that.ui.togglePlay(isPlaying);
+      Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
+    });
 
-    document.getElementById("prevaction").addEventListener("click",
-      function() {
-        var mix = that.mixes.getCurrentMix();
-        var track = mix.playPreviousTrack();
-        that.updateTrack(track, mix.getNextTrack(), "prev");
-      });
+  document.getElementById("prevaction").addEventListener("click",
+    function() {
+      var mix = that.mixes.getCurrentMix();
+      var track = mix.playPreviousTrack();
+      that.updateTrack(track, mix.getNextTrack(), "prev");
+    });
 
-    document.getElementById("nextaction").addEventListener("click",
-      function() {
-        var mix = that.mixes.getCurrentMix();
-        var track = mix.playNextTrack();
-        that.updateTrack(track, mix.getNextTrack(), "next");
-      });
-
-    // The page is hidden by default on page load.
-    // Once the entire page's UI is set, show the page.
-    document.getElementById('content').style.display = 'block';
+  document.getElementById("nextaction").addEventListener("click",
+    function() {
+      var mix = that.mixes.getCurrentMix();
+      var track = mix.playNextTrack();
+      that.updateTrack(track, mix.getNextTrack(), "next");
+    });
 };
 
 Page.prototype.updateTrack = function(track, nextTrack, action) {
