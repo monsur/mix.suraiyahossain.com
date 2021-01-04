@@ -213,6 +213,32 @@ Mixes.prototype.getCurrentMix = function() {
   return this.mixes[this.year];
 }
 
+Mixes.prototype.loadAll = function(year, callback) {
+  var that = this;
+  if (arguments.length == 1) {
+    if (!(typeof year === "number")) {
+      callback = year;
+      year = MIN_YEAR;
+    }
+  } else if (arguments.length == 0) {
+    year = MIN_YEAR;
+    callback = function() {};
+  }
+  this.get(year, function(mix) {
+    that.loadAllProgress(mix, callback);
+  });
+};
+
+Mixes.prototype.loadAllProgress = function(mix, callback) {
+  var year = mix.getYear() + 1;
+  if (year <= MAX_YEAR) {
+    this.loadAll(year, callback);
+  }
+  else if (callback) {
+    callback.call(null);
+  }
+};
+
 /******************************************************************************
 ** OBJECT: Player
 ******************************************************************************/
