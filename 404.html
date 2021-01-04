@@ -9,7 +9,7 @@
             var year = parseInt(matches[1]);
             // Verify the year parsed from the url is supported.
             if (year >= 2007 && year <= 2020) {
-              redirect += '?year=' + year;
+              redirect += '#' + year;
             }
         }
         console.log('Redirect url: ' + redirect);
