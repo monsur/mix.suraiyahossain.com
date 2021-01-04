@@ -271,7 +271,7 @@ Player.prototype.isPlaying = function() {
 var UiController = function() {
   document.getElementById("albumart").style.display = "block";
   this.showPlay();
-  this.mode = "large";
+  this.mode = null;
 };
 
 UiController.PLAY_ICON = "images/play.png";
