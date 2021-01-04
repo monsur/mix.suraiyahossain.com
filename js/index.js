@@ -4,62 +4,15 @@
 **
 ** GLOBAL VARIABLES
 **
-** WARNING: Use sparingly!
-**
 ******************************************************************************/
 
 var S3_PREFIX = "https://s3.amazonaws.com/mix.suraiyahossain.com/";
 var MIN_YEAR = 2007;
 var MAX_YEAR = 2020;
-var frontCover;
-var backCover;
-var mode = "large";
 
 /******************************************************************************
 ** END GLOBAL VARIABLES
 ******************************************************************************/
-
-/******************************************************************************
-** Helper functions
-******************************************************************************/
-var resize = function() {
-  // This function needs to be called once onload (after the mix is loaded),
-  // and then once every time the window is resized.
-  var imgWidth;
-  var contentWidth;
-  var marginTop;
-  var viewportWidth = window.innerWidth;
-  if (viewportWidth <= 505) {
-    mode = "small";
-    contentWidth = viewportWidth;
-    imgWidth = contentWidth;
-    marginTop = 0;
-  } else if (viewportWidth <= 900) {
-    mode = "medium";
-    contentWidth = viewportWidth;
-    imgWidth = contentWidth/2;
-    marginTop = 60;
-  } else {
-    mode = "large";
-    contentWidth = 900;
-    imgWidth = contentWidth/2;
-    marginTop = 60;
-  }
-  if (mode == "small") {
-    document.getElementById("albumartback").style.display = "none";
-  } else {
-    document.getElementById("albumartback").style.display = "block";
-    document.getElementById("albumartfrontimg").src = frontCover;
-  }
-  document.getElementById("albumart").style.marginTop = marginTop + "px";
-  document.getElementById("content").style.width = contentWidth + "px";
-
-  var width = imgWidth + "px";
-  document.getElementById("albumartbackimg").style.width = width;
-  document.getElementById("albumartbackimg").style.height = width;
-  document.getElementById("albumartfrontimg").style.width = width;
-  document.getElementById("albumartfrontimg").style.height = width;
-};
 
 /******************************************************************************
 ** OBJECT: Analytics
@@ -320,10 +273,50 @@ Player.prototype.isPlaying = function() {
 var UiController = function() {
   document.getElementById("albumart").style.display = "block";
   this.showPlay();
+  this.mode = "large";
 };
 
 UiController.PLAY_ICON = "images/play.png";
 UiController.PAUSE_ICON = "images/pause.png";
+
+UiController.prototype.resize = function(frontCover) {
+  // This function needs to be called once onload (after the mix is loaded),
+  // and then once every time the window is resized.
+  var imgWidth;
+  var contentWidth;
+  var marginTop;
+  var viewportWidth = window.innerWidth;
+  if (viewportWidth <= 505) {
+    this.mode = "small";
+    contentWidth = viewportWidth;
+    imgWidth = contentWidth;
+    marginTop = 0;
+  } else if (viewportWidth <= 900) {
+    this.mode = "medium";
+    contentWidth = viewportWidth;
+    imgWidth = contentWidth/2;
+    marginTop = 60;
+  } else {
+    this.mode = "large";
+    contentWidth = 900;
+    imgWidth = contentWidth/2;
+    marginTop = 60;
+  }
+  if (this.mode == "small") {
+    document.getElementById("albumartback").style.display = "none";
+  } else {
+    document.getElementById("albumartback").style.display = "block";
+    document.getElementById("albumartfrontimg").src = frontCover;
+  }
+  document.getElementById("albumart").style.marginTop = marginTop + "px";
+  document.getElementById("content").style.width = contentWidth + "px";
+
+  var width = imgWidth + "px";
+  document.getElementById("albumartbackimg").style.width = width;
+  document.getElementById("albumartbackimg").style.height = width;
+  document.getElementById("albumartfrontimg").style.width = width;
+  document.getElementById("albumartfrontimg").style.height = width;
+};
 
 UiController.prototype.togglePlay = function(isPlaying) {
   if (isPlaying) {
@@ -381,6 +374,18 @@ UiController.prototype.setSpotifyLink = function(link) {
   document.getElementById("spotifyLink").href = link;
 };
 
+UiController.prototype.toggleAlbumArt = function(frontCover, backCover) {
+  if (this.mode != "small") {
+    return;
+  }
+  var newImg = frontCover;
+  if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(frontCover) >= 0) {
+    newImg = backCover;
+  }
+  document.getElementById("albumartfrontimg").src = newImg;
+  return newImg;
+};
+
 /******************************************************************************
 ** Object: Events
 ******************************************************************************/
@@ -395,15 +400,9 @@ Events.clickDownloadLink = function() {
   Analytics.log("download");
 };
 
-Events.clickAlbumArt = function() {
-  if (mode != "small") {
-    return;
-  }
-  var newImg = frontCover;
-  if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(frontCover) >= 0) {
-    newImg = backCover;
-  }
-  document.getElementById("albumartfrontimg").src = newImg;
+Events.clickAlbumArt = function(page) {
+  var mix = page.mixes.getCurrentMix();
+  var newImg = page.ui.toggleAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink());
   Analytics.log('albumart', newImg);
 };
 
@@ -447,6 +446,11 @@ Events.clickNextTrack = function(page) {
   var track = mix.playNextTrack();
   page.updateTrack(track, mix.getNextTrack(), "next");
 };
+
+Events.onResize = function(page) {
+  var frontCover = page.mixes.getCurrentMix().getFrontCoverLink();
+  page.ui.resize(frontCover);
+}
 
 /******************************************************************************
 ** Object: Page
@@ -524,7 +528,7 @@ Page.prototype.createYearNav = function() {
 
 Page.prototype.loadPageEnd = function() {
 
-  resize();
+  this.ui.resize(this.mixes.getCurrentMix().getFrontCoverLink());
 
   this.addEventListeners();
 
@@ -538,7 +542,9 @@ Page.prototype.loadPageEnd = function() {
 Page.prototype.addEventListeners = function() {
   var that = this;
 
-  window.addEventListener("resize", resize);
+  window.addEventListener("resize", function() {
+    Events.onResize(that);
+  });
 
   this.player.onError(function() {
     Events.onPlayerError(that);
@@ -550,7 +556,10 @@ Page.prototype.addEventListeners = function() {
 
   document.getElementById("downloadLink").addEventListener("click", Events.clickDownloadLink);
 
-  document.getElementById("albumart").addEventListener("click", Events.clickAlbumArt);
+  document.getElementById("albumart").addEventListener("click",
+    function() {
+      Events.clickAlbumArt(that);
+    });
 
   document.getElementById("playaction").addEventListener("click",
     function() {
@@ -591,8 +600,6 @@ Page.prototype.loadYearEnd = function(callback) {
     var ui = this.ui;
     var player = this.player;
 
-    frontCover = mix.getFrontCoverLink();
-    backCover = mix.getBackCoverLink();
     ui.setPageTitle(mix.getTitle());
     ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
     ui.setDownloadLink(mix.getDownloadLink());
