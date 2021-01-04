@@ -237,11 +237,11 @@ Player.prototype.onEnded = function(callback) {
   this.htmlPlayer.addEventListener("ended", callback);
 };
 
-Player.prototype.setCurrentTrack = function(track) {
+Player.prototype.setCurrentTrack = function(track, isPlaying) {
   // TODO: There's an exception if you play a new track before the old track is
   // finshed loading. Figure out if this is a problem.
   // Error message: "The play() request was interrupted by a new load request."
-  var isPlaying = this.isPlaying();
+  isPlaying = isPlaying || this.isPlaying();
   this.htmlPlayer.src = track.getLink();
   this.htmlPlayer.load();
   if (isPlaying) {
@@ -425,7 +425,7 @@ Events.onPlayerEnded = function(page) {
     track = mix.playNextTrack();
     isPlaying = true;
   }
-  page.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end");
+  page.updateTrack(track, mix.getNextTrack(), isPlaying ? "play" : "end", isPlaying);
 };
 
 Events.clickPlay = function(page) {
@@ -572,9 +572,9 @@ Page.prototype.addEventListeners = function() {
   });
 };
 
-Page.prototype.updateTrack = function(track, nextTrack, action) {
+Page.prototype.updateTrack = function(track, nextTrack, action, isPlaying) {
   if (track) {
-    this.player.setCurrentTrack(track);
+    this.player.setCurrentTrack(track, isPlaying);
     this.ui.setCurrentTrack(track);
     this.ui.setNextTrack(nextTrack);
     Analytics.log(action, track.toString());
