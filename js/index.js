@@ -227,19 +227,14 @@ Mixes.prototype.loadAll = function(year, callback) {
     year = MIN_YEAR;
     callback = function() {};
   }
-  this.get(year, function(mix) {
-    that.loadAllProgress(mix, callback);
+  this.get(year, function() {
+    var nextYear = year + 1;
+    if (nextYear <= MAX_YEAR) {
+      that.loadAll(nextYear, callback);
+    } else if (callback) {
+      callback.call(null);
+    }
   }, true);
-};
-
-Mixes.prototype.loadAllProgress = function(mix, callback) {
-  var year = mix.getYear() + 1;
-  if (year <= MAX_YEAR) {
-    this.loadAll(year, callback);
-  }
-  else if (callback) {
-    callback.call(null);
-  }
 };
 
 /******************************************************************************
