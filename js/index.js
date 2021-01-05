@@ -188,7 +188,7 @@ Mixes.prototype.load = function(year, callback, background) {
 
   var callbackWrapper = function(mix) {
     // If the loading was successful, set the current year before calling the
-    // user's callback.
+    // user's callback (if this isn't being run in the background).
     if (!background) {
       that.year = year;
     }
