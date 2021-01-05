@@ -168,7 +168,7 @@ Mixes.getDataLink = function(year) {
   return "years/" + year + "/data.json";
 };
 
-Mixes.prototype.load = function(year, callback) {
+Mixes.prototype.fetch = function(year, callback) {
   var that = this;
   var req = new XMLHttpRequest();
   req.addEventListener("load", function() {
@@ -182,7 +182,7 @@ Mixes.prototype.load = function(year, callback) {
   req.send();
 };
 
-Mixes.prototype.get = function(year, callback, background) {
+Mixes.prototype.load = function(year, callback, background) {
   var mix = this.mixes[year];
   background = background || false;
   var that = this;
@@ -203,14 +203,8 @@ Mixes.prototype.get = function(year, callback, background) {
     return;
   }
 
-  this.load(year, callbackWrapper);
+  this.fetch(year, callbackWrapper);
 };
-
-Mixes.prototype.getCurrentMix = function() {
-  // get() must have been called successfully once before calling
-  // getCurrentMix()
-  return this.mixes[this.year];
-}
 
 Mixes.prototype.loadAll = function(year, callback) {
   var that = this;
@@ -223,7 +217,7 @@ Mixes.prototype.loadAll = function(year, callback) {
     year = MIN_YEAR;
     callback = function() {};
   }
-  this.get(year, function() {
+  this.load(year, function() {
     var nextYear = year + 1;
     if (nextYear <= MAX_YEAR) {
       that.loadAll(nextYear, callback);
@@ -232,6 +226,12 @@ Mixes.prototype.loadAll = function(year, callback) {
     }
   }, true);
 };
+
+Mixes.prototype.getCurrentMix = function() {
+  // get() must have been called successfully once before calling
+  // getCurrentMix()
+  return this.mixes[this.year];
+}
 
 /******************************************************************************
 ** OBJECT: Player
@@ -604,7 +604,7 @@ Page.prototype.updateTrack = function(track, nextTrack, action, isPlaying) {
 Page.prototype.loadYear = function(year, callback) {
   var that = this;
   Analytics.year = year;
-  this.mixes.get(year, function() {
+  this.mixes.load(year, function() {
     that.loadYearEnd(callback);
   });
 }
