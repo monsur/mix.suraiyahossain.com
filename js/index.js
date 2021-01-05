@@ -81,20 +81,16 @@ var Mix = function(data, s3prefix) {
   this.tracks = tracks;
 };
 
-Mix.prototype.getYear = function() {
-  return this.data.year;
-};
-
 Mix.prototype.getTitle = function() {
   return this.data.title;
 };
 
 Mix.prototype.getFrontCoverLink = function() {
-  return "years/" + this.getYear() + "/front.jpg";
+  return "years/" + this.data.year + "/front.jpg";
 };
 
 Mix.prototype.getBackCoverLink = function() {
-  return "years/" + this.getYear() + "/back.jpg";
+  return "years/" + this.data.year + "/back.jpg";
 };
 
 Mix.prototype.getBackgroundColor = function() {
@@ -106,7 +102,7 @@ Mix.prototype.getSpotifyLink = function() {
 };
 
 Mix.prototype.getDownloadLink = function() {
-  return this.s3prefix + this.getYear() + "/" + this.getTitle() + ".zip"
+  return this.s3prefix + this.data.year + "/" + this.getTitle() + ".zip"
 };
 
 Mix.prototype.getTrack = function(i) {
