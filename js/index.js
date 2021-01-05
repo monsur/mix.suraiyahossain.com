@@ -184,7 +184,6 @@ Mixes.prototype.fetch = function(year, callback) {
 
 Mixes.prototype.load = function(year, callback, background) {
   var mix = this.mixes[year];
-  background = background || false;
   var that = this;
 
   var callbackWrapper = function(mix) {
