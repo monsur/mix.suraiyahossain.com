@@ -1,7 +1,7 @@
 var Events = function() { };
 
 Events.clickYearNav = function(page, year) {
-  page.loadYear(year);
+  page.loadMix(year);
 };
 
 Events.clickDownloadLink = function() {

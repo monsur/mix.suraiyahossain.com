@@ -2,6 +2,7 @@ var Mixes = function(s3prefix) {
   this.s3prefix = s3prefix || S3_PREFIX;
   this.mixes = {};
   this.allMixes = new Mix();
+  this.currentMix = null;
 };
 
 Mixes.getDataLink = function(label) {
@@ -42,12 +43,21 @@ Mixes.prototype.fetch = function(label, callback) {
 };
 
 Mixes.prototype.load = function(label, callback) {
+  var that = this;
   var mix = this.mixes[label];
+
+  var callbackWrapper = function(mix) {
+    that.currentMix = mix;
+    if (callback) {
+      callback.call(null, mix);
+    }
+  };
+
   if (mix) {
-    callback.call(null, mix);
+    callbackWrapper.call(null, mix);
     return;
   }
-  this.fetch(label, callback);
+  this.fetch(label, callbackWrapper);
 };
 
 Mixes.prototype.loadAll = function(callback, year) {
@@ -58,6 +68,7 @@ Mixes.prototype.loadAll = function(callback, year) {
     if (nextYear <= MAX_YEAR) {
       that.loadAll(callback, nextYear);
     } else if (callback) {
+      that.currentMix = that.allMixes;
       callback.call(null, that.allMixes);
     }
   });
@@ -66,5 +77,5 @@ Mixes.prototype.loadAll = function(callback, year) {
 Mixes.prototype.getCurrentMix = function() {
   // get() must have been called successfully once before calling
   // getCurrentMix()
-  return this.mixes[this.year];
+  return this.currentMix;
 };
