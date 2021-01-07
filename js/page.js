@@ -122,6 +122,13 @@ Page.prototype.addEventListeners = function() {
 Page.prototype.updateTrack = function(track, nextTrack, action, isPlaying) {
   if (track) {
     this.player.setCurrentTrack(track, isPlaying);
+    if (this.prevTrackYear != track.getYear()) {
+      this.ui.setPageTitle(track.getMixTitle());
+      this.ui.setAlbumArt(track.getFrontCoverLink(), track.getBackCoverLink(), track.getMixTitle());
+      this.ui.setDownloadLink(track.getDownloadLink());
+      this.ui.setSpotifyLink(track.getSpotifyLink());
+      this.prevTrackYear == track.getYear();
+    }
     this.ui.setCurrentTrack(track);
     this.ui.setNextTrack(nextTrack);
     Analytics.log(track.getYear(), action, track.toString());
@@ -148,10 +155,6 @@ Page.prototype.loadMixEnd = function(mix, callback) {
     var player = this.player;
     var track = mix.getCurrentTrack();
 
-    ui.setPageTitle(track.getMixTitle());
-    ui.setAlbumArt(track.getFrontCoverLink(), track.getBackCoverLink(), track.getMixTitle());
-    ui.setDownloadLink(track.getDownloadLink());
-    ui.setSpotifyLink(track.getSpotifyLink());
     this.updateTrack(track, mix.getNextTrack(), "load");
 
     if (callback) {
