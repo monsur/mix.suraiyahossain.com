@@ -1,6 +1,7 @@
 var Mix = function() {
   this.tracks = [];
   this.currentTrackId = 0;
+  this.backup = null;
 };
 
 Mix.prototype.addTracks = function(tracks) {
@@ -61,4 +62,18 @@ Mix.prototype.isFinished = function() {
 
 Mix.prototype.startOver = function() {
   this.currentTrackId = 0;
+};
+
+Mix.prototype.shuffle = function() {
+  this.backup = this.tracks;
+  for (var i = 0; i < this.tracks.length; i++) {
+    var randPos = Math.floor(Math.random() * Math.floor(this.tracks.length));
+    var temp = this.tracks[i];
+    this.tracks[i] = this.tracks[randPos];
+    this.tracks[randPos] = temp;
+  }
+};
+
+Mix.prototype.unshuffle = function() {
+  this.tracks = this.backup;
 };

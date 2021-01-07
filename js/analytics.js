@@ -1,20 +1,14 @@
 var Analytics = function() { };
 
-Analytics.year = null;
-
-Analytics.log = function(action, label) {
-  if (Analytics.year == null) {
-    console.log("Analytics not available until year is available.");
-    return;
-  }
+Analytics.log = function(mix, action, label) {
   if (window.console) {
-    var logstr = "LOG: " + Analytics.year + ", " + action;
+    var logstr = "LOG: " + mix + ", " + action;
     if (label) {
       logstr += ", " + label;
     }
     console.log(logstr);
   }
   if (window.ga) {
-    ga("send", "event", Analytics.year, action, label);
+ //   ga("send", "event", Analytics.year, action, label);
   }
 };

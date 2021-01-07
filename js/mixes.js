@@ -63,11 +63,12 @@ Mixes.prototype.load = function(label, callback) {
 Mixes.prototype.loadAll = function(callback, year) {
   var that = this;
   year = year || MIN_YEAR;
-  this.load(label, function() {
+  this.load(year, function() {
     var nextYear = year + 1;
     if (nextYear <= MAX_YEAR) {
       that.loadAll(callback, nextYear);
     } else if (callback) {
+      that.allMixes.shuffle();
       that.currentMix = that.allMixes;
       callback.call(null, that.allMixes);
     }

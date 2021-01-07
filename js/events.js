@@ -5,12 +5,12 @@ Events.clickYearNav = function(page, year) {
 };
 
 Events.clickDownloadLink = function() {
-  Analytics.log("download");
+  Analytics.log(page.mixes.getCurrentMix().getCurrentTrack().getYear(), "download");
 };
 
 Events.clickAlbumArt = function(page) {
   var newImg = page.ui.toggleAlbumArt();
-  Analytics.log('albumart', newImg);
+  Analytics.log(page.mixes.getCurrentMix().getCurrentTrack().getYear(), "albumart", newImg);
 };
 
 Events.onPlayerError = function(page) {
@@ -38,7 +38,7 @@ Events.clickPlay = function(page) {
   var mix = page.mixes.getCurrentMix();
   var isPlaying = page.player.togglePlay();
   page.ui.togglePlay(isPlaying);
-  Analytics.log(isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
+  Analytics.log(page.mixes.getCurrentMix().getCurrentTrack().getYear(), isPlaying ? "play" : "pause", mix.getCurrentTrack().toString());
 };
 
 Events.clickPreviousTrack = function(page) {

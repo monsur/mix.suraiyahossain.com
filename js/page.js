@@ -124,7 +124,7 @@ Page.prototype.updateTrack = function(track, nextTrack, action, isPlaying) {
     this.player.setCurrentTrack(track, isPlaying);
     this.ui.setCurrentTrack(track);
     this.ui.setNextTrack(nextTrack);
-    Analytics.log(action, track.toString());
+    Analytics.log(track.getYear(), action, track.toString());
   }
 };
 
