@@ -85,10 +85,6 @@ UiController.prototype.setPageTitle = function(title) {
   document.title = title;
 };
 
-UiController.prototype.setBackgroundColor = function(color) {
-  document.body.style.backgroundColor = color;
-};
-
 UiController.prototype.setAlbumArt = function(frontSrc, backSrc, altText) {
  document.getElementById("albumartfrontimg").alt = altText;
  document.getElementById("albumartbackimg").alt = altText;

@@ -58,7 +58,7 @@ Mixes.prototype.loadAll = function(callback, year) {
     if (nextYear <= MAX_YEAR) {
       that.loadAll(callback, nextYear);
     } else if (callback) {
-      callback.call(null);
+      callback.call(null, that.allMixes);
     }
   });
 };

@@ -13,14 +13,17 @@ var Page = function() {
   this.ui = new UiController();
 };
 
-// Retrive the year from the url.
-// The year is expected to be in the url hash, e.g. #2020
-Page.prototype.getYear = function() {
+// Retrive the label from the url.
+// The label is expected to be in the url hash, e.g. #2020
+Page.prototype.getMixLabel = function() {
   var re = /(20\d\d)/;
-  var matches = re.exec(window.location.hash);
-  if (matches && matches.length > 1) {
-    var year = parseInt(matches[1]);
-    return year;
+  var mixLabel = "";
+  if (window.location.hash) {
+    mixLabel = window.location.hash.substr(1);
+  }
+  var matches = re.exec(mixLabel);
+  if ((matches && matches.length > 1) || mixLabel == "all") {
+    return mixLabel;
   }
   return MAX_YEAR;
 };
@@ -32,7 +35,7 @@ Page.prototype.loadPage = function() {
 
   this.createYearNav();
 
-  this.loadYear(this.getYear(), function() {
+  this.loadMix(this.getMixLabel(), function() {
     that.loadPageEnd();
   });
 };
@@ -125,25 +128,31 @@ Page.prototype.updateTrack = function(track, nextTrack, action, isPlaying) {
   }
 };
 
-Page.prototype.loadYear = function(year, callback) {
+Page.prototype.loadMix = function(label, callback) {
   var that = this;
-  Analytics.year = year;
-  this.mixes.load(year, function() {
-    that.loadYearEnd(callback);
-  });
+
+  var callbackWrapper = function(mix) {
+    that.loadMixEnd(mix, callback);
+  };
+
+  if (label == "all") {
+    this.mixes.loadAll(callbackWrapper);
+  } else {
+    Analytics.year = label;
+    this.mixes.load(label, callbackWrapper);
+  }
 }
 
-Page.prototype.loadYearEnd = function(callback) {
-
-    var mix = this.mixes.getCurrentMix();
+Page.prototype.loadMixEnd = function(mix, callback) {
     var ui = this.ui;
     var player = this.player;
+    var track = mix.getCurrentTrack();
 
-    ui.setPageTitle(mix.getTitle());
-    ui.setAlbumArt(mix.getFrontCoverLink(), mix.getBackCoverLink(), mix.getTitle());
-    ui.setDownloadLink(mix.getDownloadLink());
-    ui.setSpotifyLink(mix.getSpotifyLink());
-    this.updateTrack(mix.getCurrentTrack(), mix.getNextTrack(), "load");
+    ui.setPageTitle(track.getMixTitle());
+    ui.setAlbumArt(track.getFrontCoverLink(), track.getBackCoverLink(), track.getMixTitle());
+    ui.setDownloadLink(track.getDownloadLink());
+    ui.setSpotifyLink(track.getSpotifyLink());
+    this.updateTrack(track, mix.getNextTrack(), "load");
 
     if (callback) {
       callback.call();

@@ -14,12 +14,33 @@ Mix.prototype.getTrack = function(i) {
   return this.tracks[i];
 };
 
+Mix.prototype.hasNextTrack = function() {
+  if (this.currentTrackId == this.tracks.length - 2) {
+    return false;
+  }
+  return true;
+};
+
+Mix.prototype.hasPreviousTrack = function() {
+  if (this.currentTrackId == 0) {
+    return false;
+  }
+  return true;
+};
+
 Mix.prototype.getCurrentTrack = function() {
   return this.getTrack(this.currentTrackId);
 };
 
+Mix.prototype.getNextTrack = function() {
+  if (this.hasNextTrack()) {
+    return this.getTrack(this.currentTrackId + 1);
+  }
+  return null;
+};
+
 Mix.prototype.playNextTrack = function() {
-  if (this.currentTrackId == this.tracks.length - 2) {
+  if (!this.hasNextTrack()) {
     return null;
   }
   this.currentTrackId++;
@@ -27,7 +48,7 @@ Mix.prototype.playNextTrack = function() {
 };
 
 Mix.prototype.playPreviousTrack = function() {
-  if (this.currentTrackId == 0) {
+  if (this.hasPreviousTrack()) {
     return null;
   }
   this.currentTrackId--;

@@ -62,6 +62,14 @@ Track.prototype.getDownloadLink = function() {
   return this.downloadLink;
 };
 
+Track.prototype.getFrontCoverLink = function() {
+  return this.frontCoverLink;
+};
+
+Track.prototype.getBackCoverLink = function() {
+  return this.backCoverLink;
+};
+
 Track.prototype.getMixTitle = function() {
   return this.mixTitle;
 };
