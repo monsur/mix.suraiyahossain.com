@@ -10,7 +10,9 @@ Events.clickDownloadLink = function() {
 
 Events.clickAlbumArt = function(page) {
   var newImg = page.ui.toggleAlbumArt();
-  Analytics.log(page.mixes.getCurrentMix().getCurrentTrack().getYear(), "albumart", newImg);
+  if (newImg) {
+    Analytics.log(page.mixes.getCurrentMix().getCurrentTrack().getYear(), "albumart", newImg);
+  }
 };
 
 Events.onPlayerError = function(page) {

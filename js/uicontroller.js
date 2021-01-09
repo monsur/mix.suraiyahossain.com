@@ -109,7 +109,7 @@ UiController.prototype.setSpotifyLink = function(link) {
 
 UiController.prototype.toggleAlbumArt = function() {
   if (this.mode != "small") {
-    return;
+    return null;
   }
   return document.getElementById("albumartfrontimg").src = this.isFrontCoverVisible() ? this.backCover : this.frontCover;
 };
