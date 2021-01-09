@@ -85,11 +85,16 @@ UiController.prototype.setPageTitle = function(title) {
   document.title = title;
 };
 
+UiController.prototype.isFrontCoverVisible = function() {
+  var img = document.getElementById("albumartfrontimg").src;
+  return img.length == 0 || img.indexOf("front.jpg") >= 0;
+};
+
 UiController.prototype.setAlbumArt = function(frontSrc, backSrc, altText) {
  document.getElementById("albumartfrontimg").alt = altText;
  document.getElementById("albumartbackimg").alt = altText;
- document.getElementById("albumartfrontimg").src = frontSrc;
  document.getElementById("albumartbackimg").src = backSrc;
+ document.getElementById("albumartfrontimg").src = this.isFrontCoverVisible() ? frontSrc : backSrc;
  this.frontCover = frontSrc;
  this.backCover = backSrc;
 };
@@ -106,10 +111,5 @@ UiController.prototype.toggleAlbumArt = function() {
   if (this.mode != "small") {
     return;
   }
-  var newImg = this.frontCover;
-  if (document.getElementById("albumartfrontimg").src.toLowerCase().indexOf(newImg) >= 0) {
-    newImg = this.backCover;
-  }
-  document.getElementById("albumartfrontimg").src = newImg;
-  return newImg;
+  return document.getElementById("albumartfrontimg").src = this.isFrontCoverVisible() ? this.backCover : this.frontCover;
 };
