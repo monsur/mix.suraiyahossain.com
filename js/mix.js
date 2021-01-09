@@ -16,7 +16,7 @@ Mix.prototype.getTrack = function(i) {
 };
 
 Mix.prototype.hasNextTrack = function() {
-  if (this.currentTrackId == this.tracks.length - 2) {
+  if (this.currentTrackId == this.tracks.length - 1) {
     return false;
   }
   return true;
