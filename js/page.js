@@ -35,7 +35,7 @@ Page.prototype.loadPage = function() {
 
   this.createYearNav();
 
-  this.loadMix(this.getMixLabel(), function() {
+  this.loadMix(function() {
     that.loadPageEnd();
   });
 };
@@ -44,7 +44,6 @@ Page.prototype.loadPage = function() {
 // Doesn't rely on state so can be run once when the page loads.
 Page.prototype.createYearNav = function() {
   var itemsPerLine = 7;
-  var that = this;
 
   // Create links to mixes from previous year.
   // This is done early because it doesn't rely on any mix-specific data.
@@ -63,11 +62,6 @@ Page.prototype.createYearNav = function() {
     var a = document.createElement("a");
     a.href = '#' + year;
     a.innerHTML = year;
-    a.addEventListener("click", function(year) {
-      return function() {
-        Events.clickYearNav(that, year);
-      }
-    }(year));
     yearLinks.append(a);
   }
 };
@@ -91,6 +85,10 @@ Page.prototype.addEventListeners = function() {
   window.addEventListener("resize", function() {
     Events.onResize(that);
   });
+
+  window.addEventListener("hashchange", function() {
+    Events.onHashChange(that);
+  })
 
   this.player.onError(function() {
     Events.onPlayerError(that);
@@ -135,8 +133,9 @@ Page.prototype.updateTrack = function(track, nextTrack, action, isPlaying) {
   }
 };
 
-Page.prototype.loadMix = function(label, callback) {
+Page.prototype.loadMix = function(callback) {
   var that = this;
+  var label = this.getMixLabel()
 
   var callbackWrapper = function(mix) {
     that.loadMixEnd(mix, callback);

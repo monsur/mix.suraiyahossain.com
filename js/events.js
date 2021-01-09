@@ -1,7 +1,7 @@
 var Events = function() { };
 
-Events.clickYearNav = function(page, year) {
-  page.loadMix(year);
+Events.onHashChange = function(page) {
+  page.loadMix();
 };
 
 Events.clickDownloadLink = function() {
