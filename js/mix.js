@@ -49,7 +49,7 @@ Mix.prototype.playNextTrack = function() {
 };
 
 Mix.prototype.playPreviousTrack = function() {
-  if (this.hasPreviousTrack()) {
+  if (!this.hasPreviousTrack()) {
     return null;
   }
   this.currentTrackId--;
