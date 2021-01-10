@@ -76,4 +76,5 @@ Mix.prototype.shuffle = function() {
 
 Mix.prototype.unshuffle = function() {
   this.tracks = this.backup;
+  this.backup = null;
 };
