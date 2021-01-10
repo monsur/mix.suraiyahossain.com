@@ -116,7 +116,19 @@ Page.prototype.addEventListeners = function() {
     Events.previousButtonPress(that);
   });
 
+  document.getElementById("prevaction").addEventListener("touchstart", function() {
+    Events.previousButtonPress(that);
+  });
+
   document.getElementById("prevaction").addEventListener("mouseup", function() {
+    Events.previousButtonRelease(that);
+  });
+
+  document.getElementById("prevaction").addEventListener("touchend", function() {
+    Events.previousButtonRelease(that);
+  });
+
+  document.getElementById("prevaction").addEventListener("touchcancel", function() {
     Events.previousButtonRelease(that);
   });
 
@@ -128,7 +140,19 @@ Page.prototype.addEventListeners = function() {
     Events.nextButtonPress(that);
   });
 
+  document.getElementById("nextaction").addEventListener("touchstart", function() {
+    Events.nextButtonPress(that);
+  });
+
   document.getElementById("nextaction").addEventListener("mouseup", function() {
+    Events.nextButtonRelease(that);
+  });
+
+  document.getElementById("nextaction").addEventListener("touchend", function() {
+    Events.nextButtonRelease(that);
+  });
+
+  document.getElementById("nextaction").addEventListener("touchcancel", function() {
     Events.nextButtonRelease(that);
   });
 };
