@@ -58,3 +58,19 @@ Events.clickNextTrack = function(page) {
 Events.onResize = function(page) {
   page.ui.resize();
 };
+
+Events.nextButtonPress = function(page) {
+  page.ui.nextButtonPress();
+};
+
+Events.nextButtonRelease = function(page) {
+  page.ui.nextButtonRelease();
+};
+
+Events.previousButtonPress = function(page) {
+  page.ui.previousButtonPress();
+};
+
+Events.previousButtonRelease = function(page) {
+  page.ui.previousButtonRelease();
+};

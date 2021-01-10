@@ -113,3 +113,19 @@ UiController.prototype.toggleAlbumArt = function() {
   }
   return document.getElementById("albumartfrontimg").src = this.isFrontCoverVisible() ? this.backCover : this.frontCover;
 };
+
+UiController.prototype.nextButtonPress = function() {
+  document.getElementById("nextaction").src = 'images/nexttrackpressed.png';
+};
+
+UiController.prototype.nextButtonRelease = function() {
+  document.getElementById("nextaction").src = 'images/nexttrack.png';
+};
+
+UiController.prototype.previousButtonPress = function() {
+  document.getElementById("prevaction").src = 'images/prevtrackpressed.png';
+};
+
+UiController.prototype.previousButtonRelease = function() {
+  document.getElementById("prevaction").src = 'images/prevtrack.png';
+};

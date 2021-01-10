@@ -112,8 +112,24 @@ Page.prototype.addEventListeners = function() {
     Events.clickPreviousTrack(that);
   });
 
+  document.getElementById("prevaction").addEventListener("mousedown", function() {
+    Events.previousButtonPress(that);
+  });
+
+  document.getElementById("prevaction").addEventListener("mouseup", function() {
+    Events.previousButtonRelease(that);
+  });
+
   document.getElementById("nextaction").addEventListener("click", function() {
     Events.clickNextTrack(that);
+  });
+
+  document.getElementById("nextaction").addEventListener("mousedown", function() {
+    Events.nextButtonPress(that);
+  });
+
+  document.getElementById("nextaction").addEventListener("mouseup", function() {
+    Events.nextButtonRelease(that);
   });
 };
 
