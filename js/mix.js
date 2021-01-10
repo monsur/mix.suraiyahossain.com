@@ -65,7 +65,7 @@ Mix.prototype.startOver = function() {
 };
 
 Mix.prototype.shuffle = function() {
-  this.backup = this.tracks;
+  this.backup = this.tracks.slice();
   for (var i = 0; i < this.tracks.length; i++) {
     var randPos = Math.floor(Math.random() * Math.floor(this.tracks.length));
     var temp = this.tracks[i];
