@@ -9,6 +9,6 @@ Analytics.log = function(mix, action, label) {
     console.log(logstr);
   }
   if (window.ga) {
- //   ga("send", "event", Analytics.year, action, label);
+    ga("send", "event", Analytics.year, action, label);
   }
 };
