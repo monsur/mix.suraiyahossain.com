@@ -21,15 +21,10 @@ UiController.prototype.resize = function() {
     contentWidth = viewportWidth;
     imgWidth = contentWidth;
     marginTop = 0;
-  } else if (viewportWidth <= 900) {
-    this.mode = "medium";
-    contentWidth = viewportWidth;
-    imgWidth = contentWidth/2;
-    marginTop = 60;
   } else {
     this.mode = "large";
     contentWidth = 900;
-    imgWidth = contentWidth/2;
+    imgWidth = Math.min(contentWidth/2, 900);
     marginTop = 60;
   }
   if (this.mode == "small") {
