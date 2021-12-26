@@ -24,7 +24,7 @@ UiController.prototype.resize = function() {
   } else {
     this.mode = "large";
     contentWidth = Math.min(viewportWidth, 900);
-    imgWidth = Math.min(contentWidth/2, 900);
+    imgWidth = contentWidth/2;
     marginTop = 60;
   }
   if (this.mode == "small") {
