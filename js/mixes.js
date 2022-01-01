@@ -57,7 +57,7 @@ Mixes.prototype.load = function (label, callback) {
         callbackWrapper.call(null, mix);
       }
     })
-    .catch((e) =>  Analytics.error(label, e));
+    .catch((e) =>  Analytics.error(e));
 };
 
 Mixes.prototype.loadAll = function (callback, year) {

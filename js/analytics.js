@@ -13,6 +13,11 @@ Analytics.log = function (mix, action, label) {
   }
 };
 
-Analytics.error = function(mix, e) {
-  Analytics.log(mix, "error", e);
+Analytics.error = function(e) {
+  if (window.console) {
+    console.error(e);
+  }
+  if (window.ga) {
+    ga("send", "event", "error", e);
+  }
 };

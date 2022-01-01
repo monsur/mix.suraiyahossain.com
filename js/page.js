@@ -88,6 +88,10 @@ Page.prototype.addEventListeners = function () {
     Events.onHashChange(that);
   });
 
+  window.addEventListener("error", function(e) {
+    Analytics.error(e);
+  });
+
   this.player.onError(function () {
     Events.onPlayerError(that);
   });
