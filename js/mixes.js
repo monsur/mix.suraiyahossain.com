@@ -27,27 +27,6 @@ Mixes.prototype.loadTracks = function (data) {
   return tracks;
 };
 
-Mixes.prototype.fetch = function (label, callback) {
-  var that = this;
-  var req = new XMLHttpRequest();
-  req.addEventListener("load", function () {
-    var data = JSON.parse(req.responseText);
-    var tracks = that.loadTracks(data);
-
-    var mix = new Mix();
-    mix.addTracks(tracks);
-    that.mixes[label] = mix;
-
-    that.allMixes.addTracks(tracks);
-
-    if (callback) {
-      callback.call(null, mix);
-    }
-  });
-  req.open("GET", Mixes.getDataLink(label));
-  req.send();
-};
-
 Mixes.prototype.load = function (label, callback) {
   var that = this;
   var mix = this.mixes[label];
@@ -63,7 +42,22 @@ Mixes.prototype.load = function (label, callback) {
     callbackWrapper.call(null, mix);
     return;
   }
-  this.fetch(label, callbackWrapper);
+
+  fetch(Mixes.getDataLink(label))
+    .then((data) => data.json())
+    .then((data) => {
+      var tracks = that.loadTracks(data);
+
+      var mix = new Mix();
+      mix.addTracks(tracks);
+      that.mixes[label] = mix;
+
+      that.allMixes.addTracks(tracks);
+      if (callbackWrapper) {
+        callbackWrapper.call(null, mix);
+      }
+    })
+    .catch((e) =>  Analytics.error(label, e));
 };
 
 Mixes.prototype.loadAll = function (callback, year) {

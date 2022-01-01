@@ -12,3 +12,7 @@ Analytics.log = function (mix, action, label) {
     ga("send", "event", Analytics.year, action, label);
   }
 };
+
+Analytics.error = function(mix, e) {
+  Analytics.log(mix, "error", e);
+};
