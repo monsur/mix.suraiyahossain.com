@@ -1,46 +1,46 @@
-var Mix = function() {
+var Mix = function () {
   this.tracks = [];
   this.currentTrackId = 0;
   this.backup = null;
 };
 
-Mix.prototype.addTracks = function(tracks) {
+Mix.prototype.addTracks = function (tracks) {
   for (var i = 0; i < tracks.length; i++) {
     this.tracks.push(tracks[i]);
   }
   return this;
 };
 
-Mix.prototype.getTrack = function(i) {
+Mix.prototype.getTrack = function (i) {
   return this.tracks[i];
 };
 
-Mix.prototype.hasNextTrack = function() {
+Mix.prototype.hasNextTrack = function () {
   if (this.currentTrackId == this.tracks.length - 1) {
     return false;
   }
   return true;
 };
 
-Mix.prototype.hasPreviousTrack = function() {
+Mix.prototype.hasPreviousTrack = function () {
   if (this.currentTrackId == 0) {
     return false;
   }
   return true;
 };
 
-Mix.prototype.getCurrentTrack = function() {
+Mix.prototype.getCurrentTrack = function () {
   return this.getTrack(this.currentTrackId);
 };
 
-Mix.prototype.getNextTrack = function() {
+Mix.prototype.getNextTrack = function () {
   if (this.hasNextTrack()) {
     return this.getTrack(this.currentTrackId + 1);
   }
   return null;
 };
 
-Mix.prototype.playNextTrack = function() {
+Mix.prototype.playNextTrack = function () {
   if (!this.hasNextTrack()) {
     return null;
   }
@@ -48,7 +48,7 @@ Mix.prototype.playNextTrack = function() {
   return this.getCurrentTrack();
 };
 
-Mix.prototype.playPreviousTrack = function() {
+Mix.prototype.playPreviousTrack = function () {
   if (!this.hasPreviousTrack()) {
     return null;
   }
@@ -56,15 +56,15 @@ Mix.prototype.playPreviousTrack = function() {
   return this.getCurrentTrack();
 };
 
-Mix.prototype.isFinished = function() {
+Mix.prototype.isFinished = function () {
   return this.currentTrackId == this.tracks.length - 1;
 };
 
-Mix.prototype.startOver = function() {
+Mix.prototype.startOver = function () {
   this.currentTrackId = 0;
 };
 
-Mix.prototype.shuffle = function() {
+Mix.prototype.shuffle = function () {
   this.backup = this.tracks.slice();
   for (var i = 0; i < this.tracks.length; i++) {
     var randPos = Math.floor(Math.random() * Math.floor(this.tracks.length));
@@ -74,7 +74,7 @@ Mix.prototype.shuffle = function() {
   }
 };
 
-Mix.prototype.unshuffle = function() {
+Mix.prototype.unshuffle = function () {
   this.tracks = this.backup;
   this.backup = null;
 };

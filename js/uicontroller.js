@@ -1,4 +1,4 @@
-var UiController = function() {
+var UiController = function () {
   document.getElementById("albumart").style.display = "block";
   this.showPlay();
   this.mode = null;
@@ -9,7 +9,7 @@ var UiController = function() {
 UiController.PLAY_ICON = "images/play.png";
 UiController.PAUSE_ICON = "images/pause.png";
 
-UiController.prototype.resize = function() {
+UiController.prototype.resize = function () {
   // This function needs to be called once onload (after the mix is loaded),
   // and then once every time the window is resized.
   var imgWidth;
@@ -24,7 +24,7 @@ UiController.prototype.resize = function() {
   } else {
     this.mode = "large";
     contentWidth = Math.min(viewportWidth, 900);
-    imgWidth = contentWidth/2;
+    imgWidth = contentWidth / 2;
     marginTop = 60;
   }
   if (this.mode == "small") {
@@ -43,7 +43,7 @@ UiController.prototype.resize = function() {
   document.getElementById("albumartfrontimg").style.height = width;
 };
 
-UiController.prototype.togglePlay = function(isPlaying) {
+UiController.prototype.togglePlay = function (isPlaying) {
   if (isPlaying) {
     this.showPause();
   } else {
@@ -51,24 +51,24 @@ UiController.prototype.togglePlay = function(isPlaying) {
   }
 };
 
-UiController.prototype.isPlay = function() {
+UiController.prototype.isPlay = function () {
   return document.getElementById("playaction").src == UiController.PLAY_ICON;
 };
 
-UiController.prototype.showPlay = function() {
+UiController.prototype.showPlay = function () {
   document.getElementById("playaction").src = UiController.PLAY_ICON;
 };
 
-UiController.prototype.showPause = function() {
+UiController.prototype.showPause = function () {
   document.getElementById("playaction").src = UiController.PAUSE_ICON;
 };
 
-UiController.prototype.setCurrentTrack = function(track) {
+UiController.prototype.setCurrentTrack = function (track) {
   document.getElementById("title").innerHTML = track.getTitle();
   document.getElementById("artist").innerHTML = track.getArtist();
 };
 
-UiController.prototype.setNextTrack = function(track) {
+UiController.prototype.setNextTrack = function (track) {
   var text = "&nbsp";
   if (track) {
     text = "Next: " + track.getTitle() + " - " + track.getArtist();
@@ -76,51 +76,54 @@ UiController.prototype.setNextTrack = function(track) {
   document.getElementById("nexttrack").innerHTML = text;
 };
 
-UiController.prototype.setPageTitle = function(title) {
+UiController.prototype.setPageTitle = function (title) {
   document.title = title;
 };
 
-UiController.prototype.isFrontCoverVisible = function() {
+UiController.prototype.isFrontCoverVisible = function () {
   var img = document.getElementById("albumartfrontimg").src;
   return img.length == 0 || img.indexOf("front.jpg") >= 0;
 };
 
-UiController.prototype.setAlbumArt = function(frontSrc, backSrc, altText) {
- document.getElementById("albumartfrontimg").alt = altText;
- document.getElementById("albumartbackimg").alt = altText;
- document.getElementById("albumartbackimg").src = backSrc;
- document.getElementById("albumartfrontimg").src = this.isFrontCoverVisible() ? frontSrc : backSrc;
- this.frontCover = frontSrc;
- this.backCover = backSrc;
+UiController.prototype.setAlbumArt = function (frontSrc, backSrc, altText) {
+  document.getElementById("albumartfrontimg").alt = altText;
+  document.getElementById("albumartbackimg").alt = altText;
+  document.getElementById("albumartbackimg").src = backSrc;
+  document.getElementById("albumartfrontimg").src = this.isFrontCoverVisible()
+    ? frontSrc
+    : backSrc;
+  this.frontCover = frontSrc;
+  this.backCover = backSrc;
 };
 
-UiController.prototype.setDownloadLink = function(link) {
+UiController.prototype.setDownloadLink = function (link) {
   document.getElementById("downloadLink").href = link;
 };
 
-UiController.prototype.setSpotifyLink = function(link) {
+UiController.prototype.setSpotifyLink = function (link) {
   document.getElementById("spotifyLink").href = link;
 };
 
-UiController.prototype.toggleAlbumArt = function() {
+UiController.prototype.toggleAlbumArt = function () {
   if (this.mode != "small") {
     return null;
   }
-  return document.getElementById("albumartfrontimg").src = this.isFrontCoverVisible() ? this.backCover : this.frontCover;
+  return (document.getElementById("albumartfrontimg").src =
+    this.isFrontCoverVisible() ? this.backCover : this.frontCover);
 };
 
-UiController.prototype.nextButtonPress = function() {
-  document.getElementById("nextaction").src = 'images/nexttrackpressed.png';
+UiController.prototype.nextButtonPress = function () {
+  document.getElementById("nextaction").src = "images/nexttrackpressed.png";
 };
 
-UiController.prototype.nextButtonRelease = function() {
-  document.getElementById("nextaction").src = 'images/nexttrack.png';
+UiController.prototype.nextButtonRelease = function () {
+  document.getElementById("nextaction").src = "images/nexttrack.png";
 };
 
-UiController.prototype.previousButtonPress = function() {
-  document.getElementById("prevaction").src = 'images/prevtrackpressed.png';
+UiController.prototype.previousButtonPress = function () {
+  document.getElementById("prevaction").src = "images/prevtrackpressed.png";
 };
 
-UiController.prototype.previousButtonRelease = function() {
-  document.getElementById("prevaction").src = 'images/prevtrack.png';
+UiController.prototype.previousButtonRelease = function () {
+  document.getElementById("prevaction").src = "images/prevtrack.png";
 };

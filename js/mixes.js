@@ -1,30 +1,36 @@
-var Mixes = function(s3prefix) {
+var Mixes = function (s3prefix) {
   this.s3prefix = s3prefix || S3_PREFIX;
   this.mixes = {};
   this.allMixes = new Mix();
   this.currentMix = null;
 };
 
-Mixes.getDataLink = function(label) {
+Mixes.getDataLink = function (label) {
   return "years/" + label + "/data.json";
 };
 
-Mixes.prototype.loadTracks = function(data) {
+Mixes.prototype.loadTracks = function (data) {
   var tracks = [];
   for (i = 0; i < data.tracks.length; i++) {
     var track = new Track();
     var trackData = data.tracks[i];
-    track.setYear(data.year).setTitle(trackData.title).setArtist(trackData.artist);
-    track.setLink(trackData.src).setSpotifyLink(data.spotify).setMixTitle(data.title);
+    track
+      .setYear(data.year)
+      .setTitle(trackData.title)
+      .setArtist(trackData.artist);
+    track
+      .setLink(trackData.src)
+      .setSpotifyLink(data.spotify)
+      .setMixTitle(data.title);
     tracks.push(track);
   }
   return tracks;
 };
 
-Mixes.prototype.fetch = function(label, callback) {
+Mixes.prototype.fetch = function (label, callback) {
   var that = this;
   var req = new XMLHttpRequest();
-  req.addEventListener("load", function() {
+  req.addEventListener("load", function () {
     var data = JSON.parse(req.responseText);
     var tracks = that.loadTracks(data);
 
@@ -42,11 +48,11 @@ Mixes.prototype.fetch = function(label, callback) {
   req.send();
 };
 
-Mixes.prototype.load = function(label, callback) {
+Mixes.prototype.load = function (label, callback) {
   var that = this;
   var mix = this.mixes[label];
 
-  var callbackWrapper = function(mix) {
+  var callbackWrapper = function (mix) {
     that.currentMix = mix;
     if (callback) {
       callback.call(null, mix);
@@ -60,10 +66,10 @@ Mixes.prototype.load = function(label, callback) {
   this.fetch(label, callbackWrapper);
 };
 
-Mixes.prototype.loadAll = function(callback, year) {
+Mixes.prototype.loadAll = function (callback, year) {
   var that = this;
   year = year || MIN_YEAR;
-  this.load(year, function() {
+  this.load(year, function () {
     var nextYear = year + 1;
     if (nextYear <= MAX_YEAR) {
       that.loadAll(callback, nextYear);
@@ -75,7 +81,7 @@ Mixes.prototype.loadAll = function(callback, year) {
   });
 };
 
-Mixes.prototype.getCurrentMix = function() {
+Mixes.prototype.getCurrentMix = function () {
   // get() must have been called successfully once before calling
   // getCurrentMix()
   return this.currentMix;

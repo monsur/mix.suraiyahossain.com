@@ -1,4 +1,4 @@
 var _PAGE = new Page();
-window.onload = function() {
+window.onload = function () {
   _PAGE.loadPage();
 };

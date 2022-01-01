@@ -4,63 +4,74 @@
   "backgroundColor": "#e2e2de",
   "spotify": "TODO",
   "tracks": [
-    { "src": "01-BlackPumas-Colors.mp3",
+    {
+      "src": "01-BlackPumas-Colors.mp3",
       "title": "Colors",
       "artist": "Black Pumas (with Hypnotic Brass Ensemble)"
     },
-    { "src": "02-DinosaurJr-IRanAway.mp3",
+    {
+      "src": "02-DinosaurJr-IRanAway.mp3",
       "title": "I Ran Away",
       "artist": "Dinosaur Jr."
     },
-    { "src": "03-OliviaRodrigo-good4u.mp3",
+    {
+      "src": "03-OliviaRodrigo-good4u.mp3",
       "title": "good 4 u",
       "artist": "Olivia Rodrigo"
     },
-    { "src": "04-Bleachers-StopMakingThisHurt.mp3",
+    {
+      "src": "04-Bleachers-StopMakingThisHurt.mp3",
       "title": "Stop Making This Hurt",
       "artist": "Bleachers"
     },
-    { "src": "05-SleaterKinney-WorryWithYou.mp3",
+    {
+      "src": "05-SleaterKinney-WorryWithYou.mp3",
       "title": "Worry With You",
       "artist": "Sleater-Kinney"
     },
-    { "src": "06-Rostam-4Runner.mp3",
-      "title": "4Runner",
-      "artist": "Rostam"
-    },
-    { "src": "07-JapaneseBreakfast-BeSweet.mp3",
+    { "src": "06-Rostam-4Runner.mp3", "title": "4Runner", "artist": "Rostam" },
+    {
+      "src": "07-JapaneseBreakfast-BeSweet.mp3",
       "title": "Be Sweet",
       "artist": "Japanese Breakfast"
     },
-    { "src": "08-ArianaGrandeTheWeeknd-SaveYourTears.mp3",
+    {
+      "src": "08-ArianaGrandeTheWeeknd-SaveYourTears.mp3",
       "title": "Save Your Tears (Remix)",
       "artist": "The Weeknd (with Ariana Grande)"
     },
-    { "src": "09-PNAURemix-ColdHeart.mp3",
+    {
+      "src": "09-PNAURemix-ColdHeart.mp3",
       "title": "Cold Heart (PNAU Remix)",
       "artist": "Dua Lipa, Elton John, PNAU"
     },
-    { "src": "10-KaceyMusgraves-Justified.mp3",
+    {
+      "src": "10-KaceyMusgraves-Justified.mp3",
       "title": "justified",
       "artist": "Kacey Musgraves"
     },
-    { "src": "11-Glory-SnailMail.mp3",
+    {
+      "src": "11-Glory-SnailMail.mp3",
       "title": "Glory",
       "artist": "Snail Mail"
     },
-    { "src": "12-MUNA-SilkChiffon.mp3",
+    {
+      "src": "12-MUNA-SilkChiffon.mp3",
       "title": "Silk Chiffon (feat. Phoebe Bridgers)",
       "artist": "MUNA"
     },
-    { "src": "13-BarteesStrange-Weights.mp3",
+    {
+      "src": "13-BarteesStrange-Weights.mp3",
       "title": "Weights",
       "artist": "Bartees Strange"
     },
-    { "src": "14-CharliXCX-GoodOnes.mp3",
+    {
+      "src": "14-CharliXCX-GoodOnes.mp3",
       "title": "Good Ones",
       "artist": "Charli XCX"
     },
-    { "src": "15-JustinBieber-HoldOn.mp3",
+    {
+      "src": "15-JustinBieber-HoldOn.mp3",
       "title": "Hold On",
       "artist": "Justin Bieber"
     }

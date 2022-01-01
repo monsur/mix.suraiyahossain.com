@@ -1,6 +1,6 @@
-var Analytics = function() { };
+var Analytics = function () {};
 
-Analytics.log = function(mix, action, label) {
+Analytics.log = function (mix, action, label) {
   if (window.console) {
     var logstr = "LOG: " + mix + ", " + action;
     if (label) {

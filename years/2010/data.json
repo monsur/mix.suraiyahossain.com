@@ -4,63 +4,70 @@
   "backgroundColor": "#606060",
   "spotify": "https://open.spotify.com/playlist/2ZZ4V2RmhaFhGjULZgcHHH",
   "tracks": [
-    { "src": "01-JustinBieber-Baby.mp3",
+    {
+      "src": "01-JustinBieber-Baby.mp3",
       "title": "Baby",
       "artist": "Justin Bieber"
     },
-    { "src": "02-SleighBells-RillRill.mp3",
+    {
+      "src": "02-SleighBells-RillRill.mp3",
       "title": "Rill Rill",
       "artist": "Sleigh Bells"
     },
-    { "src": "03-TheNewPornographers-Moves.mp3",
+    {
+      "src": "03-TheNewPornographers-Moves.mp3",
       "title": "Moves",
       "artist": "The New Pornographers"
     },
-    { "src": "04-Yeasayer-AmblingAlp.mp3",
+    {
+      "src": "04-Yeasayer-AmblingAlp.mp3",
       "title": "Ambling Alp",
       "artist": "Yeasayer"
     },
-    { "src": "05-TheSeedySeeds-OnTheSubjectOfOurPastSelves.mp3",
+    {
+      "src": "05-TheSeedySeeds-OnTheSubjectOfOurPastSelves.mp3",
       "title": "On The Subject Of Our Past Selves",
       "artist": "The Seedy Seeds"
     },
-    { "src": "06-Erasure-Yahoo.mp3",
-      "title": "Yahoo!",
-      "artist": "Erasure"
-    },
-    { "src": "07-FrightenedRabbit-SwimUntilYouCantSeeLand.mp3",
+    { "src": "06-Erasure-Yahoo.mp3", "title": "Yahoo!", "artist": "Erasure" },
+    {
+      "src": "07-FrightenedRabbit-SwimUntilYouCantSeeLand.mp3",
       "title": "Swim Until You Can't See Land",
       "artist": "Frightened Rabbit"
     },
-    { "src": "08-BlindPilot-Oviedo.mp3",
+    {
+      "src": "08-BlindPilot-Oviedo.mp3",
       "title": "Oviedo",
       "artist": "Blind Pilot"
     },
-    { "src": "09-Darling-SomeBadDream.mp3",
+    {
+      "src": "09-Darling-SomeBadDream.mp3",
       "title": "Some Bad Dream",
       "artist": "Darling"
     },
-    { "src": "10-TaioCruz-Dynamite.mp3",
+    {
+      "src": "10-TaioCruz-Dynamite.mp3",
       "title": "Dynamite",
       "artist": "Taio Cruz"
     },
-    { "src": "11-Quadron-Slippin.mp3",
+    {
+      "src": "11-Quadron-Slippin.mp3",
       "title": "Slippin'",
       "artist": "Quadron"
     },
-    { "src": "12-MGMT-TheYouth.mp3",
-      "title": "The Youth",
-      "artist": "MGMT"
-    },
-    { "src": "13-DanZanes&Friends-JumpUp.mp3",
+    { "src": "12-MGMT-TheYouth.mp3", "title": "The Youth", "artist": "MGMT" },
+    {
+      "src": "13-DanZanes&Friends-JumpUp.mp3",
       "title": "Jump Up",
       "artist": "Dan Zanes & Friends"
     },
-    { "src": "14-WhatIAm-will.i.am.mp3",
+    {
+      "src": "14-WhatIAm-will.i.am.mp3",
       "title": "What I Am",
       "artist": "will.i.am"
     },
-    { "src": "15-EmmylouHarris-ToKnowHimIsToLoveHim.mp3",
+    {
+      "src": "15-EmmylouHarris-ToKnowHimIsToLoveHim.mp3",
       "title": "To Know Him Is To Love Him",
       "artist": "Emmylou Harris"
     }
