@@ -118,7 +118,7 @@ Page.prototype.addEventListeners = function() {
 
   document.getElementById("prevaction").addEventListener("touchstart", function() {
     Events.previousButtonPress(that);
-  });
+  }, {passive: true});
 
   document.getElementById("prevaction").addEventListener("mouseup", function() {
     Events.previousButtonRelease(that);
@@ -142,7 +142,7 @@ Page.prototype.addEventListeners = function() {
 
   document.getElementById("nextaction").addEventListener("touchstart", function() {
     Events.nextButtonPress(that);
-  });
+  }, {passive: true});
 
   document.getElementById("nextaction").addEventListener("mouseup", function() {
     Events.nextButtonRelease(that);
