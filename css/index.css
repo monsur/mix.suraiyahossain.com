@@ -49,6 +49,10 @@ body {
   padding-bottom: 10px;
   clear: both;
 }
+#player img {
+  height: 50px;
+  width: 50px;
+}
 #playaction {
   padding-left: 40px;
   padding-right: 40px;
