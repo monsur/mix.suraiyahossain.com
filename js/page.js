@@ -11,6 +11,7 @@ var Page = function () {
   this.player = new Player();
   this.ui = new UiController();
   this.nextAudio = new Audio();
+  this.imagesCache = [];
 };
 
 // Retrive the label from the url.
@@ -77,6 +78,25 @@ Page.prototype.loadPageEnd = function () {
   // The page is hidden by default on page load.
   // Once the entire page's UI is set, show the page.
   document.getElementById("content").style.display = "block";
+
+  // Once the page is finished loading, preload the other year's album art to
+  // avoid lag when switching between years.
+  this.preloadAlbumArt();
+};
+
+Page.prototype.preloadAlbumArt = function () {
+  for (var year = MAX_YEAR; year >= MIN_YEAR; year--) {
+    var basePath = "years/" + year + "/";
+
+    var imgFront = new Image();
+    imgFront.src = basePath + "front.jpg";
+
+    var imgBack = new Image();
+    imgBack.src = basePath + "back.jpg";
+
+    this.imagesCache.push(imgFront);
+    this.imagesCache.push(imgBack);
+  }
 };
 
 // Configure all the event listeners for the page.
