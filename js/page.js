@@ -210,7 +210,7 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
       this.ui.setDownloadLink(track.getDownloadLink());
       this.ui.setSpotifyLink(track.getSpotifyLink());
       this.ui.setBackgroundColor(track.getBackgroundColor());
-      this.prevTrackYear == track.getYear();
+      this.prevTrackYear = track.getYear();
     }
     this.ui.setCurrentTrack(track);
     this.ui.setNextTrack(nextTrack);
