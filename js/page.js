@@ -10,6 +10,7 @@ var Page = function () {
   this.mixes = new Mixes();
   this.player = new Player();
   this.ui = new UiController();
+  this.nextAudio = new Audio();
 };
 
 // Retrive the label from the url.
@@ -202,6 +203,13 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
     }
     this.ui.setCurrentTrack(track);
     this.ui.setNextTrack(nextTrack);
+
+    if (nextTrack) {
+      // Preload audio to prevent lag.
+      this.nextAudio.src = nextTrack.getLink();
+      this.nextAudio.load();
+    }
+
     Analytics.log(track.getYear(), action, track.toString());
   }
 };
