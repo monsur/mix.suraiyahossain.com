@@ -212,14 +212,20 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
 
     if (nextTrack) {
       // Preload audio to prevent lag.
-      setTimeout(function () {
-        that.nextAudio.src = nextTrack.getLink();
-        that.nextAudio.load();
-      }, 0);
+      // Currently disabled due to slowness when album art changes.
+      // this.preloadTrack(nextTrack);
     }
 
     Analytics.log(track.getYear(), action, track.toString());
   }
+};
+
+Page.prototype.preloadTrack = function(track) {
+  var that = this;
+  setTimeout(function () {
+    that.nextAudio.src = track.getLink();
+    that.nextAudio.load();
+  }, 0);
 };
 
 Page.prototype.loadMix = function (callback) {
