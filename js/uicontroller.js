@@ -80,6 +80,9 @@ UiController.prototype.setPageTitle = function (title) {
   document.title = title;
 };
 
+UiController.prototype.setBackgroundColor = function (color) {
+};
+
 UiController.prototype.isFrontCoverVisible = function () {
   var img = document.getElementById("albumartfrontimg").src;
   return img.length == 0 || img.indexOf("front.jpg") >= 0;
