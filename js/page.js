@@ -71,6 +71,8 @@ Page.prototype.createYearNav = function () {
 };
 
 Page.prototype.loadPageEnd = function () {
+  var that = this;
+
   this.ui.resize();
 
   this.addEventListeners();
@@ -81,25 +83,29 @@ Page.prototype.loadPageEnd = function () {
 
   // Once the page is finished loading, preload the other year's album art to
   // avoid lag when switching between years.
-  this.preloadAlbumArt();
-};
-
-Page.prototype.preloadAlbumArt = function () {
-  var that = this;
   setTimeout(function () {
+    var images = [];
     for (var year = MAX_YEAR; year >= MIN_YEAR; year--) {
       var basePath = "years/" + year + "/";
-
-      var imgFront = new Image();
-      imgFront.src = basePath + "front.jpg";
-
-      var imgBack = new Image();
-      imgBack.src = basePath + "back.jpg";
-
-      that.imagesCache.push(imgFront);
-      that.imagesCache.push(imgBack);
+      images.push(basePath + "front.jpg");
+      images.push(basePath + "back.jpg");
     }
+    that.preloadAlbumArt(images);
   }, 5);
+};
+
+Page.prototype.preloadAlbumArt = function (images) {
+  if (images.length == 0) {
+    return;
+  }
+
+  var that = this;
+
+  var image = new Image();
+  image.src = images.pop();
+  image.addEventListener("load", function () {
+    that.preloadAlbumArt(images);
+  });
 };
 
 // Configure all the event listeners for the page.
