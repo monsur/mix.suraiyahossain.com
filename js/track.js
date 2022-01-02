@@ -38,6 +38,11 @@ Track.prototype.setMixTitle = function (mixTitle) {
   return this;
 };
 
+Track.prototype.setBackgroundColor = function (backgroundColor) {
+  this.backgroundColor = backgroundColor;
+  return this;
+};
+
 Track.prototype.getYear = function () {
   return this.year;
 };
@@ -72,6 +77,10 @@ Track.prototype.getBackCoverLink = function () {
 
 Track.prototype.getMixTitle = function () {
   return this.mixTitle;
+};
+
+Track.prototype.getBackgroundColor = function () {
+  return this.backgroundColor;
 };
 
 Track.prototype.toString = function () {

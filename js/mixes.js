@@ -11,17 +11,17 @@ Mixes.getDataLink = function (label) {
 
 Mixes.prototype.loadTracks = function (data) {
   var tracks = [];
-  for (i = 0; i < data.tracks.length; i++) {
+  for (var i = 0; i < data.tracks.length; i++) {
     var track = new Track();
     var trackData = data.tracks[i];
     track
       .setYear(data.year)
       .setTitle(trackData.title)
-      .setArtist(trackData.artist);
-    track
+      .setArtist(trackData.artist)
       .setLink(trackData.src)
       .setSpotifyLink(data.spotify)
-      .setMixTitle(data.title);
+      .setMixTitle(data.title)
+      .setBackgroundColor(data.backgroundColor);
     tracks.push(track);
   }
   return tracks;
