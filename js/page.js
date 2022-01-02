@@ -85,18 +85,21 @@ Page.prototype.loadPageEnd = function () {
 };
 
 Page.prototype.preloadAlbumArt = function () {
-  for (var year = MAX_YEAR; year >= MIN_YEAR; year--) {
-    var basePath = "years/" + year + "/";
+  var that = this;
+  setTimeout(function () {
+    for (var year = MAX_YEAR; year >= MIN_YEAR; year--) {
+      var basePath = "years/" + year + "/";
 
-    var imgFront = new Image();
-    imgFront.src = basePath + "front.jpg";
+      var imgFront = new Image();
+      imgFront.src = basePath + "front.jpg";
 
-    var imgBack = new Image();
-    imgBack.src = basePath + "back.jpg";
+      var imgBack = new Image();
+      imgBack.src = basePath + "back.jpg";
 
-    this.imagesCache.push(imgFront);
-    this.imagesCache.push(imgBack);
-  }
+      that.imagesCache.push(imgFront);
+      that.imagesCache.push(imgBack);
+    }
+  }, 5);
 };
 
 // Configure all the event listeners for the page.
@@ -210,6 +213,7 @@ Page.prototype.addEventListeners = function () {
 };
 
 Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
+  var that = this;
   if (track) {
     this.player.setCurrentTrack(track, isPlaying);
     if (this.prevTrackYear != track.getYear()) {
@@ -229,8 +233,10 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
 
     if (nextTrack) {
       // Preload audio to prevent lag.
-      this.nextAudio.src = nextTrack.getLink();
-      this.nextAudio.load();
+      setTimeout(function () {
+        that.nextAudio.src = nextTrack.getLink();
+        that.nextAudio.load();
+      }, 0);
     }
 
     Analytics.log(track.getYear(), action, track.toString());
