@@ -8,9 +8,10 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": "/",
+  "start_url": "/index.html",
   "background_color": "#3c3c3e",
   "display": "minimal-ui",
   "scope": "/",
-  "description": "Suraiya's yearly mix"
+  "description": "Suraiya's yearly mix",
+  "theme_color": "#3c3c3e"
 }
