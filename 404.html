@@ -1,18 +1,20 @@
 <html>
   <head>
+    <script src="js/globals.js"></script>
+    <script src="js/analytics.js"></script>
     <script type="text/javascript">
-      console.log("404 url: " + window.location.toString());
+      var year = "";
       var redirect = "/index.html";
       var re = /(20\d\d)/;
       var matches = re.exec(window.location);
       if (matches && matches.length > 1) {
         var year = parseInt(matches[1]);
         // Verify the year parsed from the url is supported.
-        if (year >= 2007 && year <= 2020) {
+        if (year >= MIN_YEAR && year <= MAX_YEAR) {
           redirect += "#" + year;
         }
       }
-      console.log("Redirect url: " + redirect);
+      Analytics.log(year, "redirect", "Redirecting from " + window.location + " to " + redirect);
       window.location.href = redirect;
     </script>
   </head>
