@@ -230,7 +230,7 @@ Page.prototype.preloadTrack = function(track) {
     that.nextAudio.src = track.getLink();
     that.nextAudio.load();
     that.timeoutId = null;
-  }, 10000);
+  }, 60000);
 };
 
 Page.prototype.loadMix = function (callback) {
