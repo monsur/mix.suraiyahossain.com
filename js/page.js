@@ -42,7 +42,7 @@ Page.prototype.loadPage = function () {
 // Create the navigation links for each year at the bottom of the page.
 // Doesn't rely on state so can be run once when the page loads.
 Page.prototype.createYearNav = function () {
-  var itemsPerLine = 7;
+  var itemsPerLine = 8;
 
   // Create links to mixes from previous year.
   // This is done early because it doesn't rely on any mix-specific data.
@@ -88,7 +88,7 @@ Page.prototype.addEventListeners = function () {
     Events.onHashChange(that);
   });
 
-  window.addEventListener("error", function(e) {
+  window.addEventListener("error", function (e) {
     Analytics.error(e);
   });
 
