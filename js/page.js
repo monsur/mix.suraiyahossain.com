@@ -54,7 +54,10 @@ Page.prototype.createYearNav = function () {
       if (pos % itemsPerLine == 0) {
         yearLinks.append(document.createElement("br"));
       } else {
-        yearLinks.append(document.createTextNode(" | "));
+        var span = document.createElement("span");
+        span.className = "yearLinksSpacer";
+        span.appendChild(document.createTextNode(" | "));
+        yearLinks.append(span);
       }
     }
     pos++;

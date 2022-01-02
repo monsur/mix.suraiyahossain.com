@@ -17,12 +17,17 @@ body {
   background-image: linear-gradient(#3c3c3e, #171719, #000000);
 }
 #yearLinks {
+  color: #4c4c4c;
   padding-top: 20px;
 }
 #yearLinks a {
-  color: #fff;
+  color: #4c4c4c;
   font-weight: bold;
   text-decoration: none;
+}
+.yearLinksSpacer {
+  margin-left: 3px;
+  margin-right: 3px;
 }
 .yearLink {
   display: none;
