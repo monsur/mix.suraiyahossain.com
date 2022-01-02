@@ -11,6 +11,7 @@ var Page = function () {
   this.player = new Player();
   this.ui = new UiController();
   this.nextAudio = new Audio();
+  this.timeoutId = null;
 };
 
 // Retrive the label from the url.
@@ -194,6 +195,10 @@ Page.prototype.addEventListeners = function () {
 Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
   var that = this;
   if (track) {
+    if (this.timeoutId) {
+      // Clear any existing loading of next track.
+      clearTimeout(this.timeoutId);
+    }
     this.player.setCurrentTrack(track, isPlaying);
     if (this.prevTrackYear != track.getYear()) {
       this.ui.setPageTitle(track.getMixTitle());
@@ -212,8 +217,7 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
 
     if (nextTrack) {
       // Preload audio to prevent lag.
-      // Currently disabled due to slowness when album art changes.
-      // this.preloadTrack(nextTrack);
+      this.preloadTrack(nextTrack);
     }
 
     Analytics.log(track.getYear(), action, track.toString());
@@ -222,10 +226,11 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
 
 Page.prototype.preloadTrack = function(track) {
   var that = this;
-  setTimeout(function () {
+  this.timeoutId = setTimeout(function () {
     that.nextAudio.src = track.getLink();
     that.nextAudio.load();
-  }, 0);
+    that.timeoutId = null;
+  }, 10000);
 };
 
 Page.prototype.loadMix = function (callback) {
