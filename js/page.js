@@ -106,6 +106,7 @@ Page.prototype.preloadAlbumArt = function (images) {
   image.addEventListener("load", function () {
     that.preloadAlbumArt(images);
   });
+  that.imagesCache.push(image);
 };
 
 // Configure all the event listeners for the page.
