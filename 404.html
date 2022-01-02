@@ -14,7 +14,11 @@
           redirect += "#" + year;
         }
       }
-      Analytics.log(year, "redirect", "Redirecting from " + window.location + " to " + redirect);
+      Analytics.log(
+        year,
+        "redirect",
+        "Redirecting from " + window.location + " to " + redirect
+      );
       window.location.href = redirect;
     </script>
   </head>

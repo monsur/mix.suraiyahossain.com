@@ -1,6 +1,6 @@
 var Analytics = function () {};
 
-Analytics.logToServer = function(action, label) {
+Analytics.logToServer = function (action, label) {
   if (window.gtag) {
     gtag("event", action, { event_label: label });
   }
