@@ -4,7 +4,7 @@ Events.onHashChange = function (page) {
   page.loadMix();
 };
 
-Events.clickDownloadLink = function () {
+Events.clickDownloadLink = function (page) {
   Analytics.log(
     page.mixes.getCurrentMix().getCurrentTrack().getYear(),
     "download"

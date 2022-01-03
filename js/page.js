@@ -109,7 +109,9 @@ Page.prototype.addEventListeners = function () {
 
   document
     .getElementById("downloadLink")
-    .addEventListener("click", Events.clickDownloadLink);
+    .addEventListener("click", function () {
+      Events.clickDownloadLink(that);
+    });
 
   document.getElementById("albumart").addEventListener("click", function () {
     Events.clickAlbumArt(that);
