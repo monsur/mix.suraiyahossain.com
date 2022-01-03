@@ -199,6 +199,7 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
       // Clear any existing loading of next track.
       clearTimeout(this.timeoutId);
     }
+
     if (this.prevTrackYear != track.getYear()) {
       this.ui.setPageTitle(track.getMixTitle());
       this.ui.setAlbumArt(
@@ -211,6 +212,7 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
       this.ui.setBackgroundColor(track.getBackgroundColor());
       this.prevTrackYear = track.getYear();
     }
+
     this.player.setCurrentTrack(track, isPlaying);
     this.ui.setCurrentTrack(track);
     this.ui.setNextTrack(nextTrack);
@@ -224,7 +226,7 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
   }
 };
 
-Page.prototype.preloadTrack = function(track) {
+Page.prototype.preloadTrack = function (track) {
   var that = this;
   this.timeoutId = setTimeout(function () {
     that.nextAudio.src = track.getLink();
