@@ -12,8 +12,8 @@ Mixes.getDataLink = function (label) {
 Mixes.prototype.loadTracks = function (data) {
   var tracks = [];
   for (var i = 0; i < data.tracks.length; i++) {
-    var track = new Track();
     var trackData = data.tracks[i];
+    var track = new Track();
     track
       .setYear(data.year)
       .setTitle(trackData.title)
