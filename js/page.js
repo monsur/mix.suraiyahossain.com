@@ -113,6 +113,12 @@ Page.prototype.addEventListeners = function () {
       Events.clickDownloadLink(that);
     });
 
+    document
+    .getElementById("spotifyLink")
+    .addEventListener("click", function () {
+      Events.clickSpotifyLink(that);
+    });
+
   document.getElementById("albumart").addEventListener("click", function () {
     Events.clickAlbumArt(that);
   });

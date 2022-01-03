@@ -11,6 +11,13 @@ Events.clickDownloadLink = function (page) {
   );
 };
 
+Events.clickSpotifyLink = function (page) {
+  Analytics.log(
+    page.mixes.getCurrentMix().getCurrentTrack().getYear(),
+    "spotify"
+  );
+};
+
 Events.clickAlbumArt = function (page) {
   var newImg = page.ui.toggleAlbumArt();
   if (newImg) {
