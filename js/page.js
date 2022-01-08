@@ -20,7 +20,7 @@ Page.prototype.getMixLabel = function () {
   var re = /(20\d\d)/;
   var mixLabel = "";
   if (window.location.hash) {
-    mixLabel = window.location.hash.substr(1);
+    mixLabel = window.location.hash.substring(1);
   }
   var matches = re.exec(mixLabel);
   if (matches && matches.length > 1) {
