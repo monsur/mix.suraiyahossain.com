@@ -1,25 +1,28 @@
 var Analytics = function () {};
 
-Analytics.logToServer = function (action, label) {
+Analytics.logToServer = function (category, action, label) {
   if (window.gtag) {
-    gtag("event", action, { event_label: label });
+    gtag("event", action, { event_category: category, event_label: label });
   }
 };
 
-Analytics.log = function (mix, action, label) {
-  var logstr = "LOG: " + mix + ", " + action;
+Analytics.log = function (category, action, label, year) {
+  var logstr = "[" + category + ", " + action + "] ";
+  if (year) {
+    logstr += year + ", ";
+  }
   if (label) {
-    logstr += ", " + label;
+    logstr += label;
   }
   if (window.console) {
     console.log(logstr);
   }
-  Analytics.logToServer(action, logstr);
+  Analytics.logToServer(category, action, logstr);
 };
 
 Analytics.error = function (e) {
   if (window.console) {
     console.error(e);
   }
-  Analytics.logToServer("error", e.toString());
+  Analytics.logToServer("error", "error", e.toString());
 };

@@ -23,8 +23,12 @@ Page.prototype.getMixLabel = function () {
     mixLabel = window.location.hash.substr(1);
   }
   var matches = re.exec(mixLabel);
-  if ((matches && matches.length > 1) || mixLabel == "all") {
-    return mixLabel;
+  if (matches && matches.length > 1) {
+    if (mixLabel == "all") {
+      return mixLabel;
+    } else if (mixLabel >= MIN_YEAR && mixLabel <= MAX_YEAR) {
+      return mixLabel;
+    }
   }
   return MAX_YEAR;
 };
@@ -113,11 +117,9 @@ Page.prototype.addEventListeners = function () {
       Events.clickDownloadLink(that);
     });
 
-    document
-    .getElementById("spotifyLink")
-    .addEventListener("click", function () {
-      Events.clickSpotifyLink(that);
-    });
+  document.getElementById("spotifyLink").addEventListener("click", function () {
+    Events.clickSpotifyLink(that);
+  });
 
   document.getElementById("albumart").addEventListener("click", function () {
     Events.clickAlbumArt(that);
@@ -230,7 +232,7 @@ Page.prototype.updateTrack = function (track, nextTrack, action, isPlaying) {
       this.preloadTrack(nextTrack);
     }
 
-    Analytics.log(track.getYear(), action, track.toString());
+    Analytics.log("player", action, track.toString(), track.getYear());
   }
 };
 

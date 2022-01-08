@@ -6,15 +6,17 @@ Events.onHashChange = function (page) {
 
 Events.clickDownloadLink = function (page) {
   Analytics.log(
-    page.mixes.getCurrentMix().getCurrentTrack().getYear(),
-    "download"
+    "navigation",
+    "download",
+    page.mixes.getCurrentMix().getCurrentTrack().getYear()
   );
 };
 
 Events.clickSpotifyLink = function (page) {
   Analytics.log(
-    page.mixes.getCurrentMix().getCurrentTrack().getYear(),
-    "spotify"
+    "navigation",
+    "spotify",
+    page.mixes.getCurrentMix().getCurrentTrack().getYear()
   );
 };
 
@@ -22,9 +24,10 @@ Events.clickAlbumArt = function (page) {
   var newImg = page.ui.toggleAlbumArt();
   if (newImg) {
     Analytics.log(
-      page.mixes.getCurrentMix().getCurrentTrack().getYear(),
+      "navigation",
       "albumart",
-      newImg
+      newImg,
+      page.mixes.getCurrentMix().getCurrentTrack().getYear()
     );
   }
 };
@@ -60,9 +63,10 @@ Events.clickPlay = function (page) {
   var isPlaying = page.player.togglePlay();
   page.ui.togglePlay(isPlaying);
   Analytics.log(
-    page.mixes.getCurrentMix().getCurrentTrack().getYear(),
+    "player",
     isPlaying ? "play" : "pause",
-    mix.getCurrentTrack().toString()
+    mix.getCurrentTrack().toString(),
+    page.mixes.getCurrentMix().getCurrentTrack().getYear()
   );
 };
 
