@@ -17,22 +17,11 @@ var Page = function () {
 // Retrive the label from the url.
 // The label is expected to be in the url hash, e.g. #2020
 Page.prototype.getMixLabel = function () {
-  var mixLabel = "";
-  if (window.location.hash) {
-    mixLabel = window.location.hash.substring(1);
+  var year = Helpers.parseYear(window.location.hash);
+  if (!year) {
+    return MAX_YEAR;
   }
-  if (mixLabel == "all") {
-    return mixLabel;
-  }
-  var re = /(20\d\d)/;
-  var matches = re.exec(mixLabel);
-  if (matches && matches.length > 1) {
-    var year = matches[1];
-    if (year >= MIN_YEAR && year <= MAX_YEAR) {
-      return parseInt(year);
-    }
-  }
-  return MAX_YEAR;
+  return year;
 };
 
 // Entry point for loading the entire page.
