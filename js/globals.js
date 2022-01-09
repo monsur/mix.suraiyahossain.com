@@ -8,7 +8,7 @@ var Helpers = {
   parseYear: function (input) {
     input = input.toString();
     if (!input) {
-      return null;
+      return MAX_YEAR;
     }
     if (input.startsWith("#")) {
       input = input.substring(1);
@@ -24,6 +24,6 @@ var Helpers = {
         return parseInt(year);
       }
     }
-    return null;
+    return MAX_YEAR;
   },
 };

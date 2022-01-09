@@ -14,16 +14,6 @@ var Page = function () {
   this.timeoutId = null;
 };
 
-// Retrive the label from the url.
-// The label is expected to be in the url hash, e.g. #2020
-Page.prototype.getMixLabel = function () {
-  var year = Helpers.parseYear(window.location.hash);
-  if (!year) {
-    return MAX_YEAR;
-  }
-  return year;
-};
-
 // Entry point for loading the entire page.
 // Runs once per-page load.
 Page.prototype.loadPage = function () {
@@ -238,7 +228,7 @@ Page.prototype.preloadTrack = function (track) {
 
 Page.prototype.loadMix = function (callback) {
   var that = this;
-  var label = this.getMixLabel();
+  var label = Helpers.parseYear(window.location.hash);
 
   var callbackWrapper = function (mix) {
     that.loadMixEnd(mix, callback);

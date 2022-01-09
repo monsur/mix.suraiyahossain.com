@@ -1,8 +1,5 @@
 var year = Helpers.parseYear(window.location);
-var redirect = "/index.html";
-if (year) {
-  redirect += "#" + year;
-}
+var redirect = "/index.html#" + year;
 Analytics.log(
   "navigation",
   "redirect",
