@@ -26,8 +26,9 @@ const router = createBrowserRouter([
   {
     path: "/*",
     element: <Root />,
-    loader: ({ params }) => {
-      return getYear(params["*"]);
+    loader: async ({ params }) => {
+      const year = getYear(params["*"]);
+      return fetch(`${process.env.PUBLIC_URL}/years/${year}/data.json`);
     },
   },
 ]);
