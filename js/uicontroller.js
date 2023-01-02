@@ -81,7 +81,7 @@ UiController.prototype.setPageTitle = function (title) {
 };
 
 UiController.prototype.setBackgroundColor = function (color) {
-  // document.body.style.backgroundColor = color;
+  document.body.style.backgroundColor = color;
 };
 
 UiController.prototype.isFrontCoverVisible = function () {
