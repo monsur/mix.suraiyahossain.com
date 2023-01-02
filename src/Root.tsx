@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLoaderData } from "react-router-dom";
-
-interface YearData {
-  title: string
-};
+import { YearData } from "./Types";
 
 function Root() {
   const data = useLoaderData() as YearData;
