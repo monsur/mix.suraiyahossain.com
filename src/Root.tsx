@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLoaderData } from "react-router-dom";
 import { YearData } from "./Types";
 import AlbumArt from "./AlbumArt";
@@ -8,7 +8,7 @@ function Root() {
 
   useEffect(() => {
     document.title = data.title;
-  });
+  }, []);
 
   return (
     <AlbumArt data={data} />

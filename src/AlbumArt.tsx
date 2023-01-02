@@ -1,13 +1,22 @@
+import React from "react";
 import { YearData } from "./Types";
+import AlbumArtSmall from "./AlbumArtSmall";
+import AlbumArtLarge from "./AlbumArtLarge";
 
-function AlbumArt(props: {data: YearData}) {
+function AlbumArt(props: { data: YearData }) {
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const breakpoint = 505;
+
   let baseUrl = process.env.PUBLIC_URL + "/years/" + props.data.year;
 
-  return (
-    <div>
-      <img src={`${baseUrl}/back.jpg`} />
-      <img src={`${baseUrl}/front.jpg`} />
-    </div>
+  React.useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, []);
+
+  return width < breakpoint ? (
+    <AlbumArtSmall data={props.data} />
+  ) : (
+    <AlbumArtLarge data={props.data} />
   );
 }
 
