@@ -1,0 +1,83 @@
+{
+  "year": 2014,
+  "title": "TwentyFourteen",
+  "backgroundColor": "#cdbdda",
+  "spotify": "https://open.spotify.com/playlist/58EZSHJ7qbRXaUTnzVcWOi",
+  "tracks": [
+    {
+      "src": "01-Drowners-WaysToPhraseARejection.mp3",
+      "title": "Ways to Phrase a Rejection",
+      "artist": "Drowners"
+    },
+    {
+      "src": "02-PitySex-Wind-Up.mp3",
+      "title": "Wind-Up",
+      "artist": "Pity Sex"
+    },
+    {
+      "src": "03-StVincent-DigitalWitness.mp3",
+      "title": "Digital Witness",
+      "artist": "St. Vincent"
+    },
+    {
+      "src": "04-CherLloyd-JustBeMine.mp3",
+      "title": "Just Be Mine",
+      "artist": "Cher Lloyd"
+    },
+    {
+      "src": "05-TheCourtneys-InsufficientFunds.mp3",
+      "title": "Insufficient Funds",
+      "artist": "The Courtneys"
+    },
+    {
+      "src": "06-ExHex-DontWannaLose.mp3",
+      "title": "Don't Wanna Lose",
+      "artist": "Ex Hex"
+    },
+    {
+      "src": "07-WildCub-ThunderClatter.mp3",
+      "title": "Thunder Clatter",
+      "artist": "Wild Cub"
+    },
+    {
+      "src": "08-CutCopy-WeAreExplorers.mp3",
+      "title": "We Are Explorers",
+      "artist": "Cut Copy"
+    },
+    {
+      "src": "09-TaylorSwift-BlankSpace.mp3",
+      "title": "Blank Space",
+      "artist": "Taylor Swift"
+    },
+    {
+      "src": "10-GodHelpTheGirl-GodHelpTheGirl.mp3",
+      "title": "God Help the Girl",
+      "artist": "God Help the Girl"
+    },
+    {
+      "src": "11-SofiaTheFirst-Anything.mp3",
+      "title": "Anything",
+      "artist": "Sofia the First"
+    },
+    {
+      "src": "12-Kiesza-Hideaway.mp3",
+      "title": "Hideaway",
+      "artist": "Kiesza"
+    },
+    {
+      "src": "13-Stars-ThisIsTheLastTime.mp3",
+      "title": "This is the Last Time",
+      "artist": "Stars"
+    },
+    {
+      "src": "14-KarenO-TheMoonSong.mp3",
+      "title": "The Moon Song",
+      "artist": "Ezra Koenig & Karen O"
+    },
+    {
+      "src": "15-FutureIslands-SeasonsWaitingOnYou.mp3",
+      "title": "Seasons (Waiting on You)",
+      "artist": "Future Islands"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "year": 2022,
+  "title": "TwentyTwentyTwo",
+  "backgroundColor": "#73e5de",
+  "spotify": "https://open.spotify.com/playlist/0fXjlXDCrxLtX8DvvqHXZ3?si=7b29a0412e6c443c",
+  "tracks": [
+    {
+      "src": "01-Beyoncé-BREAKMYSOUL.mp3",
+      "title": "BREAK MY SOUL",
+      "artist": "Beyoncé"
+    },
+    {
+      "src": "02-Muna-AnythingButMe.mp3",
+      "title": "Anything But Me",
+      "artist": "Muna"
+    },
+    {
+      "src": "03-Phoenix-Season2.mp3",
+      "title": "Season 2",
+      "artist": "Phoenix"
+    },
+    {
+      "src": "04-Ritviz-Mehfooz.mp3",
+      "title": "Mehfooz",
+      "artist": "Ritviz"
+    },
+    {
+      "src": "05-YayaBey-meetmeinbrooklyn.mp3",
+      "title": "meet me in brooklyn",
+      "artist": "Yaya Bey"
+    },
+    {
+      "src": "06-Domi&JDBECK-UDontHaveToRobMe.mp3",
+      "title": "U DON'T HAVE TO ROB ME",
+      "artist": "DOMi & JD Beck"
+    },
+    {
+      "src": "07-ElyannaBalti-GhareebAlay.mp3",
+      "title": "Ghareeb Alay",
+      "artist": "Elyanna & Balti"
+    },
+    {
+      "src": "08-JapaneseBreakfast-SkinnyLove.mp3",
+      "title": "Skinny Love (Spotify Singles)",
+      "artist": "Japanese Breakfast"
+    },
+    {
+      "src": "09-PhoebeBridgers-Sidelines.mp3",
+      "title": "Sidelines",
+      "artist": "Phoebe Bridgers"
+    },
+    {
+      "src": "10-Gatlin-WhatIfILoveYou.mp3",
+      "title": "What If I Love You",
+      "artist": "Gatlin"
+    },
+    {
+      "src": "11-MollyNilsson-AbsolutePower.mp3",
+      "title": "Absolute Power",
+      "artist": "Molly Nilsson"
+    },
+    {
+      "src": "12-TheLindaLindas-Oh!.mp3",
+      "title": "Oh!",
+      "artist": "The Linda Lindas"
+    },
+    {
+      "src": "13-LucyDacus-KissingLessons.mp3",
+      "title": "Kissing Lessons",
+      "artist": "Lucy Dacus"
+    },
+    {
+      "src": "14-Koffee-PullUp.mp3",
+      "title": "Pull Up",
+      "artist": "Koffee"
+    },
+    {
+      "src": "15-King-MaanMeriJaan.mp3",
+      "title": "Maan Meri Jaan",
+      "artist": "King"
+    },
+    {
+      "src": "16-GraceIves-Lullaby.mp3",
+      "title": "Lullaby",
+      "artist": "Grace Ives"
+    },
+    {
+      "src": "17-HarryStyles-AsItWas.mp3",
+      "title": "As It Was",
+      "artist": "Harry Styles"
+    },
+    {
+      "src": "18-Spiritualized-AlwaysTogetherWithYou.mp3",
+      "title": "Always Together With You",
+      "artist": "Spiritualized"
+    }
+  ]
+}

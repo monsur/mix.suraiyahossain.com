@@ -1,0 +1,75 @@
+{
+  "year": 2012,
+  "title": "TwentyTwelve",
+  "backgroundColor": "#c3e3de",
+  "spotify": "https://open.spotify.com/playlist/2KC6FCZ5cMB6v7QbfmPU6M",
+  "tracks": [
+    {
+      "src": "01-TheWhiteStripes-WereGoingToBeFriends.mp3",
+      "title": "We're Going to be Friends",
+      "artist": "The White Stripes"
+    },
+    {
+      "src": "02-Grouplove-TongueTied.mp3",
+      "title": "Tongue Tied",
+      "artist": "Grouplove"
+    },
+    {
+      "src": "03-OfMonstersAndMen-LittleTalks.mp3",
+      "title": "Little Talks",
+      "artist": "Of Monsters and Men"
+    },
+    {
+      "src": "04-Alexander-LetsWin.mp3",
+      "title": "Let’s Win!",
+      "artist": "Alexander"
+    },
+    {
+      "src": "05-AuntMartha-NoExcuses.mp3",
+      "title": "No Excuses",
+      "artist": "Aunt Martha"
+    },
+    { "src": "06-fun.-AllAlone.mp3", "title": "All Alone", "artist": "fun." },
+    {
+      "src": "07-Miguel-KaleidoscopeDream.mp3",
+      "title": "Kaleidoscope Dream",
+      "artist": "Miguel"
+    },
+    {
+      "src": "08-Stars-HoldOnWhenYouGetLoveAndLetGoWhenYouGiveIt.mp3",
+      "title": "Hold On When You Get Love and Let Go When You Give It",
+      "artist": "Stars"
+    },
+    {
+      "src": "09-SaintEtienne-Tonight.mp3",
+      "title": "Tonight",
+      "artist": "Saint Etienne"
+    },
+    {
+      "src": "10-EllieGoulding-AnythingCouldHappen.mp3",
+      "title": "Anything Could Happen",
+      "artist": "Ellie Goulding"
+    },
+    {
+      "src": "11-Chairlift-IBelongInYourArms.mp3",
+      "title": "I Belong In Your Arms",
+      "artist": "Chairlift"
+    },
+    {
+      "src": "12-TaylorSwift-WeAreNeverEverGettingBackTogether.mp3",
+      "title": "We Are Never Ever Getting Back Together",
+      "artist": "Taylor Swift"
+    },
+    { "src": "13-Thexx-Angels.mp3", "title": "Angels", "artist": "The xx" },
+    {
+      "src": "14-Japandroids-YoungerUs.mp3",
+      "title": "Younger Us",
+      "artist": "Japandroids"
+    },
+    {
+      "src": "15-CloudCult-YouWereBorn.mp3",
+      "title": "You Were Born",
+      "artist": "Cloud Cult"
+    }
+  ]
+}

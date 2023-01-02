@@ -1,0 +1,88 @@
+{
+  "year": 2007,
+  "title": "OhSeven",
+  "backgroundColor": "#606060",
+  "spotify": "https://open.spotify.com/playlist/77fVNbKy6CRnaJg3SRnpx3",
+  "tracks": [
+    {
+      "src": "01-TheRapture-GetMyselfIntoIt.mp3",
+      "title": "Get Myself Into It",
+      "artist": "The Rapture "
+    },
+    {
+      "src": "02-PeterBjornAndJohn-Amsterdam.mp3",
+      "title": "Amsterdam",
+      "artist": "Peter, Bjorn, and John"
+    },
+    {
+      "src": "03-ThePostmarks-Goodbye.mp3",
+      "title": "Goodbye (Tahiti 80 Remix)",
+      "artist": "The Postmarks"
+    },
+    {
+      "src": "04-AlbertHammondJr-EveryoneGetsAStar.mp3",
+      "title": "Everyone Gets A Star",
+      "artist": "Albert Hammond Jr."
+    },
+    {
+      "src": "05-Goat-SugarWereGoinDown.mp3",
+      "title": "Sugar, We're Goin' Down",
+      "artist": "Goat"
+    },
+    {
+      "src": "06-BadVeins-TheLie.mp3",
+      "title": "The Lie",
+      "artist": "Bad Veins"
+    },
+    {
+      "src": "07-TheApplesInStereo-Energy.mp3",
+      "title": "Energy",
+      "artist": "The Apples in Stereo"
+    },
+    {
+      "src": "08-DinosaurJr-AlmostReady.mp3",
+      "title": "Almost Ready",
+      "artist": "Dinosaur Jr."
+    },
+    {
+      "src": "09-OfMontreal-HeimdalsgateLikeAPrometheanCurse.mp3",
+      "title": "Heimdalsgate Like A Promethean Curse",
+      "artist": "Of Montreal"
+    },
+    {
+      "src": "10-JensLekman-APostcardToNina.mp3",
+      "title": "A Postcard to Nina",
+      "artist": "Jens Lekman"
+    },
+    {
+      "src": "11-LupeFiasco-KickPush.mp3",
+      "title": "Kick, Push",
+      "artist": "Lupe Fiasco"
+    },
+    {
+      "src": "12-Rihanna-Umbrella.mp3",
+      "title": "Umbrella",
+      "artist": "Rihanna (Feat. Jay-Z)"
+    },
+    {
+      "src": "13-AliciaKeys-NoOne.mp3",
+      "title": "No One",
+      "artist": "Alicia Keys"
+    },
+    {
+      "src": "14-GlenHansard-FallenFromTheSky.mp3",
+      "title": "Fallen from the Sky",
+      "artist": "Glen Hansard"
+    },
+    {
+      "src": "15-TheNewPornographers-AdventuresInSolitude.mp3",
+      "title": "Adventures In Solitude",
+      "artist": "The New Pornographers"
+    },
+    {
+      "src": "16-MichaelCeraEllenPage-AnyoneElseButYou.mp3",
+      "title": "Anyone Else But You",
+      "artist": "Michael Cera & Ellen Page"
+    }
+  ]
+}

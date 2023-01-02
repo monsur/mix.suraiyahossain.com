@@ -1,0 +1,63 @@
+{
+  "year": 2011,
+  "title": "TwentyEleven",
+  "backgroundColor": "#8aa0b7",
+  "spotify": "https://open.spotify.com/playlist/3A22VA7XlIlCJRPdQo53vg",
+  "tracks": [
+    {
+      "src": "01-CutCopy-NeedYouNow.mp3",
+      "title": "Need You Now",
+      "artist": "Cut Copy"
+    },
+    {
+      "src": "02-HotChip-OneLifeStand.mp3",
+      "title": "One Life Stand",
+      "artist": "Hot Chip"
+    },
+    {
+      "src": "03-WalkTheMoon-AnnaSun.mp3",
+      "title": "Walk The Moon",
+      "artist": "Anna Sun"
+    },
+    {
+      "src": "04-KatyPerry-TeenageDream.mp3",
+      "title": "Teenage Dream",
+      "artist": "Katy Perry"
+    },
+    {
+      "src": "05-WildFlag-Romance.mp3",
+      "title": "Romance",
+      "artist": "Wild Flag"
+    },
+    {
+      "src": "06-LupeFiasco-TillIGetThere.mp3",
+      "title": "Till I Get There",
+      "artist": "Lupe Fiasco"
+    },
+    {
+      "src": "07-BrunoMars-JustTheWayYouAre.mp3",
+      "title": "Just the Way You Are",
+      "artist": "Bruno Mars"
+    },
+    {
+      "src": "08-Robyn-CallYourGirlfriend.mp3",
+      "title": "Call Your Girlfriend",
+      "artist": "Robyn"
+    },
+    {
+      "src": "09-StVincent-Cruel.mp3",
+      "title": "Cruel",
+      "artist": "St. Vincent"
+    },
+    {
+      "src": "10-RealEstate-ItsReal.mp3",
+      "title": "It's Real",
+      "artist": "Real Estate"
+    },
+    {
+      "src": "11-Wilco-DawnedOnMe.mp3",
+      "title": "Dawned On Me",
+      "artist": "Wilco"
+    }
+  ]
+}
