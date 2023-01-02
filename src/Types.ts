@@ -1,3 +1,4 @@
 export interface YearData {
-  title: string
+  title: string,
+  year: number
 }

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLoaderData } from "react-router-dom";
 import { YearData } from "./Types";
+import AlbumArt from "./AlbumArt";
 
 function Root() {
   const data = useLoaderData() as YearData;
@@ -10,7 +11,7 @@ function Root() {
   });
 
   return (
-    <div>{data.title}</div>
+    <AlbumArt data={data} />
   );
 }
 
