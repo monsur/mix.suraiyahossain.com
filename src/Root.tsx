@@ -10,7 +10,7 @@ function Root() {
 
   useEffect(() => {
     document.title = data.title;
-  }, []);
+  });
 
   return (
     <div>{data.title}</div>
