@@ -1,10 +1,12 @@
 import { YearData } from "./Types";
 
 function AlbumArt(props: {data: YearData}) {
+  let baseUrl = process.env.PUBLIC_URL + "/years/" + props.data.year;
+
   return (
     <div>
-      <img src={`${process.env.PUBLIC_URL}/years/${props.data.year}/back.jpg`} />
-      <img src={`${process.env.PUBLIC_URL}/years/${props.data.year}/front.jpg`} />
+      <img src={`${baseUrl}/back.jpg`} />
+      <img src={`${baseUrl}/front.jpg`} />
     </div>
   );
 }
