@@ -1,6 +1,14 @@
+import { useLoaderData } from "react-router-dom";
+
+interface YearData {
+  title: string
+};
+
 function Root() {
+  const data = useLoaderData() as YearData;
+
   return (
-    <div>Hello world</div>
+    <div>{data.title}</div>
   );
 }
 
