@@ -21,6 +21,7 @@ function Root() {
 
   useEffect(() => {
     document.title = data.title;
+    document.body.style.backgroundColor = data.backgroundColor;
   });
 
   useEffect(() => {
@@ -35,9 +36,10 @@ function Root() {
         currentTrackPos={currentTrackPos}
         setCurrentTrackPos={setCurrentTrackPos}
       ></Player>
-      <TrackInfo currentTrack={currentTrack} nextTrack={nextTrack} />
+      <TrackInfo data={data} currentTrack={currentTrack} nextTrack={nextTrack} />
       <Links data={data}></Links>
       <Navigation
+        data={data}
         minYear={Globals.MIN_YEAR}
         maxYear={Globals.MAX_YEAR}
       ></Navigation>

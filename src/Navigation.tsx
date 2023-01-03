@@ -1,11 +1,13 @@
 import "./Navigation.css";
+import { YearData } from "./Types";
 
-function Navigation(props: { minYear: number; maxYear: number }) {
+function Navigation(props: { data: YearData; minYear: number; maxYear: number }) {
   const itemsPerLine = 8;
   const items = [];
 
   let pos = 0;
   let year = props.maxYear;
+  let style = {color: props.data.textColor};
 
   while (year >= props.minYear) {
     if (pos > 0) {
@@ -13,14 +15,14 @@ function Navigation(props: { minYear: number; maxYear: number }) {
       if (pos % itemsPerLine === 0) {
         items.push(<br key={spacer_key} />);
       } else {
-        items.push(<span className="spacer" key={spacer_key}> | </span>);
+        items.push(<span className="spacer" key={spacer_key} style={style}> | </span>);
       }
     }
 
     // TODO: Add event handler to log which year is clicked.
     let link = "#/" + year;
     items.push(
-      <a href={link} key={year}>
+      <a href={link} key={year} style={style}>
         {year}
       </a>
     );

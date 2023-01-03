@@ -10,11 +10,6 @@ body {
   font-weight: normal;
   font-display: swap;
   text-align: center;
-  color: #fff;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-color: #000000;
-  background-image: linear-gradient(#3c3c3e, #171719, #000000);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

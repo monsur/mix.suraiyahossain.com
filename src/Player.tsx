@@ -88,7 +88,7 @@ function Player(props: {
     };
   });
 
-  let iconStyle = { width: "50px", fill: "#fff" };
+  let iconStyle = { width: "50px", fill: props.data.textColor };
 
   return (
     <div className="Player">

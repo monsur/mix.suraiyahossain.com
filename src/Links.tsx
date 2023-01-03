@@ -19,7 +19,7 @@ function Links(props: { data: YearData }) {
   let downloadLink =
     Globals.S3_PREFIX + props.data.year + "/" + props.data.title + ".zip";
 
-    let iconStyle = { width: "32px", fill: "#fff", paddingRight: "20px" };
+    let iconStyle = { width: "32px", fill: props.data.textColor, paddingRight: "20px" };
 
   return (
     <div className="Links">
