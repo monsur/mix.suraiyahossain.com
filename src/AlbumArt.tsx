@@ -14,9 +14,9 @@ function AlbumArt(props: { data: YearData }) {
   }, []);
 
   return width < breakpoint ? (
-    <AlbumArtSmall data={props.data} width={width} />
+    <AlbumArtSmall data={props.data} width={width} baseUrl={baseUrl} />
   ) : (
-    <AlbumArtLarge data={props.data} width={width} />
+    <AlbumArtLarge data={props.data} width={width} baseUrl={baseUrl} />
   );
 }
 
