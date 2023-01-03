@@ -52,15 +52,15 @@ function Player(props: {
 
   const handlePlayPause = (val: boolean) => {
     setIsPlaying(val);
+    let label = val ? "play" : "pause";
+    Logger.log("Player", "click", label, props.data.year);
   };
 
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
-      Logger.log("Player", "click", "play", props.data.year);
     } else {
       audioRef.current.pause();
-      Logger.log("Player", "click", "pause", props.data.year);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
