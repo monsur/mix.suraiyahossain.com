@@ -65,7 +65,6 @@ function Player(props: {
 
   return (
     <div>
-      <audio id="audioplayer"></audio>
       <img
         className="prevTrack"
         alt="previous track"
