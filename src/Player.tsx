@@ -9,7 +9,7 @@ function Player(props: {
   const [isPlaying, setIsPlaying] = useState(false);
   let currentTrack = props.tracks[props.currentTrackPos];
 
-  function handleNext() {
+  const handleNext = () => {
     let pos = props.currentTrackPos;
     if (pos < props.tracks.length - 1) {
       pos++;
@@ -17,7 +17,7 @@ function Player(props: {
     props.setCurrentTrackPos(pos);
   }
 
-  function handlePrev() {
+  const handlePrev = () => {
     let pos = props.currentTrackPos;
     if (pos > 0) {
       pos--;
@@ -25,7 +25,7 @@ function Player(props: {
     props.setCurrentTrackPos(pos);
   }
 
-  function handlePlayPause(val: boolean) {
+  const handlePlayPause = (val: boolean) => {
     setIsPlaying(val);
   }
 
