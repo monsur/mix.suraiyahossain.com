@@ -8,7 +8,6 @@ function Navigation(props: { minYear: number; maxYear: number }) {
   let year = props.maxYear;
 
   while (year >= props.minYear) {
-    let link = process.env.PUBLIC_URL + "/" + year;
     if (pos > 0) {
       if (pos % itemsPerLine == 0) {
         items.push(<br />);
@@ -17,6 +16,7 @@ function Navigation(props: { minYear: number; maxYear: number }) {
       }
     }
 
+    let link = process.env.PUBLIC_URL + "/" + year;
     items.push(<a href={link}>{year}</a>);
 
     pos++;
