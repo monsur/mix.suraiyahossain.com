@@ -17,8 +17,8 @@ function Player(props: {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const getTrackUrl = (src: string) => {
-    //return Globals.S3_PREFIX + props.data.year + "/tracks/" + src;
-    return "testtrack.mp3";
+    return Globals.S3_PREFIX + props.data.year + "/tracks/" + src;
+    //return "testtrack.mp3";
   };
 
   const audioRef = useRef(new Audio());
