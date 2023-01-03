@@ -46,6 +46,9 @@ function Player(props: {
     let pos = props.currentTrackPos;
     if (pos > 0) {
       pos--;
+    } else {
+      // Already at the first track, reset time to zero.
+      audioRef.current.currentTime = 0;
     }
     props.setCurrentTrackPos(pos);
     Logger.log("Player", "click", "prev", props.data.year);
