@@ -17,7 +17,7 @@ function Navigation(props: { minYear: number; maxYear: number }) {
     }
 
     let link = process.env.PUBLIC_URL + "/" + year;
-    items.push(<a href={link}>{year}</a>);
+    items.push(<a href={link} key={year}>{year}</a>);
 
     pos++;
     year--;
