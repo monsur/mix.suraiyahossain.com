@@ -16,6 +16,7 @@ UiController.prototype.resize = function () {
   var contentWidth;
   var marginTop;
   var viewportWidth = window.innerWidth;
+  var marginRight = 20;
   if (viewportWidth <= 505) {
     this.mode = "small";
     contentWidth = viewportWidth;
@@ -23,14 +24,15 @@ UiController.prototype.resize = function () {
     marginTop = 0;
   } else {
     this.mode = "large";
-    contentWidth = Math.min(viewportWidth, 900);
-    imgWidth = contentWidth / 2;
+    contentWidth = Math.min(viewportWidth, 900) + marginRight;
+    imgWidth = (contentWidth - marginRight) / 2;
     marginTop = 60;
   }
   if (this.mode == "small") {
     document.getElementById("albumartback").style.display = "none";
   } else {
     document.getElementById("albumartback").style.display = "block";
+    document.getElementById("albumartback").style.marginRight =  marginRight + "px";
     document.getElementById("albumartfrontimg").src = this.frontCover;
   }
   document.getElementById("albumart").style.marginTop = marginTop + "px";
