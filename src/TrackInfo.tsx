@@ -1,4 +1,4 @@
-import { TrackData, YearData } from "./Types";
+import { TrackData } from "./Types";
 import "./TrackInfo.css";
 
 function TrackInfo(props: {

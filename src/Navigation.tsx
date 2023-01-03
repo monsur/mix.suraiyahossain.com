@@ -1,5 +1,4 @@
 import "./Navigation.css";
-import { YearData } from "./Types";
 
 function Navigation(props: { textColor: string; minYear: number; maxYear: number }) {
   const itemsPerLine = 8;
