@@ -1,5 +1,5 @@
 import { TrackData } from "./Types";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function Player(props: {
   tracks: TrackData[];
