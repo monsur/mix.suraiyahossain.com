@@ -2,6 +2,7 @@
   "year": 2017,
   "title": "TwentySeventeen",
   "backgroundColor": "#ffcccc",
+  "textColor": "#003333",
   "spotify": "https://open.spotify.com/playlist/66k63NE8Np6mzhY3ZSDMUm",
   "tracks": [
     { "src": "01-TheXX-OnHold.mp3", "title": "On Hold", "artist": "The xx" },
