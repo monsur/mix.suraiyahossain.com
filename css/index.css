@@ -17,11 +17,11 @@ body {
   background-image: linear-gradient(#3c3c3e, #171719, #000000);
 }
 #yearLinks {
-  color: #ccc;
+  color: #999;
   padding-top: 20px;
 }
 #yearLinks a {
-  color: #ccc;
+  color: #999;
   font-weight: bold;
   text-decoration: none;
 }
