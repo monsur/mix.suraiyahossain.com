@@ -13,8 +13,12 @@ function Player(props: {
   setCurrentTrackPos: Function;
 }) {
   let currentTrack = props.data.tracks[props.currentTrackPos];
-  let year = props.data.year;
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const getTrackUrl = (src: string) => {
+    return Globals.S3_PREFIX + props.data.year + "/tracks/" + src;
+    // return "testtrack.mp3";
+  }
 
   const audioRef = useRef(new Audio());
   audioRef.current.onended = () => { 
@@ -60,8 +64,7 @@ function Player(props: {
       audioRef.current.pause();
     }
 
-    let trackSrc = Globals.S3_PREFIX + year + "/tracks/" + currentTrack.src;
-    //let trackSrc = "/testtrack.mp3";
+    let trackSrc = getTrackUrl(currentTrack.src);
     audioRef.current.src = trackSrc;
 
     if (isPlaying) {
