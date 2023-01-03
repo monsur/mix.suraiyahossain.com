@@ -2,6 +2,7 @@ import "./AlbumArtSmall.css";
 import { YearData } from "./Types";
 import { MouseEvent } from "react";
 import Globals from "./Globals";
+import Logger from "./Logger";
 
 function AlbumArtSmall(props: {
   data: YearData;
@@ -15,6 +16,7 @@ function AlbumArtSmall(props: {
     } else {
       img.src = props.baseUrl + "/" + Globals.FRONT_IMG;
     }
+    Logger.log("AlbumArtSmall", "click", img.src, props.data.year);
   }
 
   return (
