@@ -62,6 +62,7 @@ function Player(props: {
       audioRef.current.pause();
       Logger.log("Player", "click", "pause", props.data.year);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
   useEffect(() => {
@@ -76,11 +77,13 @@ function Player(props: {
     if (isPlaying) {
       audioRef.current.play();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrack]);
 
   useEffect(() => {
     // Pause and clean up on unmount
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       audioRef.current.pause();
     };
   });
