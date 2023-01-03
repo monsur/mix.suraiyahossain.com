@@ -1,11 +1,28 @@
+import "./Navigation.css";
+
 function Navigation(props: { minYear: number; maxYear: number }) {
+  const itemsPerLine = 8;
   const items = [];
+
+  let pos = 0;
   let year = props.maxYear;
+
   while (year >= props.minYear) {
-    items.push(<div key={year}>{year}</div>);
+    let link = process.env.PUBLIC_URL + "/" + year;
+    if (pos > 0) {
+      if (pos % itemsPerLine == 0) {
+        items.push(<br />);
+      } else {
+        items.push(<span> | </span>);
+      }
+    }
+
+    items.push(<a href={link}>{year}</a>);
+
+    pos++;
     year--;
   }
-  return <div>{items}</div>;
+  return <div className="Navigation">{items}</div>;
 }
 
 export default Navigation;
