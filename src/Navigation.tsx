@@ -1,13 +1,14 @@
 import "./Navigation.css";
 import { YearData } from "./Types";
 
-function Navigation(props: { data: YearData; minYear: number; maxYear: number }) {
+function Navigation(props: { textColor: string; minYear: number; maxYear: number }) {
   const itemsPerLine = 8;
   const items = [];
 
   let pos = 0;
   let year = props.maxYear;
-  let style = {color: props.data.textColor};
+
+  let style = {color: props.textColor};
 
   while (year >= props.minYear) {
     if (pos > 0) {

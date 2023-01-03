@@ -12,6 +12,7 @@ function Player(props: {
   data: YearData;
   currentTrackPos: number;
   setCurrentTrackPos: Function;
+  textColor: string;
 }) {
   let currentTrack = props.data.tracks[props.currentTrackPos];
   const [isPlaying, setIsPlaying] = useState(false);
@@ -88,7 +89,7 @@ function Player(props: {
     };
   });
 
-  let iconStyle = { width: "50px", fill: props.data.textColor };
+  let iconStyle = { width: "50px", fill: props.textColor };
 
   return (
     <div className="Player">

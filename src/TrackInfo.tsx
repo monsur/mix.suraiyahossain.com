@@ -2,7 +2,7 @@ import { TrackData, YearData } from "./Types";
 import "./TrackInfo.css";
 
 function TrackInfo(props: {
-  data: YearData;
+  textColor: string;
   currentTrack: TrackData;
   nextTrack: TrackData | null;
 }) {
@@ -12,7 +12,7 @@ function TrackInfo(props: {
       "Next: " + props.nextTrack.title + " - " + props.nextTrack.artist;
   }
 
-  let style = {color: props.data.textColor};
+  let style = {color: props.textColor};
 
   return (
     <div className="TrackInfo">

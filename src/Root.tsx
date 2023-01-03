@@ -13,6 +13,7 @@ function Root() {
   const [currentTrackPos, setCurrentTrackPos] = useState(0);
 
   let currentTrack = data.tracks[currentTrackPos];
+  let textColor = data.textColor;
 
   let nextTrack = null;
   if (currentTrackPos < data.tracks.length - 1) {
@@ -35,11 +36,12 @@ function Root() {
         data={data}
         currentTrackPos={currentTrackPos}
         setCurrentTrackPos={setCurrentTrackPos}
+        textColor={textColor}
       ></Player>
-      <TrackInfo data={data} currentTrack={currentTrack} nextTrack={nextTrack} />
-      <Links data={data}></Links>
+      <TrackInfo textColor={textColor} currentTrack={currentTrack} nextTrack={nextTrack} />
+      <Links data={data} textColor={textColor}></Links>
       <Navigation
-        data={data}
+        textColor={textColor}
         minYear={Globals.MIN_YEAR}
         maxYear={Globals.MAX_YEAR}
       ></Navigation>
