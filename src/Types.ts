@@ -1,6 +1,7 @@
 export interface YearData {
   title: string,
   year: number,
+  spotify: string,
   tracks: TrackData[]
 };
 

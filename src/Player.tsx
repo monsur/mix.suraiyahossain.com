@@ -1,5 +1,6 @@
 import { YearData } from "./Types";
 import { useState, useRef, useEffect } from "react";
+import Globals from "./Globals";
 
 function Player(props: {
   data: YearData;
@@ -45,10 +46,7 @@ function Player(props: {
     }
 
     audioRef.current.src =
-      "https://s3.amazonaws.com/mix.suraiyahossain.com/" +
-      year +
-      "/tracks/" +
-      currentTrack.src;
+      Globals.S3_PREFIX + year + "/tracks/" + currentTrack.src;
 
     if (isPlaying) {
       audioRef.current.play();

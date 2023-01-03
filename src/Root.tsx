@@ -6,6 +6,7 @@ import Navigation from "./Navigation";
 import TrackInfo from "./TrackInfo";
 import Globals from "./Globals";
 import Player from "./Player";
+import Links from "./Links";
 
 function Root() {
   const data = useLoaderData() as YearData;
@@ -31,6 +32,7 @@ function Root() {
       <AlbumArt data={data} />
       <Player data={data} currentTrackPos={currentTrackPos} setCurrentTrackPos={setCurrentTrackPos}></Player>
       <TrackInfo currentTrack={currentTrack} nextTrack={nextTrack} />
+      <Links data={data}></Links>
       <Navigation
         minYear={Globals.MIN_YEAR}
         maxYear={Globals.MAX_YEAR}
