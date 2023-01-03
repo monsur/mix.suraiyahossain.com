@@ -23,6 +23,7 @@ function AlbumArtSmall(props: {
         src={`${props.baseUrl}/${Globals.FRONT_IMG}`}
         width={props.width}
         onClick={(e) => handleClick(e)}
+        alt="album art"
       />
     </div>
   );

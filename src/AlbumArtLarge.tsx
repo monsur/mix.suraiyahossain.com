@@ -11,8 +11,8 @@ function AlbumArtLarge(props: {
 
   return (
     <div className="AlbumArtLarge">
-      <img src={`${props.baseUrl}/${Globals.BACK_IMG}`} width={imgWidth} />
-      <img src={`${props.baseUrl}/${Globals.FRONT_IMG}`} width={imgWidth} />
+      <img src={`${props.baseUrl}/${Globals.BACK_IMG}`} width={imgWidth} alt="album art back" />
+      <img src={`${props.baseUrl}/${Globals.FRONT_IMG}`} width={imgWidth} alt="album art front" />
     </div>
   );
 }
