@@ -1,0 +1,3 @@
+- Attach to ended event of audio player to go to next track.
+- Configure with gh-pages
+- Which directory does CNAME live in? root repo, or public?
