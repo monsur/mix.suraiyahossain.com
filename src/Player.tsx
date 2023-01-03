@@ -6,6 +6,7 @@ import prevIcon from "./assets/prevtrack.png";
 import playIcon from "./assets/play.png";
 import pauseIcon from "./assets/pause.png";
 import "./Player.css";
+import Logger from "./Logger";
 
 function Player(props: {
   data: YearData;
@@ -17,7 +18,7 @@ function Player(props: {
 
   const getTrackUrl = (src: string) => {
     return Globals.S3_PREFIX + props.data.year + "/tracks/" + src;
-    // return "testtrack.mp3";
+    //return "testtrack.mp3";
   }
 
   const audioRef = useRef(new Audio());
@@ -37,6 +38,7 @@ function Player(props: {
       pos++;
     }
     props.setCurrentTrackPos(pos);
+    Logger.log("Player", "click", "next", props.data.year);
   };
 
   const handlePrev = () => {
@@ -45,6 +47,7 @@ function Player(props: {
       pos--;
     }
     props.setCurrentTrackPos(pos);
+    Logger.log("Player", "click", "prev", props.data.year);
   };
 
   const handlePlayPause = (val: boolean) => {
@@ -54,8 +57,10 @@ function Player(props: {
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
+      Logger.log("Player", "click", "play", props.data.year);
     } else {
       audioRef.current.pause();
+      Logger.log("Player", "click", "pause", props.data.year);
     }
   }, [isPlaying]);
 
@@ -66,6 +71,7 @@ function Player(props: {
 
     let trackSrc = getTrackUrl(currentTrack.src);
     audioRef.current.src = trackSrc;
+    Logger.log("Player", "track", trackSrc, props.data.year);
 
     if (isPlaying) {
       audioRef.current.play();
