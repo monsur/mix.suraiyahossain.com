@@ -19,10 +19,10 @@ function Player(props: {
   const getTrackUrl = (src: string) => {
     return Globals.S3_PREFIX + props.data.year + "/tracks/" + src;
     //return "testtrack.mp3";
-  }
+  };
 
   const audioRef = useRef(new Audio());
-  audioRef.current.onended = () => { 
+  audioRef.current.onended = () => {
     let oldTrackPos = props.currentTrackPos + 1;
     if (oldTrackPos < props.data.tracks.length) {
       props.setCurrentTrackPos(oldTrackPos);

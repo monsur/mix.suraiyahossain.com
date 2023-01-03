@@ -30,7 +30,11 @@ function Root() {
   return (
     <div>
       <AlbumArt data={data} />
-      <Player data={data} currentTrackPos={currentTrackPos} setCurrentTrackPos={setCurrentTrackPos}></Player>
+      <Player
+        data={data}
+        currentTrackPos={currentTrackPos}
+        setCurrentTrackPos={setCurrentTrackPos}
+      ></Player>
       <TrackInfo currentTrack={currentTrack} nextTrack={nextTrack} />
       <Links data={data}></Links>
       <Navigation

@@ -17,7 +17,11 @@ function Navigation(props: { minYear: number; maxYear: number }) {
     }
 
     let link = "#/" + year;
-    items.push(<a href={link} key={year}>{year}</a>);
+    items.push(
+      <a href={link} key={year}>
+        {year}
+      </a>
+    );
 
     pos++;
     year--;
