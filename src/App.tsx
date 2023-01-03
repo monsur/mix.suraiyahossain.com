@@ -23,7 +23,7 @@ const router = createHashRouter([
     element: <Root />,
     loader: async ({ params }) => {
       const year = getYear(params["*"]);
-      return fetch(`${process.env.PUBLIC_URL}/years/${year}/data.json`);
+      return fetch(`/years/${year}/data.json`);
     },
   },
 ]);
