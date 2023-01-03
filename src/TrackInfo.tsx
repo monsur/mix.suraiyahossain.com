@@ -7,7 +7,7 @@ function TrackInfo(props: {
 }) {
   let nextTrackDetails = "";
   if (props.nextTrack) {
-    nextTrackDetails = props.nextTrack.title + " - " + props.nextTrack.artist;
+    nextTrackDetails = "Next: " + props.nextTrack.title + " - " + props.nextTrack.artist;
   }
   return (
     <div className="TrackInfo">
