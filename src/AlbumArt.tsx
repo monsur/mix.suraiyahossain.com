@@ -7,7 +7,7 @@ function AlbumArt(props: { data: YearData }) {
   const [width, setWidth] = React.useState(window.innerWidth);
   const breakpoint = 505;
 
-  let baseUrl = process.env.PUBLIC_URL + "/years/" + props.data.year;
+  let baseUrl = "/years/" + props.data.year;
 
   React.useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
