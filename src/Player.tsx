@@ -1,10 +1,10 @@
 import { YearData } from "./Types";
 import { useState, useRef, useEffect } from "react";
 import Globals from "./Globals";
-import nextIcon from "./assets/nexttrack.png";
-import prevIcon from "./assets/prevtrack.png";
-import playIcon from "./assets/play.png";
-import pauseIcon from "./assets/pause.png";
+import { ReactComponent as NextIcon } from "./assets/nexttrack.svg";
+import { ReactComponent as PrevIcon } from "./assets/prevtrack.svg";
+import { ReactComponent as PlayIcon } from "./assets/play.svg";
+import { ReactComponent as PauseIcon } from "./assets/pause.svg";
 import "./Player.css";
 import Logger from "./Logger";
 
@@ -17,8 +17,8 @@ function Player(props: {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const getTrackUrl = (src: string) => {
-    return Globals.S3_PREFIX + props.data.year + "/tracks/" + src;
-    //return "testtrack.mp3";
+    //return Globals.S3_PREFIX + props.data.year + "/tracks/" + src;
+    return "testtrack.mp3";
   };
 
   const audioRef = useRef(new Audio());
@@ -88,39 +88,19 @@ function Player(props: {
     };
   });
 
+  let imgStyle = { width: "50px", fill: "#fff" };
+
   return (
     <div className="Player">
-      <img
-        className="prevTrack"
-        alt="previous track"
-        title="previous track"
-        src={prevIcon}
-        onClick={handlePrev}
-      />
+      <PrevIcon style={imgStyle} onClick={handlePrev} />
+      <span className="playPause">
       {isPlaying ? (
-        <img
-          className="playPause"
-          alt="pause"
-          title="pause"
-          src={pauseIcon}
-          onClick={() => handlePlayPause(false)}
-        />
+        <PauseIcon style={imgStyle} onClick={() => handlePlayPause(false)} />
       ) : (
-        <img
-          className="playPause"
-          alt="play"
-          title="play"
-          src={playIcon}
-          onClick={() => handlePlayPause(true)}
-        />
+        <PlayIcon style={imgStyle} onClick={() => handlePlayPause(true)} />
       )}
-      <img
-        className="nextTrack"
-        alt="next track"
-        title="next track"
-        src={nextIcon}
-        onClick={handleNext}
-      />
+      </span>
+      <NextIcon style={imgStyle} onClick={handleNext} />
     </div>
   );
 }
