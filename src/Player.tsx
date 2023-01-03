@@ -23,18 +23,20 @@ function Player(props: {
 
   return (
     <div>
-      <img
+      <img className="prevTrack"
         alt="previous track"
         title="previous track"
         src="/images/prevtrack.png"
         onClick={handlePrev}
-      />{" "}
+      />
+      <img className="playPause" alt="play" title="play" src="/images/play.png" />
       <img
+        className="nextTrack"
         alt="next track"
         title="next track"
         src="/images/nexttrack.png"
         onClick={handleNext}
-      />{" "}
+      />
     </div>
   );
 }
