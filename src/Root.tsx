@@ -22,6 +22,10 @@ function Root() {
     document.title = data.title;
   });
 
+  useEffect(() => {
+    setCurrentTrackPos(0);
+  }, [data]);
+
   return (
     <div>
       <AlbumArt data={data} />
