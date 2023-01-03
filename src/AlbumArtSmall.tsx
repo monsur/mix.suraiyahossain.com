@@ -1,13 +1,13 @@
-import React from 'react';
+import './AlbumArtSmall.css';
 import { YearData } from "./Types";
 
-function AlbumArtSmall(props: {data: YearData}) {
+function AlbumArtSmall(props: {data: YearData, width: number}) {
 
   let baseUrl = process.env.PUBLIC_URL + "/years/" + props.data.year;
 
   return (
-    <div>
-      <img src={`${baseUrl}/front.jpg`} />
+    <div className="AlbumArtSmall">
+      <img src={`${baseUrl}/front.jpg`} width={props.width} />
     </div>
   );
 }
