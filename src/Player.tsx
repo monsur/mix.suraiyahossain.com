@@ -1,10 +1,14 @@
 import { TrackData } from "./Types";
+import { useState } from 'react';
 
 function Player(props: {
   tracks: TrackData[];
   currentTrackPos: number;
   setCurrentTrackPos: Function;
 }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  let currentTrack = props.tracks[props.currentTrackPos];
+
   function handleNext() {
     let pos = props.currentTrackPos;
     if (pos < props.tracks.length - 1) {
@@ -23,13 +27,20 @@ function Player(props: {
 
   return (
     <div>
-      <img className="prevTrack"
+      <audio id="audioplayer"></audio>
+      <img
+        className="prevTrack"
         alt="previous track"
         title="previous track"
         src="/images/prevtrack.png"
         onClick={handlePrev}
       />
-      <img className="playPause" alt="play" title="play" src="/images/play.png" />
+      <img
+        className="playPause"
+        alt="play"
+        title="play"
+        src="/images/play.png"
+      />
       <img
         className="nextTrack"
         alt="next track"
