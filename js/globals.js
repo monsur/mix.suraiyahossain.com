@@ -1,7 +1,7 @@
 "use strict";
 
 var S3_PREFIX = "https://s3.amazonaws.com/mix.suraiyahossain.com/";
-var MIN_YEAR = 2007;
+var MIN_YEAR = 2008;
 var MAX_YEAR = 2022;
 
 var Helpers = {
