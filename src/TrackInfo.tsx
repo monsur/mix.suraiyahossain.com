@@ -1,7 +1,10 @@
 import { TrackData } from "./Types";
 import "./TrackInfo.css";
 
-function TrackInfo(props: { currentTrack: TrackData; nextTrack: TrackData }) {
+function TrackInfo(props: {
+  currentTrack: TrackData;
+  nextTrack: TrackData | null;
+}) {
   let nextTrackDetails = "";
   if (props.nextTrack) {
     nextTrackDetails = props.nextTrack.title + " - " + props.nextTrack.artist;
