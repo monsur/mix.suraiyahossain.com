@@ -1,23 +1,18 @@
-import './App.css';
-import Root from './Root';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import "./App.css";
+import Root from "./Root";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Globals from "./Globals";
 
-const MIN_YEAR = 2007;
-const MAX_YEAR = 2022;
-
-const getYear = (queryStr : string|undefined) => {
+const getYear = (queryStr: string | undefined) => {
   if (!queryStr) {
-    return MAX_YEAR;
+    return Globals.MAX_YEAR;
   }
   const parsed = parseInt(queryStr);
   if (isNaN(parsed)) {
-    return MAX_YEAR;
+    return Globals.MAX_YEAR;
   }
-  if (parsed < MIN_YEAR || parsed > MAX_YEAR) {
-    return MAX_YEAR;
+  if (parsed < Globals.MIN_YEAR || parsed > Globals.MAX_YEAR) {
+    return Globals.MAX_YEAR;
   }
   return parsed;
 };
@@ -34,9 +29,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
