@@ -26,7 +26,7 @@ function Root() {
   return (
     <div>
       <AlbumArt data={data} />
-      <Player tracks={data.tracks} currentTrackPos={currentTrackPos} setCurrentTrackPos={setCurrentTrackPos}></Player>
+      <Player data={data} currentTrackPos={currentTrackPos} setCurrentTrackPos={setCurrentTrackPos}></Player>
       <TrackInfo currentTrack={currentTrack} nextTrack={nextTrack} />
       <Navigation
         minYear={Globals.MIN_YEAR}

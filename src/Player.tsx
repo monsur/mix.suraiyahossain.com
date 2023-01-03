@@ -1,21 +1,27 @@
-import { TrackData } from "./Types";
-import { useState, useRef } from "react";
+import { YearData } from "./Types";
+import { useState, useRef, useEffect } from "react";
 
 function Player(props: {
-  tracks: TrackData[];
+  data: YearData;
   currentTrackPos: number;
   setCurrentTrackPos: Function;
 }) {
+  let currentTrack = props.data.tracks[props.currentTrackPos];
+  let trackSrc =
+    "https://s3.amazonaws.com/mix.suraiyahossain.com/" +
+    props.data.year +
+    "/tracks/" +
+    currentTrack.src;
+  const audioRef = useRef(new Audio(trackSrc));
   const [isPlaying, setIsPlaying] = useState(false);
-  let currentTrack = props.tracks[props.currentTrackPos];
 
   const handleNext = () => {
     let pos = props.currentTrackPos;
-    if (pos < props.tracks.length - 1) {
+    if (pos < props.data.tracks.length - 1) {
       pos++;
     }
     props.setCurrentTrackPos(pos);
-  }
+  };
 
   const handlePrev = () => {
     let pos = props.currentTrackPos;
@@ -23,11 +29,39 @@ function Player(props: {
       pos--;
     }
     props.setCurrentTrackPos(pos);
-  }
+  };
 
   const handlePlayPause = (val: boolean) => {
     setIsPlaying(val);
-  }
+  };
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    }
+
+    audioRef.current = new Audio(trackSrc);
+
+    if (isPlaying) {
+      audioRef.current.play();
+    }
+  }, [currentTrack]);
+
+  useEffect(() => {
+    // Pause and clean up on unmount
+    return () => {
+      audioRef.current.pause();
+      //clearInterval(intervalRef.current);
+    };
+  }, []);
 
   return (
     <div>
