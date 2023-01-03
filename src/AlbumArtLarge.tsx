@@ -7,7 +7,7 @@ function AlbumArtLarge(props: {
   width: number;
   baseUrl: string;
 }) {
-  // Keep this in sync with .back.margin-right.
+  // Keep this in sync with .back.margin-right in the css file.
   // e.g. if margin-right is 20px, subtract 20/2 = 10px below.
   let imgWidth = (Math.min(props.width, 900) - 10) / 2;
 
