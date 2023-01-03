@@ -1,6 +1,6 @@
 import "./App.css";
 import Root from "./Root";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import Globals from "./Globals";
 
 const getYear = (queryStr: string | undefined) => {
@@ -17,7 +17,7 @@ const getYear = (queryStr: string | undefined) => {
   return parsed;
 };
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/*",
     element: <Root />,
