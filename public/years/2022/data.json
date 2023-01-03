@@ -1,7 +1,7 @@
 {
   "year": 2022,
   "title": "TwentyTwentyTwo",
-  "backgroundColor": "#73e5de",
+  "backgroundColor": "#252222",
   "spotify": "https://open.spotify.com/playlist/0fXjlXDCrxLtX8DvvqHXZ3?si=7b29a0412e6c443c",
   "tracks": [
     {
@@ -37,7 +37,7 @@
     {
       "src": "07-ElyannaBalti-GhareebAlay.mp3",
       "title": "Ghareeb Alay",
-      "artist": "Elyanna & Balti"
+      "artist": "Elyanna, Balti"
     },
     {
       "src": "08-JapaneseBreakfast-SkinnyLove.mp3",
