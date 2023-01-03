@@ -9,7 +9,7 @@ function Navigation(props: { minYear: number; maxYear: number }) {
 
   while (year >= props.minYear) {
     if (pos > 0) {
-      if (pos % itemsPerLine == 0) {
+      if (pos % itemsPerLine === 0) {
         items.push(<br />);
       } else {
         items.push(<span> | </span>);
