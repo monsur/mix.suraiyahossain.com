@@ -12,7 +12,7 @@ function Navigation(props: { minYear: number; maxYear: number }) {
       if (pos % itemsPerLine === 0) {
         items.push(<br />);
       } else {
-        items.push(<span> | </span>);
+        items.push(<span className="spacer"> | </span>);
       }
     }
 

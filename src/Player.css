@@ -1,0 +1,15 @@
+.Player {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  clear: both;
+}
+
+.Player img {
+  height: 50px;
+  width: 50px;
+}
+
+.playPause {
+  padding-left: 40px;
+  padding-right: 40px;
+}

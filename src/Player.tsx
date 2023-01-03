@@ -5,6 +5,7 @@ import nextIcon from "./assets/nexttrack.png";
 import prevIcon from "./assets/prevtrack.png";
 import playIcon from "./assets/play.png";
 import pauseIcon from "./assets/pause.png";
+import "./Player.css";
 
 function Player(props: {
   data: YearData;
@@ -65,7 +66,7 @@ function Player(props: {
   });
 
   return (
-    <div>
+    <div className="Player">
       <img
         className="prevTrack"
         alt="previous track"

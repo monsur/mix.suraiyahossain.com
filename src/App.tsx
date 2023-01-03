@@ -1,4 +1,3 @@
-import "./App.css";
 import Root from "./Root";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import Globals from "./Globals";
