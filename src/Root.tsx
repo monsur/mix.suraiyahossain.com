@@ -20,8 +20,7 @@ function Root() {
 
   useEffect(() => {
     document.title = data.title;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return (
     <div>

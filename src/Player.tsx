@@ -7,12 +7,8 @@ function Player(props: {
   setCurrentTrackPos: Function;
 }) {
   let currentTrack = props.data.tracks[props.currentTrackPos];
-  let trackSrc =
-    "https://s3.amazonaws.com/mix.suraiyahossain.com/" +
-    props.data.year +
-    "/tracks/" +
-    currentTrack.src;
-  const audioRef = useRef(new Audio(trackSrc));
+  let year = props.data.year;
+  const audioRef = useRef(new Audio());
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleNext = () => {
@@ -48,7 +44,11 @@ function Player(props: {
       audioRef.current.pause();
     }
 
-    audioRef.current = new Audio(trackSrc);
+    audioRef.current.src =
+      "https://s3.amazonaws.com/mix.suraiyahossain.com/" +
+      year +
+      "/tracks/" +
+      currentTrack.src;
 
     if (isPlaying) {
       audioRef.current.play();
@@ -59,9 +59,8 @@ function Player(props: {
     // Pause and clean up on unmount
     return () => {
       audioRef.current.pause();
-      //clearInterval(intervalRef.current);
     };
-  }, []);
+  });
 
   return (
     <div>
