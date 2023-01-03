@@ -1,9 +1,9 @@
 import Globals from "./Globals";
 import { YearData } from "./Types";
-import downloadIcon from "./assets/download.png";
-import spotifyIcon from "./assets/spotify.png";
 import "./Links.css";
 import Logger from "./Logger";
+import {ReactComponent as DownloadIcon} from "./assets/download.svg"
+import {ReactComponent as SpotifyIcon} from "./assets/spotify.svg"
 
 function Links(props: { data: YearData }) {
   let handleDownloadClick = () => {
@@ -19,23 +19,15 @@ function Links(props: { data: YearData }) {
   let downloadLink =
     Globals.S3_PREFIX + props.data.year + "/" + props.data.title + ".zip";
 
+    let iconStyle = { width: "32px", fill: "#fff", paddingRight: "20px" };
+
   return (
     <div className="Links">
       <a href={downloadLink}>
-        <img
-          src={downloadIcon}
-          className="icon"
-          alt="download"
-          onClick={handleDownloadClick}
-        ></img>
+        <DownloadIcon style={iconStyle} onClick={handleDownloadClick} />
       </a>
       <a href={props.data.spotify}>
-        <img
-          src={spotifyIcon}
-          className="icon"
-          alt="spotify"
-          onClick={handleSpotifyClick}
-        ></img>
+      <SpotifyIcon style={iconStyle} onClick={handleSpotifyClick} />
       </a>
     </div>
   );

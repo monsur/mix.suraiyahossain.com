@@ -88,19 +88,19 @@ function Player(props: {
     };
   });
 
-  let imgStyle = { width: "50px", fill: "#fff" };
+  let iconStyle = { width: "50px", fill: "#fff" };
 
   return (
     <div className="Player">
-      <PrevIcon style={imgStyle} onClick={handlePrev} />
+      <PrevIcon style={iconStyle} onClick={handlePrev} />
       <span className="playPause">
       {isPlaying ? (
-        <PauseIcon style={imgStyle} onClick={() => handlePlayPause(false)} />
+        <PauseIcon style={iconStyle} onClick={() => handlePlayPause(false)} />
       ) : (
-        <PlayIcon style={imgStyle} onClick={() => handlePlayPause(true)} />
+        <PlayIcon style={iconStyle} onClick={() => handlePlayPause(true)} />
       )}
       </span>
-      <NextIcon style={imgStyle} onClick={handleNext} />
+      <NextIcon style={iconStyle} onClick={handleNext} />
     </div>
   );
 }
