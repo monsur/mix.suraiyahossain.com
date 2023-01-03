@@ -10,9 +10,9 @@ function Navigation(props: { minYear: number; maxYear: number }) {
   while (year >= props.minYear) {
     if (pos > 0) {
       if (pos % itemsPerLine === 0) {
-        items.push(<br />);
+        items.push(<br key={`${year}_spacer`} />);
       } else {
-        items.push(<span className="spacer"> | </span>);
+        items.push(<span className="spacer" key={`${year}_spacer`}> | </span>);
       }
     }
 
