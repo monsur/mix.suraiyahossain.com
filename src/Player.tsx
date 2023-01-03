@@ -1,6 +1,10 @@
 import { YearData } from "./Types";
 import { useState, useRef, useEffect } from "react";
 import Globals from "./Globals";
+import nextIcon from "./assets/nexttrack.png";
+import prevIcon from "./assets/prevtrack.png";
+import playIcon from "./assets/play.png";
+import pauseIcon from "./assets/pause.png";
 
 function Player(props: {
   data: YearData;
@@ -66,7 +70,7 @@ function Player(props: {
         className="prevTrack"
         alt="previous track"
         title="previous track"
-        src="/images/prevtrack.png"
+        src={prevIcon}
         onClick={handlePrev}
       />
       {isPlaying ? (
@@ -74,7 +78,7 @@ function Player(props: {
           className="playPause"
           alt="pause"
           title="pause"
-          src="/images/pause.png"
+          src={pauseIcon}
           onClick={() => handlePlayPause(false)}
         />
       ) : (
@@ -82,7 +86,7 @@ function Player(props: {
           className="playPause"
           alt="play"
           title="play"
-          src="/images/play.png"
+          src={playIcon}
           onClick={() => handlePlayPause(true)}
         />
       )}
@@ -90,7 +94,7 @@ function Player(props: {
         className="nextTrack"
         alt="next track"
         title="next track"
-        src="/images/nexttrack.png"
+        src={nextIcon}
         onClick={handleNext}
       />
     </div>
