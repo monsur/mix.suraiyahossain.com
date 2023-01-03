@@ -13,7 +13,7 @@ function Root() {
   const [currentTrackPos, setCurrentTrackPos] = useState(0);
 
   let currentTrack = data.tracks[currentTrackPos];
-  let textColor = data.textColor;
+  let textColor = Globals.ENABLE_DYNAMIC_COLORS ? data.textColor : "#ffffff";
 
   let nextTrack = null;
   if (currentTrackPos < data.tracks.length - 1) {
@@ -22,7 +22,10 @@ function Root() {
 
   useEffect(() => {
     document.title = data.title;
-    document.body.style.backgroundColor = data.backgroundColor;
+    if (Globals.ENABLE_DYNAMIC_COLORS) {
+      document.body.style.backgroundColor = data.backgroundColor;
+      document.body.style.backgroundImage = "none";
+    }
   });
 
   useEffect(() => {
@@ -38,7 +41,11 @@ function Root() {
         setCurrentTrackPos={setCurrentTrackPos}
         textColor={textColor}
       ></Player>
-      <TrackInfo textColor={textColor} currentTrack={currentTrack} nextTrack={nextTrack} />
+      <TrackInfo
+        textColor={textColor}
+        currentTrack={currentTrack}
+        nextTrack={nextTrack}
+      />
       <Links data={data} textColor={textColor}></Links>
       <Navigation
         textColor={textColor}

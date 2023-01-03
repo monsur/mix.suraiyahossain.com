@@ -12,4 +12,9 @@ body {
   text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #000000;
+  background-image: linear-gradient(#3c3c3e, #171719, #000000);
 }
