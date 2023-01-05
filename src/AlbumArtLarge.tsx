@@ -1,9 +1,7 @@
 import "./AlbumArtLarge.css";
-import { YearData } from "./Types";
 import Globals from "./Globals";
 
 function AlbumArtLarge(props: {
-  data: YearData;
   width: number;
   baseUrl: string;
 }) {

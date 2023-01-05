@@ -1,4 +1,4 @@
-import { YearData } from "./Types";
+import { TrackData } from "./Types";
 import { useState, useRef, useEffect } from "react";
 import Globals from "./Globals";
 import { ReactComponent as NextIcon } from "./assets/nexttrack.svg";
@@ -9,23 +9,23 @@ import "./Player.css";
 import Logger from "./Logger";
 
 function Player(props: {
-  data: YearData;
+  tracks: TrackData[];
   currentTrackPos: number;
   setCurrentTrackPos: Function;
   textColor: string;
 }) {
-  let currentTrack = props.data.tracks[props.currentTrackPos];
+  let currentTrack = props.tracks[props.currentTrackPos];
   const [isPlaying, setIsPlaying] = useState(false);
 
   const getTrackUrl = (src: string) => {
-    return Globals.S3_PREFIX + props.data.year + "/tracks/" + src;
+    return Globals.S3_PREFIX + currentTrack.year + "/tracks/" + src;
     //return "testtrack.mp3";
   };
 
   const audioRef = useRef(new Audio());
   audioRef.current.onended = () => {
     let oldTrackPos = props.currentTrackPos + 1;
-    if (oldTrackPos < props.data.tracks.length) {
+    if (oldTrackPos < props.tracks.length) {
       props.setCurrentTrackPos(oldTrackPos);
     } else {
       setIsPlaying(false);
@@ -35,11 +35,11 @@ function Player(props: {
 
   const handleNext = () => {
     let pos = props.currentTrackPos;
-    if (pos < props.data.tracks.length - 1) {
+    if (pos < props.tracks.length - 1) {
       pos++;
     }
     props.setCurrentTrackPos(pos);
-    Logger.log("Player", "click", "next", props.data.year);
+    Logger.log("Player", "click", "next", currentTrack.year);
   };
 
   const handlePrev = () => {
@@ -51,13 +51,13 @@ function Player(props: {
       audioRef.current.currentTime = 0;
     }
     props.setCurrentTrackPos(pos);
-    Logger.log("Player", "click", "prev", props.data.year);
+    Logger.log("Player", "click", "prev", currentTrack.year);
   };
 
   const handlePlayPause = (val: boolean) => {
     setIsPlaying(val);
     let label = val ? "play" : "pause";
-    Logger.log("Player", "click", label, props.data.year);
+    Logger.log("Player", "click", label, currentTrack.year);
   };
 
   useEffect(() => {
@@ -76,7 +76,7 @@ function Player(props: {
 
     let trackSrc = getTrackUrl(currentTrack.src);
     audioRef.current.src = trackSrc;
-    Logger.log("Player", "track", trackSrc, props.data.year);
+    Logger.log("Player", "track", trackSrc, currentTrack.year);
 
     if (isPlaying) {
       audioRef.current.play();
