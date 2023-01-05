@@ -6,4 +6,5 @@ export default class Globals {
   static S3_PREFIX = "https://s3.amazonaws.com/mix.suraiyahossain.com/";
 
   static ENABLE_DYNAMIC_COLORS = false;
+  static ENABLE_NEXT_TRACK_PRELOAD = false;
 }

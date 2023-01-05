@@ -10,6 +10,10 @@ import Links from "./Links";
 
 const audio = new Audio();
 function preloadTrack(track: TrackData) {
+  if (!Globals.ENABLE_NEXT_TRACK_PRELOAD) {
+    // TODO: Track preloading needs more debugging before its ready.
+    return;
+  }
   return setTimeout(function () {
     audio.src = track.url;
     audio.load();
@@ -30,8 +34,7 @@ function Root() {
     nextTrack = tracks[currentTrackPos + 1];
   }
   if (nextTrack) {
-    // TODO: Preloading of tracks needs more debugging before its ready.
-    //preloadTrack(nextTrack);
+    preloadTrack(nextTrack);
   }
 
   useEffect(() => {
