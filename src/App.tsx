@@ -21,6 +21,13 @@ const loader = new Loader();
 
 const router = createHashRouter([
   {
+    path: "/shuffle",
+    element: <Root />,
+    loader: async () => {
+      return loader.loadAll(true);
+    },
+  },
+  {
     path: "/*",
     element: <Root />,
     loader: async ({ params }) => {

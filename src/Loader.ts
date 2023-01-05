@@ -1,3 +1,4 @@
+import Globals from "./Globals";
 import { TrackData } from "./Types";
 
 export default class Loader {
@@ -7,6 +8,16 @@ export default class Loader {
 
   constructor() {
     this.years = {};
+  }
+
+  static shuffleArray(arr: any[]) {
+    for (let i = 0; i < arr.length; i++) {
+      let j = Math.floor(Math.random() * arr.length);
+      let temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+    return arr;
   }
 
   loadYear(year: number) {
@@ -26,7 +37,7 @@ export default class Loader {
               if (!sourceData.hasOwnProperty(key)) {
                 continue;
               }
-              if (key === 'tracks') {
+              if (key === "tracks") {
                 continue;
               }
               track[key] = sourceData[key];
@@ -37,5 +48,24 @@ export default class Loader {
           return trackData;
         });
     }
+  }
+
+  loadAll(shuffle: boolean) {
+    // TODO: Add support for reject().
+    return new Promise((resolve, reject) => {
+      let years: number[] = [];
+      for (let year = Globals.MIN_YEAR; year <= Globals.MAX_YEAR; year++) {
+        years.push(year);
+      }
+
+      let tracks: TrackData[] = [];
+      Promise.all(years.map((year) => this.loadYear(year))).then((data) => {
+        tracks = data.flat();
+        if (shuffle) {
+          tracks = Loader.shuffleArray(tracks);
+        }
+        resolve(tracks);
+      });
+    });
   }
 }
