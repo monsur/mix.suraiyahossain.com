@@ -1,13 +1,17 @@
 import "./Navigation.css";
 
-function Navigation(props: { textColor: string; minYear: number; maxYear: number }) {
+function Navigation(props: {
+  textColor: string;
+  minYear: number;
+  maxYear: number;
+}) {
   const itemsPerLine = 8;
   const items = [];
 
   let pos = 0;
   let year = props.maxYear;
 
-  let style = {color: props.textColor};
+  let style = { color: props.textColor };
 
   while (year >= props.minYear) {
     if (pos > 0) {
@@ -15,7 +19,9 @@ function Navigation(props: { textColor: string; minYear: number; maxYear: number
       if (pos % itemsPerLine === 0) {
         items.push(<br key={spacer_key} />);
       } else {
-        items.push(<span className="spacer" key={spacer_key} style={style}> | </span>);
+        items.push(
+          <span className="spacer" key={spacer_key} style={style}> | </span>
+        );
       }
     }
 

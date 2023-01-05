@@ -43,9 +43,12 @@ export default class Loader {
               track[key] = sourceData[key];
             }
 
-            track.albumArtFront = "/years/" + track.year + "/" + Globals.FRONT_IMG;
-            track.albumArtBack = "/years/" + track.year + "/" + Globals.BACK_IMG;
-            track.downloadUrl = Globals.S3_PREFIX + track.year + "/" + track.mixTitle + ".zip";
+            track.albumArtFront =
+              "/years/" + track.year + "/" + Globals.FRONT_IMG;
+            track.albumArtBack =
+              "/years/" + track.year + "/" + Globals.BACK_IMG;
+            track.downloadUrl =
+              Globals.S3_PREFIX + track.year + "/" + track.mixTitle + ".zip";
             track.url = Globals.S3_PREFIX + track.year + "/tracks/" + track.src;
             //track.url = "testtrack.mp3";
 

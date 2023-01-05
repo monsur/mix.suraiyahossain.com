@@ -4,10 +4,7 @@ import { MouseEvent } from "react";
 import Globals from "./Globals";
 import Logger from "./Logger";
 
-function AlbumArtSmall(props: {
-  track: TrackData;
-  width: number;
-}) {
+function AlbumArtSmall(props: { track: TrackData; width: number }) {
   function handleClick(e: MouseEvent) {
     const img = e.target as HTMLImageElement;
     if (img.src.endsWith(Globals.FRONT_IMG)) {

@@ -12,13 +12,19 @@ function TrackInfo(props: {
       "Next: " + props.nextTrack.title + " - " + props.nextTrack.artist;
   }
 
-  let style = {color: props.textColor};
+  let style = { color: props.textColor };
 
   return (
     <div className="TrackInfo">
-      <div className="TrackInfoTitle" style={style}>{props.currentTrack.title}</div>
-      <div className="TrackInfoArtist" style={style}>{props.currentTrack.artist}</div>
-      <div className="TrackInfoDetails" style={style}>{nextTrackDetails}</div>
+      <div className="TrackInfoTitle" style={style}>
+        {props.currentTrack.title}
+      </div>
+      <div className="TrackInfoArtist" style={style}>
+        {props.currentTrack.artist}
+      </div>
+      <div className="TrackInfoDetails" style={style}>
+        {nextTrackDetails}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { TrackData } from "./Types";
 import { useState, useRef, useEffect } from "react";
-import Globals from "./Globals";
 import { ReactComponent as NextIcon } from "./assets/nexttrack.svg";
 import { ReactComponent as PrevIcon } from "./assets/prevtrack.svg";
 import { ReactComponent as PlayIcon } from "./assets/play.svg";
@@ -92,11 +91,11 @@ function Player(props: {
     <div className="Player">
       <PrevIcon style={iconStyle} onClick={handlePrev} />
       <span className="playPause">
-      {isPlaying ? (
-        <PauseIcon style={iconStyle} onClick={() => handlePlayPause(false)} />
-      ) : (
-        <PlayIcon style={iconStyle} onClick={() => handlePlayPause(true)} />
-      )}
+        {isPlaying ? (
+          <PauseIcon style={iconStyle} onClick={() => handlePlayPause(false)} />
+        ) : (
+          <PlayIcon style={iconStyle} onClick={() => handlePlayPause(true)} />
+        )}
       </span>
       <NextIcon style={iconStyle} onClick={handleNext} />
     </div>
