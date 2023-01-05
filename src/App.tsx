@@ -16,19 +16,19 @@ const getYear = (queryStr: string | undefined) => {
   return parsed;
 };
 
-const router = createHashRouter([
-  {
-    path: "/*",
-    element: <Root />,
-    loader: async ({ params }) => {
-      const year = getYear(params["*"]);
-      return fetch(`/years/${year}/data.json`);
-    },
-  },
-]);
-
 function App() {
-  return <RouterProvider router={router} />;
+  const router = createHashRouter([
+    {
+      path: "/*",
+      element: <Root />,
+      loader: async ({ params }) => {
+        const year = getYear(params["*"]);
+        return fetch(`/years/${year}/data.json`);
+      },
+    },
+  ]);
+  
+    return <RouterProvider router={router} />;
 }
 
 export default App;
