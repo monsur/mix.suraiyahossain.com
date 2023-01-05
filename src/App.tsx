@@ -1,6 +1,7 @@
 import Root from "./Root";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import Globals from "./Globals";
+import Loader from "./Loader";
 
 const getYear = (queryStr: string | undefined) => {
   if (!queryStr) {
@@ -16,19 +17,21 @@ const getYear = (queryStr: string | undefined) => {
   return parsed;
 };
 
-function App() {
-  const router = createHashRouter([
-    {
-      path: "/*",
-      element: <Root />,
-      loader: async ({ params }) => {
-        const year = getYear(params["*"]);
-        return fetch(`/years/${year}/data.json`);
-      },
+const loader = new Loader();
+
+const router = createHashRouter([
+  {
+    path: "/*",
+    element: <Root />,
+    loader: async ({ params }) => {
+      const year = getYear(params["*"]);
+      return loader.loadYear(year);
     },
-  ]);
-  
-    return <RouterProvider router={router} />;
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;
