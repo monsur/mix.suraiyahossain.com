@@ -46,6 +46,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## TODO for 2023
+ * Debug preloading of next track.
  * Used "pressed" images to show that a button was clicked
  * Decide on background color changing (Set Globals.ENABLE_DYNAMIC_COLORS)
  * Configure with gh-pages https://github.com/gitname/react-gh-pages
