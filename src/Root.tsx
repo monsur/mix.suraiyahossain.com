@@ -8,16 +8,29 @@ import Globals from "./Globals";
 import Player from "./Player";
 import Links from "./Links";
 
+const audio = new Audio();
+function preloadTrack(track: TrackData) {
+  return setTimeout(function () {
+    audio.src = track.url;
+    audio.load();
+  }, 10000);
+}
+
 function Root() {
   const tracks = useLoaderData() as TrackData[];
   const [currentTrackPos, setCurrentTrackPos] = useState(0);
 
   let currentTrack = tracks[currentTrackPos];
-  let textColor = Globals.ENABLE_DYNAMIC_COLORS ? currentTrack.textColor : "#ffffff";
+  let textColor = Globals.ENABLE_DYNAMIC_COLORS
+    ? currentTrack.textColor
+    : "#ffffff";
 
   let nextTrack = null;
   if (currentTrackPos < tracks.length - 1) {
     nextTrack = tracks[currentTrackPos + 1];
+  }
+  if (nextTrack) {
+    preloadTrack(nextTrack);
   }
 
   useEffect(() => {

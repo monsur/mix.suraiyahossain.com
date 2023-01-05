@@ -1,9 +1,10 @@
 import "./AlbumArtLarge.css";
 import Globals from "./Globals";
+import { TrackData } from "./Types";
 
 function AlbumArtLarge(props: {
+  track: TrackData;
   width: number;
-  baseUrl: string;
 }) {
   const backImgStyle = { marginRight: 20 };
   let imgWidth = (Math.min(props.width, 900) - backImgStyle.marginRight) / 2;
@@ -11,13 +12,13 @@ function AlbumArtLarge(props: {
   return (
     <div className="AlbumArtLarge">
       <img
-        src={`${props.baseUrl}/${Globals.BACK_IMG}`}
+        src={props.track.albumArtBack}
         width={imgWidth}
         alt="album art back"
         style={backImgStyle}
       />
       <img
-        src={`${props.baseUrl}/${Globals.FRONT_IMG}`}
+        src={props.track.albumArtFront}
         width={imgWidth}
         alt="album art front"
       />

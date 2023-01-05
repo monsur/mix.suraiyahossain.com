@@ -7,14 +7,13 @@ import Logger from "./Logger";
 function AlbumArtSmall(props: {
   track: TrackData;
   width: number;
-  baseUrl: string;
 }) {
   function handleClick(e: MouseEvent) {
     const img = e.target as HTMLImageElement;
     if (img.src.endsWith(Globals.FRONT_IMG)) {
-      img.src = props.baseUrl + "/" + Globals.BACK_IMG;
+      img.src = props.track.albumArtBack;
     } else {
-      img.src = props.baseUrl + "/" + Globals.FRONT_IMG;
+      img.src = props.track.albumArtFront;
     }
     Logger.log("AlbumArtSmall", "click", img.src, props.track.year);
   }
@@ -22,7 +21,7 @@ function AlbumArtSmall(props: {
   return (
     <div className="AlbumArtSmall">
       <img
-        src={`${props.baseUrl}/${Globals.FRONT_IMG}`}
+        src={props.track.albumArtFront}
         width={props.width}
         onClick={(e) => handleClick(e)}
         alt="album art"

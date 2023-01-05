@@ -7,4 +7,7 @@ export interface TrackData {
   spotify: string;
   backgroundColor: string;
   textColor: string;
+  url: string;
+  albumArtFront: string;
+  albumArtBack: string;
 }

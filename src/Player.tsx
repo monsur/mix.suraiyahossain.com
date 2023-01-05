@@ -17,11 +17,6 @@ function Player(props: {
   let currentTrack = props.tracks[props.currentTrackPos];
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const getTrackUrl = (src: string) => {
-    return Globals.S3_PREFIX + currentTrack.year + "/tracks/" + src;
-    //return "testtrack.mp3";
-  };
-
   const audioRef = useRef(new Audio());
   audioRef.current.onended = () => {
     let oldTrackPos = props.currentTrackPos + 1;
@@ -74,9 +69,8 @@ function Player(props: {
       audioRef.current.pause();
     }
 
-    let trackSrc = getTrackUrl(currentTrack.src);
-    audioRef.current.src = trackSrc;
-    Logger.log("Player", "track", trackSrc, currentTrack.year);
+    audioRef.current.src = currentTrack.url;
+    Logger.log("Player", "track", currentTrack.url, currentTrack.year);
 
     if (isPlaying) {
       audioRef.current.play();
