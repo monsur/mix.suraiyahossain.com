@@ -1,5 +1,6 @@
 import Globals from "./Globals";
 import { TrackData } from "./Types";
+import UrlHelper from "./UrlHelper";
 
 export default class Loader {
   years: {
@@ -24,12 +25,14 @@ export default class Loader {
     if (year in this.years) {
       return this.years[year];
     } else {
-      return fetch(`/years/${year}/data.json`)
+      const urlHelper = new UrlHelper(year);
+      return fetch(urlHelper.getDataFileUrl())
         .then((resp) => resp.json())
         .then((sourceData) => {
           // Move the top-level fields that are common across a single year down to the track level.
           // Doing this so that each track contains all the data to render itself.
           // This will make it easier to shuffle across all mixes.
+          urlHelper.setData(sourceData);
           let trackData: TrackData[] = [];
           sourceData.tracks.forEach((item: any, i: number) => {
             let track = item;
@@ -43,14 +46,10 @@ export default class Loader {
               track[key] = sourceData[key];
             }
 
-            track.albumArtFront =
-              "/years/" + track.year + "/" + Globals.FRONT_IMG;
-            track.albumArtBack =
-              "/years/" + track.year + "/" + Globals.BACK_IMG;
-            track.downloadUrl =
-              Globals.S3_PREFIX + track.year + "/" + track.mixTitle + ".zip";
-            track.url = Globals.S3_PREFIX + track.year + "/tracks/" + track.src;
-            //track.url = "testtrack.mp3";
+            track.albumArtFront = urlHelper.getFrontAlbumArtUrl();
+            track.albumArtBack = urlHelper.getBackAlbumArtUrl();
+            track.downloadUrl = urlHelper.getDownloadUrl();
+            track.url = urlHelper.getTrackUrl(track.src);
 
             trackData.push(track);
           });
