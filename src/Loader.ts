@@ -22,11 +22,15 @@ export default class Loader {
           let trackData: TrackData[] = [];
           sourceData.tracks.forEach((item: any, i: number) => {
             let track = item;
-            track.mixTitle = sourceData.mixTitle;
-            track.year = sourceData.year;
-            track.spotify = sourceData.spotify;
-            track.backgroundColor = sourceData.backgroundColor;
-            track.textColor = sourceData.textColor;
+            for (var key in sourceData) {
+              if (!sourceData.hasOwnProperty(key)) {
+                continue;
+              }
+              if (key === 'tracks') {
+                continue;
+              }
+              track[key] = sourceData[key];
+            }
             trackData.push(track);
           });
           this.years[year] = trackData;
