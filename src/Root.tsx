@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLoaderData } from "react-router-dom";
 import { TrackData } from "./Types";
 import AlbumArt from "./AlbumArt";
@@ -7,18 +7,6 @@ import TrackInfo from "./TrackInfo";
 import Globals from "./Globals";
 import Player from "./Player";
 import Links from "./Links";
-
-const audio = new Audio();
-function preloadTrack(track: TrackData) {
-  if (!Globals.ENABLE_NEXT_TRACK_PRELOAD) {
-    // TODO: Track preloading needs more debugging before its ready.
-    return;
-  }
-  return setTimeout(function () {
-    audio.src = track.url;
-    audio.load();
-  }, 10000);
-}
 
 function Root() {
   const tracks = useLoaderData() as TrackData[];
@@ -29,12 +17,9 @@ function Root() {
     ? currentTrack.textColor
     : "#ffffff";
 
-  let nextTrack = null;
+  let nextTrack: TrackData | null = null;
   if (currentTrackPos < tracks.length - 1) {
     nextTrack = tracks[currentTrackPos + 1];
-  }
-  if (nextTrack) {
-    preloadTrack(nextTrack);
   }
 
   useEffect(() => {
@@ -48,6 +33,24 @@ function Root() {
   useEffect(() => {
     setCurrentTrackPos(0);
   }, [tracks]);
+
+  const audioRef = useRef(new Audio());
+  useEffect(() => {
+    if (!Globals.ENABLE_NEXT_TRACK_PRELOAD) {
+      // TODO: Track preloading needs more debugging before its ready.
+      return;
+    }
+    if (nextTrack != null) {
+      let nextTrackUrl = nextTrack.url;
+      let timeoutId = setTimeout(function () {
+        audioRef.current.src = nextTrackUrl;
+        audioRef.current.load();
+      }, Globals.NEXT_TRACK_PRELOAD_SECONDS * 1000);
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+  }, [nextTrack]);
 
   return (
     <div>
