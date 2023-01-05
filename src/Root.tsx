@@ -30,7 +30,8 @@ function Root() {
     nextTrack = tracks[currentTrackPos + 1];
   }
   if (nextTrack) {
-    preloadTrack(nextTrack);
+    // TODO: Preloading of tracks needs more debugging before its ready.
+    //preloadTrack(nextTrack);
   }
 
   useEffect(() => {
