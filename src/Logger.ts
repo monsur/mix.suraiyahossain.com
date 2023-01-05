@@ -30,6 +30,7 @@ export default class Logger {
     Logger.logToServer(category, action, logstr);
   };
 
+  // TODO: Should probably log some errors in some places.
   static error = (e: Error) => {
     Logger.logToServer("error", "error", e.toString());
   };
