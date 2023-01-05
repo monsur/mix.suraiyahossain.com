@@ -47,7 +47,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## TODO for 2023
  * Used "pressed" images to show that a button was clicked
- * Enable shuffle across all albums. That will require "pushing" year data down into each track.
+ * Enable shuffle across all albums.
  * Decide on background color changing (Set Globals.ENABLE_DYNAMIC_COLORS)
  * Configure with gh-pages https://github.com/gitname/react-gh-pages
  * Which directory does CNAME live in? root repo, or public?
