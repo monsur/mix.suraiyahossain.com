@@ -10,4 +10,5 @@ export interface TrackData {
   url: string;
   albumArtFront: string;
   albumArtBack: string;
+  downloadUrl: string;
 }
