@@ -23,40 +23,52 @@ export default class Loader {
 
   loadYear(year: number) {
     if (year in this.years) {
+      // Return data if tracks were previously cached.
       return this.years[year];
-    } else {
-      const urlHelper = new UrlHelper(year);
-      return fetch(urlHelper.getDataFileUrl())
-        .then((resp) => resp.json())
-        .then((sourceData) => {
-          // Move the top-level fields that are common across a single year down to the track level.
-          // Doing this so that each track contains all the data to render itself.
-          // This will make it easier to shuffle across all mixes.
-          urlHelper.setData(sourceData);
-          let trackData: TrackData[] = [];
-          sourceData.tracks.forEach((item: any, i: number) => {
-            let track = item;
-            for (var key in sourceData) {
-              if (!sourceData.hasOwnProperty(key)) {
-                continue;
-              }
-              if (key === "tracks") {
-                continue;
-              }
-              track[key] = sourceData[key];
-            }
-
-            track.albumArtFront = urlHelper.getFrontAlbumArtUrl();
-            track.albumArtBack = urlHelper.getBackAlbumArtUrl();
-            track.downloadUrl = urlHelper.getDownloadUrl();
-            track.url = urlHelper.getTrackUrl(track.src);
-
-            trackData.push(track);
-          });
-          this.years[year] = trackData;
-          return trackData;
-        });
     }
+
+    const urlHelper = new UrlHelper(year);
+    return fetch(urlHelper.getDataFileUrl())
+      .then((resp) => resp.json())
+      .then((data) => {
+        // Move the top-level fields that are common across a single year down to the track level.
+        // Doing this so that each track contains all the data to render itself.
+        // This will make it easier to shuffle across all mixes.
+
+        // Create a source data object that has all the "global" fields.
+        urlHelper.setData(data);
+        const sourceData: any = this.getSourceData(data, urlHelper);
+
+        // Add the "global" fields to each track.
+        let trackData: TrackData[] = [];
+        data.tracks.forEach((item: any, i: number) => {
+          let track = { ...item, ...sourceData };
+          track.url = urlHelper.getTrackUrl(track.src);
+          trackData.push(track);
+        });
+
+        // Cache the tracks.
+        this.years[year] = trackData;
+
+        return trackData;
+      });
+  }
+
+  private getSourceData(data: any, urlHelper: UrlHelper) {
+    const sourceData: any = {};
+    for (var key in data) {
+      if (!data.hasOwnProperty(key)) {
+        continue;
+      }
+      if (key === "tracks") {
+        continue;
+      }
+      sourceData[key] = data[key];
+    }
+    sourceData.albumArtFront = urlHelper.getFrontAlbumArtUrl();
+    sourceData.albumArtBack = urlHelper.getBackAlbumArtUrl();
+    sourceData.downloadUrl = urlHelper.getDownloadUrl();
+    return sourceData;
   }
 
   loadAll(shuffle: boolean) {
