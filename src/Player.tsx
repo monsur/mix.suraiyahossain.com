@@ -27,16 +27,16 @@ function Player(props: {
     }
   };
 
-  const handleNext = () => {
+  function handleNext(): void {
     let pos = props.currentTrackPos;
     if (pos < props.tracks.length - 1) {
       pos++;
     }
     props.setCurrentTrackPos(pos);
     Logger.log("Player", "click", "next", currentTrack.year);
-  };
+  }
 
-  const handlePrev = () => {
+  function handlePrev(): void {
     let pos = props.currentTrackPos;
     if (pos > 0) {
       pos--;
@@ -46,13 +46,13 @@ function Player(props: {
     }
     props.setCurrentTrackPos(pos);
     Logger.log("Player", "click", "prev", currentTrack.year);
-  };
+  }
 
-  const handlePlayPause = (val: boolean) => {
+  function handlePlayPause(val: boolean): void {
     setIsPlaying(val);
     let label = val ? "play" : "pause";
     Logger.log("Player", "click", label, currentTrack.year);
-  };
+  }
 
   useEffect(() => {
     if (isPlaying) {

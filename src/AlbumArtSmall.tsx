@@ -5,7 +5,7 @@ import Logger from "./Logger";
 import UrlHelper from "./UrlHelper";
 
 function AlbumArtSmall(props: { track: TrackData; width: number }) {
-  function handleClick(e: MouseEvent) {
+  function handleClick(e: MouseEvent): void {
     const img = e.target as HTMLImageElement;
     if (img.src.endsWith(UrlHelper.FRONT_IMG)) {
       img.src = props.track.albumArtBack;

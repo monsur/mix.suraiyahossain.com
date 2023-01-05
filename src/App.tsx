@@ -3,7 +3,7 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import Globals from "./Globals";
 import Loader from "./Loader";
 
-const getYear = (queryStr: string | undefined) => {
+function getYear(queryStr: string | undefined): number {
   if (!queryStr) {
     return Globals.MAX_YEAR;
   }
@@ -15,7 +15,7 @@ const getYear = (queryStr: string | undefined) => {
     return Globals.MAX_YEAR;
   }
   return parsed;
-};
+}
 
 const loader = new Loader();
 

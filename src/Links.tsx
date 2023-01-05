@@ -5,15 +5,15 @@ import { ReactComponent as DownloadIcon } from "./assets/download.svg";
 import { ReactComponent as SpotifyIcon } from "./assets/spotify.svg";
 
 function Links(props: { track: TrackData; textColor: string }) {
-  let handleDownloadClick = () => {
+  function handleDownloadClick(): boolean {
     Logger.log("links", "action", "download", props.track.year);
     return true;
   };
 
-  let handleSpotifyClick = () => {
+  function handleSpotifyClick(): boolean {
     Logger.log("links", "action", "spotify", props.track.year);
     return true;
-  };
+  }
 
   let iconStyle = {
     width: "32px",

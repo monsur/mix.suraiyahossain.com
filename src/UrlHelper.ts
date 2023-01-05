@@ -18,36 +18,36 @@ export default class UrlHelper {
     this.mixTitle = "";
   }
 
-  setData(data: MixData) {
+  setData(data: MixData): void {
     this.year = data.year;
     this.mixTitle = data.mixTitle;
   }
 
-  getPathPrefix() {
+  getPathPrefix(): string {
     return "/years/" + this.year;
   }
 
-  getS3Prefix() {
+  getS3Prefix(): string {
     return UrlHelper.S3_PREFIX + this.year;
   }
 
-  getDataFileUrl() {
+  getDataFileUrl(): string {
     return this.getPathPrefix() + "/data.json";
   }
 
-  getFrontAlbumArtUrl() {
+  getFrontAlbumArtUrl(): string {
     return this.getPathPrefix() + "/" + UrlHelper.FRONT_IMG;
   }
 
-  getBackAlbumArtUrl() {
+  getBackAlbumArtUrl(): string {
     return this.getPathPrefix() + "/" + UrlHelper.BACK_IMG;
   }
 
-  getDownloadUrl() {
+  getDownloadUrl(): string {
     return this.getS3Prefix() + "/" + this.mixTitle + ".zip";
   }
 
-  getTrackUrl(src: string) {
+  getTrackUrl(src: string): string {
     if (Globals.TEST_AUDIO) {
       return "testtrack.mp3";
     }

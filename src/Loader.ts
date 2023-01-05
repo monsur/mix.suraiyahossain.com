@@ -11,7 +11,7 @@ export default class Loader {
     this.years = {};
   }
 
-  static shuffleArray(arr: any[]) {
+  static shuffleArray(arr: any[]): any[] {
     for (let i = 0; i < arr.length; i++) {
       let j = Math.floor(Math.random() * arr.length);
       let temp = arr[i];
@@ -21,7 +21,7 @@ export default class Loader {
     return arr;
   }
 
-  loadYear(year: number) {
+  loadYear(year: number): TrackData[] | Promise<TrackData[]> {
     if (year in this.years) {
       // Return data if tracks were previously cached.
       return this.years[year];
@@ -54,7 +54,7 @@ export default class Loader {
       });
   }
 
-  private getSourceData(data: any, urlHelper: UrlHelper) {
+  private getSourceData(data: any, urlHelper: UrlHelper): any {
     const sourceData: any = {};
     for (var key in data) {
       if (!data.hasOwnProperty(key)) {
@@ -71,7 +71,7 @@ export default class Loader {
     return sourceData;
   }
 
-  loadAll(shuffle: boolean) {
+  loadAll(shuffle: boolean): Promise<unknown> {
     // TODO: Add support for reject().
     return new Promise((resolve, reject) => {
       let years: number[] = [];
