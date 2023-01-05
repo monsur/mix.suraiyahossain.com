@@ -21,7 +21,7 @@ function Root() {
   }
 
   useEffect(() => {
-    document.title = currentTrack.title;
+    document.title = currentTrack.mixTitle;
     if (Globals.ENABLE_DYNAMIC_COLORS) {
       document.body.style.backgroundColor = currentTrack.backgroundColor;
       document.body.style.backgroundImage = "none";

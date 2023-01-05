@@ -22,9 +22,7 @@ export default class Loader {
           let trackData: TrackData[] = [];
           sourceData.tracks.forEach((item: any, i: number) => {
             let track = item;
-            // TODO: Do this by iterating over the obj (minus 'tracks') so new fields are automatically added.
-            // Also need to change sourceData.title to mixTitle in all the json files.
-            track.mixTitle = sourceData.title;
+            track.mixTitle = sourceData.mixTitle;
             track.year = sourceData.year;
             track.spotify = sourceData.spotify;
             track.backgroundColor = sourceData.backgroundColor;
