@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/gtag.js": "^0.0.12",
     "gh-pages": "^5.0.0"
   }
 }
