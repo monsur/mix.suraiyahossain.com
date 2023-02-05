@@ -2,7 +2,6 @@
   "name": "mix.suraiyahossain.com",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mopnsur.github.io/mix.suraiyahossain.com",
   "dependencies": {
     "@fontsource/pontano-sans": "^4.5.10",
     "@testing-library/jest-dom": "^5.16.5",
