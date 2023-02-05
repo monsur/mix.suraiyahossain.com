@@ -1,0 +1,76 @@
+{
+  "year": 2008,
+  "mixTitle": "OhEight",
+  "backgroundColor": "#999999",
+  "textColor": "#666666",
+  "spotify": "https://open.spotify.com/playlist/7aypeUA6OtJTmnvgzhUR7d",
+  "tracks": [
+    {
+      "src": "01_MGMT_TimeToPretend.mp3",
+      "title": "Time To Pretend",
+      "artist": "MGMT"
+    },
+    {
+      "src": "02_LightspeedChampion_EveryoneIKnowIsListeningToCrunk.mp3",
+      "title": "Everyone I Know Is Listening To Crunk",
+      "artist": "Lightspeed Champion"
+    },
+    {
+      "src": "03_SheAndHim_WhyDoYouLetMeStayHere.mp3",
+      "title": "Why Do You Let Me Stay Here",
+      "artist": "She & Him"
+    },
+    {
+      "src": "04_HotChip_ReadyForTheFloor.mp3",
+      "title": "Ready For The Floor",
+      "artist": "Hot Chip"
+    },
+    {
+      "src": "05_BlackKids_ImNotGonnaTeachYourBoyfriendHowToDanceWithYou.mp3",
+      "title": "I'm Not Gonna Teach Your Boyfriend How To Dance With You",
+      "artist": "Black Kids"
+    },
+    { "src": "06_Yelle_CeJeu.mp3", "title": "Ce Jeu", "artist": "Yelle" },
+    {
+      "src": "07_Thao_BagOfHammers.mp3",
+      "title": "Bag Of Hammers",
+      "artist": "Thao"
+    },
+    { "src": "08_Dodos_Winter.mp3", "title": "Winter", "artist": "Dodos" },
+    {
+      "src": "09_TheHelioSequence_Lately.mp3",
+      "title": "Lately",
+      "artist": "The Helio Sequence"
+    },
+    {
+      "src": "10_OxfordCollapse_ForTheWinterCoats(Kids).mp3",
+      "title": "Oxford Collapse",
+      "artist": "For The Winter Coats (Kids)"
+    },
+    {
+      "src": "11_TheWombats_LetsDanceToJoyDivision.mp3",
+      "title": "Let's Dance To Joy Division",
+      "artist": "The Wombats"
+    },
+    {
+      "src": "12_DengueFever_TigerPhoneCard.mp3",
+      "title": "Tiger Phone Card",
+      "artist": "Dengue Fever"
+    },
+    {
+      "src": "13_Estelle_AmericanBoy.mp3",
+      "title": "American Boy",
+      "artist": "Estelle"
+    },
+    {
+      "src": "14_StephenMalkmus_ColdSon.mp3",
+      "title": "Cold Son",
+      "artist": "Stephen Malkmus"
+    },
+    {
+      "src": "15_GrandArchives_TheCrimeWindow.mp3",
+      "title": "The Crime Window",
+      "artist": "Grand Archives"
+    }
+  ]
+}

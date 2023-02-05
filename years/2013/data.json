@@ -1,0 +1,84 @@
+{
+  "year": 2013,
+  "mixTitle": "TwentyThirteen",
+  "backgroundColor": "#b4dded",
+  "textColor": "#4B2212",
+  "spotify": "https://open.spotify.com/playlist/6MFg6p8Xnwvnu7HtBK96Yo",
+  "tracks": [
+    {
+      "src": "01-TheStrokes-TapOut.mp3",
+      "title": "Tap Out",
+      "artist": "The Strokes"
+    },
+    {
+      "src": "02-WildBelle-Shine.mp3",
+      "title": "Shine",
+      "artist": "Wild Belle"
+    },
+    {
+      "src": "03-TeganAndSara-DroveMeWild.mp3",
+      "title": "Drove Me Wild",
+      "artist": "Teagan and Sara"
+    },
+    {
+      "src": "04-MikalCronin-Weight.mp3",
+      "title": "Weight",
+      "artist": "Mikal Cronin"
+    },
+    {
+      "src": "05-TheSubmarines-Shoelaces.mp3",
+      "title": "Shoelaces",
+      "artist": "The Submarines"
+    },
+    {
+      "src": "06-Kisses-FunnyHeartbeat.mp3",
+      "title": "Funny Heartbeat",
+      "artist": "Kisses"
+    },
+    {
+      "src": "07-Grouplove-WaysToGo.mp3",
+      "title": "Ways To Go",
+      "artist": "Grouplove"
+    },
+    {
+      "src": "08-YoungTheGiant-IGot.mp3",
+      "title": "I Got",
+      "artist": "Young the Giant"
+    },
+    {
+      "src": "09-TheNational-DontSwallowTheCap.mp3",
+      "title": "Don't Swallow the Cap",
+      "artist": "The National"
+    },
+    {
+      "src": "10-MIA-ComeWalkWithMe.mp3",
+      "title": "Come Walk With Me",
+      "artist": "M.I.A."
+    },
+    {
+      "src": "11-BloodOrange-YoureNotGoodEnough.mp3",
+      "title": "You're Not Good Enough",
+      "artist": "Blood Orange"
+    },
+    {
+      "src": "12-VampireWeekend-Step.mp3",
+      "title": "Step",
+      "artist": "Vampire Weekend"
+    },
+    {
+      "src": "13-SkyFerreira-Boys.mp3",
+      "title": "Boys",
+      "artist": "Sky Ferreira"
+    },
+    {
+      "src": "14-Drake-HoldOnWereGoingHome.mp3",
+      "title": "Hold On, We're Going Home",
+      "artist": "Drake"
+    },
+    {
+      "src": "15-AmericanAuthors-Believer.mp3",
+      "title": "Believer",
+      "artist": "American Authors"
+    }
+  ]
+}

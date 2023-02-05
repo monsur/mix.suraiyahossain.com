@@ -1,0 +1,60 @@
+{
+  "year": 2015,
+  "mixTitle": "TwentyFifteen",
+  "backgroundColor": "#f0dc77",
+  "textColor": "#0F2388",
+  "spotify": "https://open.spotify.com/playlist/6yrsX2WSye8gOQGtHfyqNK",
+  "tracks": [
+    {
+      "src": "01-JeffRosenstock-GetOldForever.mp3",
+      "title": "Get Old Forever",
+      "artist": "Jeff Rosenstock"
+    },
+    {
+      "src": "02-SleaterKinney-NoCitiesToLove.mp3",
+      "title": "No Cities To Love",
+      "artist": "Sleater-Kinney"
+    },
+    {
+      "src": "03-MattAndKim-HeyNow.mp3",
+      "title": "Hey Now",
+      "artist": "Matt and Kim"
+    },
+    {
+      "src": "04-BestCoast-FeelingOk.mp3",
+      "title": "Feeling Ok",
+      "artist": "Best Coast"
+    },
+    {
+      "src": "05-PassionPit-WhereTheSkyHangs.mp3",
+      "title": "Where The Sky Hangs",
+      "artist": "Passion Pit"
+    },
+    {
+      "src": "06-EmpireCast-YoureSoBeautiful.mp3",
+      "title": "You're So Beautiful",
+      "artist": "Empire Cast"
+    },
+    {
+      "src": "07-EnriqueIglesias-ElPerdon.mp3",
+      "title": "El Perdón",
+      "artist": "Nicky Jam & Enrique Iglesias"
+    },
+    {
+      "src": "08-JustinBieber-Sorry.mp3",
+      "title": "Sorry",
+      "artist": "Justin Bieber"
+    },
+    {
+      "src": "09-AlessiaCara-Here.mp3",
+      "title": "Here",
+      "artist": "Alessia Cara"
+    },
+    {
+      "src": "10-FifthHarmony-WorthIt.mp3",
+      "title": "Worth It",
+      "artist": "Fifth Harmony"
+    },
+    { "src": "11-Heems-Sometimes.mp3", "title": "Sometimes", "artist": "Heems" }
+  ]
+}

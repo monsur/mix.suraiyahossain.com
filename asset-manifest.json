@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/mix.suraiyahossain.com/static/css/main.05be3b84.css",
+    "main.js": "/mix.suraiyahossain.com/static/js/main.4da4921c.js",
+    "static/js/787.f8b90d35.chunk.js": "/mix.suraiyahossain.com/static/js/787.f8b90d35.chunk.js",
+    "static/media/pontano-sans-all-400-normal.woff": "/mix.suraiyahossain.com/static/media/pontano-sans-all-400-normal.2331711c9fbdacbf8678.woff",
+    "static/media/pontano-sans-latin-400-normal.woff2": "/mix.suraiyahossain.com/static/media/pontano-sans-latin-400-normal.e5d6f0949d6fc69df635.woff2",
+    "static/media/pontano-sans-latin-ext-400-normal.woff2": "/mix.suraiyahossain.com/static/media/pontano-sans-latin-ext-400-normal.7afeffadf5ae14a89265.woff2",
+    "static/media/spotify.svg": "/mix.suraiyahossain.com/static/media/spotify.f92d8c949e1618a46e4b8d53b391cd4d.svg",
+    "index.html": "/mix.suraiyahossain.com/index.html",
+    "static/media/download.svg": "/mix.suraiyahossain.com/static/media/download.bb3f2e987725fdd46dcd95e36f366cd3.svg",
+    "static/media/nexttrack.svg": "/mix.suraiyahossain.com/static/media/nexttrack.5f49c9c46b1f35355ba677282c862cdc.svg",
+    "static/media/pause.svg": "/mix.suraiyahossain.com/static/media/pause.bb245de9b54ed419a6c5b26b28a9c75c.svg",
+    "static/media/prevtrack.svg": "/mix.suraiyahossain.com/static/media/prevtrack.e10c3d9922b02b031b60a9f68a4fee4f.svg",
+    "static/media/play.svg": "/mix.suraiyahossain.com/static/media/play.bb1df939ee4edd060ce82ad5416902fc.svg",
+    "main.05be3b84.css.map": "/mix.suraiyahossain.com/static/css/main.05be3b84.css.map",
+    "main.4da4921c.js.map": "/mix.suraiyahossain.com/static/js/main.4da4921c.js.map",
+    "787.f8b90d35.chunk.js.map": "/mix.suraiyahossain.com/static/js/787.f8b90d35.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.05be3b84.css",
+    "static/js/main.4da4921c.js"
+  ]
+}
