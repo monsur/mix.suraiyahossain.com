@@ -56,7 +56,7 @@ function Player(props: {
 
   function play(): void {
     audioRef.current.play().catch((e) => {
-      if ("name" in e && e.name == "AbortError") {
+      if ("name" in e && e.name === "AbortError") {
         // Ignore the error, since this is most likely due to user
         // navigating away before the play() function as competed.
         // Revisit this if there are other valid use cases that are
