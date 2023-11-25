@@ -54,25 +54,42 @@ function Player(props: {
     Logger.log("Player", "click", label, currentTrack.year);
   }
 
+  function play(): void {
+    audioRef.current.play().catch((e) => {
+      if ("name" in e && e.name == "AbortError") {
+        // Ignore the error, since this is most likely due to user
+        // navigating away before the play() function as competed.
+        // Revisit this if there are other valid use cases that are
+        // being ignored.
+      } else {
+        throw e;
+      }
+    });
+  }
+
+  function pause(): void {
+    audioRef.current.pause();
+  }
+
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.play();
+      play();
     } else {
-      audioRef.current.pause();
+      pause();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.pause();
+      pause();
     }
 
     audioRef.current.src = currentTrack.url;
     Logger.log("Player", "track", currentTrack.url, currentTrack.year);
 
     if (isPlaying) {
-      audioRef.current.play();
+      play();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrack]);
@@ -81,7 +98,7 @@ function Player(props: {
     // Pause and clean up on unmount
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      audioRef.current.pause();
+      pause();
     };
   });
 
