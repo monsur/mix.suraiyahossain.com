@@ -1,0 +1,89 @@
+{
+  "year": 2023,
+  "mixTitle": "TwentyTwentyThree",
+  "backgroundColor": "#252222",
+  "textColor": "#DADDDD",
+  "spotify": "https://open.spotify.com/playlist/2LCjATO3tlecsvM8F2a6BX?si=7312a4e2103a46e1",
+  "tracks": [
+    {
+      "src": "01-100Gecs-DumbestGirlAlive.mp3",
+      "title": "100 Gecs",
+      "artist": "Dumbest Girl Alive"
+    },
+    {
+      "src": "02-OliviaRodrigo-allamericanbitch.mp3",
+      "title": "all-american bitch",
+      "artist": "Olivia Rodrigo"
+    },
+    {
+      "src": "03-Boygenius-NotStrongEnough.mp3",
+      "title": "Not Strong Enough",
+      "artist": "Boygenius"
+    },
+    {
+      "src": "04-Bleachers-ModernGirl.mp3",
+      "title": "Modern Girl",
+      "artist": "Bleachers"
+    },
+    {
+      "src": "05-Mitski-MyLoveMineAllMine.mp3",
+      "title": "My Love Mine All Mine",
+      "artist": "Mitski"
+    },
+    {
+      "src": "06-SufjanStevens-WillAnybodyEverLoveMe.mp3",
+      "title": "Will Anybody Ever Love Me?",
+      "artist": "Sufjan Stevens"
+    },
+    {
+      "src": "07-BullySoccerMommy-LoseYou.mp3",
+      "title": "Lose You",
+      "artist": "Bully (feat. Soccer Mommy)"
+    },
+    {
+      "src": "08-AnubhaBajaj-Lamhey.mp3",
+      "title": "Lamhey",
+      "artist": "Anubha Bajaj"
+    },
+    {
+      "src": "09-BoyishKingPrincess-KillYourPain.mp3",
+      "title": "Kill Your Pain",
+      "artist": "Boyish (feat. King Princess)"
+    },
+    {
+      "src": "10-TaylorSwift-HitsDifferent.mp3",
+      "title": "Hits Different",
+      "artist": "Taylor Swift"
+    },
+    {
+      "src": "11-Nemahsis-iwannabeyourrighthand.mp3",
+      "title": "i wanna be your right hand",
+      "artist": "Nemahsis"
+    },
+    {
+      "src": "12-SZA-KillBill.mp3",
+      "title": "Kill Bill",
+      "artist": "SZA"
+    },
+    {
+      "src": "13-BlackThought-Protocol.mp3",
+      "title": "Protocol",
+      "artist": "Black Thought & El Michels Affair"
+    },
+    {
+      "src": "14-Yoasobi-夜に駆ける.mp3",
+      "title": "夜に駆ける",
+      "artist": "Yoasobi"
+    },
+    {
+      "src": "15-JPEGMAFIADannyBrown-KingdomHeartsKey.mp3",
+      "title": "Kingdom Heart Key",
+      "artist": "JPEGMAFIA & Danny Brown"
+    },
+    {
+      "src": "16-JeffRosenstock-FUTUREISDUMB.mp3",
+      "title": "FUTURE IS DUMB",
+      "artist": "Jeff Rosenstock"
+    }
+  ]
+}
