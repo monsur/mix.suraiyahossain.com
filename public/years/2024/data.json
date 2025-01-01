@@ -1,0 +1,89 @@
+{
+  "year": 2024,
+  "mixTitle": "TwentyTwentyFour",
+  "backgroundColor": "#252222",
+  "textColor": "#DADDDD",
+  "spotify": "https://open.spotify.com/playlist/2LCjATO3tlecsvM8F2a6BX?si=7312a4e2103a46e1",
+  "tracks": [
+   {
+    "src": "01-SaintLevant-5aminParis.mp3",
+    "title": "5am in Paris",
+    "artist": "Saint Levant"
+   },
+   {
+    "src": "02-ChildishGambino-RealLove.mp3",
+    "title": "Real Love",
+    "artist": "Childish Gambino"
+   },
+   {
+    "src": "03-BillieEilish-BIRDSOFAFEATHER.mp3",
+    "title": "BIRDS OF A FEATHER",
+    "artist": "Billie Eilish"
+   },
+   {
+    "src": "04-Clairo-AddUpMyLove.mp3",
+    "title": "Add Up My Love",
+    "artist": "Clairo"
+   },
+   {
+    "src": "05-Nemahsis-stickofgum.mp3",
+    "title": "stick of gum",
+    "artist": "Nemahsis"
+   },
+   {
+    "src": "06-SabrinaCarpenter-PleasePleasePlease.mp3",
+    "title": "Please Please Please",
+    "artist": "Sabrina Carpenter"
+   },
+   {
+    "src": "07-KaceyMusgraves-GiverTaker.mp3",
+    "title": "Giver / Taker",
+    "artist": "Kacey Musgraves"
+   },
+   {
+    "src": "08-JaySom-IfICould.mp3",
+    "title": "If I Could",
+    "artist": "Jay Som"
+   },
+   {
+    "src": "09-TitleTrack-TeriBaatonMeinAisaUljhaJiya.mp3",
+    "title": "Teri Baaton Mein Aisa Uljha Jiya",
+    "artist": "Title Track"
+   },
+   {
+    "src": "10-Hairpin-Cyclone.mp3",
+    "title": "Cyclone",
+    "artist": "Hairpin"
+   },
+   {
+    "src": "11-TundeAdebimpe-Magnetic.mp3",
+    "title": "Magnetic",
+    "artist": "Tunde Adebimpe"
+   },
+   {
+    "src": "12-KendrickLamarSZA-lutherwithsza.mp3",
+    "title": "luther (with sza)",
+    "artist": "Kendrick Lamar, SZA"
+   },
+   {
+    "src": "13-FontainesDC-Starburster.mp3",
+    "title": "Starburster",
+    "artist": "Fontaines D.C."
+   },
+   {
+    "src": "14-Charlixcx-VonDutch.mp3",
+    "title": "Von Dutch",
+    "artist": "Charli xcx"
+   },
+   {
+    "src": "15-LadyParts-VillainEra.mp3",
+    "title": "Villain Era",
+    "artist": "Lady Parts"
+   },
+   {
+    "src": "16-OliviaRodrigo-Obsessed.mp3",
+    "title": "Obsessed",
+    "artist": "Olivia Rodrigo"
+   }
+  ]
+ } 
