@@ -48,7 +48,3 @@ Pushes the site to the gh-pages branch.
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-## TODO for 2023
- * Used "pressed" images to show that a button was clicked
- * Decide on background color changing (Set Globals.ENABLE_DYNAMIC_COLORS)
