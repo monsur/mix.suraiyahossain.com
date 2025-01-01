@@ -6,20 +6,20 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Update Node and npm
 
-`nvm ls-remote
-nvm install {VERSION_NUMBER}
-npm install -g npm@{VERSION_NUMBER}`
+`nvm ls-remote`
+`nvm install {VERSION_NUMBER}`
+`npm install -g npm@{VERSION_NUMBER}`
 
 Remove old deps
 
-`rm -rf node_modules
-rm package-lock.json`
+`rm -rf node_modules`
+`rm package-lock.json`
 
 Update packages
 
-`npm i -g npm-check-updates
-ncu -u
-npm install`
+`npm i -g npm-check-updates`
+`ncu -u`
+`npm install`
 
 ## Available Scripts
 
