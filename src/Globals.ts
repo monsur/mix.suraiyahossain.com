@@ -1,6 +1,6 @@
 export default class Globals {
   static MIN_YEAR = 2008;
-  static MAX_YEAR = 2023;
+  static MAX_YEAR = 2024;
 
   // Enable to preload loading of next track.
   static ENABLE_NEXT_TRACK_PRELOAD = true;
