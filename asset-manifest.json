@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.2bf38dc6.css",
+    "main.css": "/static/css/main.18cab44b.css",
     "main.js": "/static/js/main.c3244841.js",
     "static/js/488.e95a4e13.chunk.js": "/static/js/488.e95a4e13.chunk.js",
     "static/media/pontano-sans-latin-400-normal.woff": "/static/media/pontano-sans-latin-400-normal.e1bd219648cfa36ef966.woff",
@@ -14,12 +14,12 @@
     "static/media/pause.svg": "/static/media/pause.bb245de9b54ed419a6c5b26b28a9c75c.svg",
     "static/media/prevtrack.svg": "/static/media/prevtrack.e10c3d9922b02b031b60a9f68a4fee4f.svg",
     "static/media/play.svg": "/static/media/play.bb1df939ee4edd060ce82ad5416902fc.svg",
-    "main.2bf38dc6.css.map": "/static/css/main.2bf38dc6.css.map",
+    "main.18cab44b.css.map": "/static/css/main.18cab44b.css.map",
     "main.c3244841.js.map": "/static/js/main.c3244841.js.map",
     "488.e95a4e13.chunk.js.map": "/static/js/488.e95a4e13.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2bf38dc6.css",
+    "static/css/main.18cab44b.css",
     "static/js/main.c3244841.js"
   ]
 }
