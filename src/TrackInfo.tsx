@@ -12,7 +12,7 @@ function TrackInfo(props: {
       "Next: " + props.nextTrack.title + " - " + props.nextTrack.artist;
   }
 
-  let style = { color: props.textColor };
+  const style = { color: props.textColor };
 
   return (
     <div className="TrackInfo">

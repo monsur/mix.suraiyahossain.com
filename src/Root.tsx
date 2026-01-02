@@ -12,8 +12,8 @@ function Root() {
   const tracks = useLoaderData() as TrackData[];
   const [currentTrackPos, setCurrentTrackPos] = useState(0);
 
-  let currentTrack = tracks[currentTrackPos];
-  let textColor = Globals.ENABLE_DYNAMIC_COLORS
+  const currentTrack = tracks[currentTrackPos];
+  const textColor = Globals.ENABLE_DYNAMIC_COLORS
     ? currentTrack.textColor
     : "#ffffff";
 
@@ -30,7 +30,10 @@ function Root() {
     }
   });
 
+  // Reset track position when navigating to a different year/mix
+  // This is an intentional setState in effect to reset UI state when data changes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentTrackPos(0);
   }, [tracks]);
 
@@ -41,8 +44,8 @@ function Root() {
       return;
     }
     if (nextTrack != null) {
-      let nextTrackUrl = nextTrack.url;
-      let timeoutId = setTimeout(function () {
+      const nextTrackUrl = nextTrack.url;
+      const timeoutId = setTimeout(function () {
         audioRef.current.src = nextTrackUrl;
         audioRef.current.load();
       }, Globals.NEXT_TRACK_PRELOAD_SECONDS * 1000);
