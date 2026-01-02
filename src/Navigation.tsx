@@ -11,11 +11,11 @@ function Navigation(props: {
   let pos = 0;
   let year = props.maxYear;
 
-  let style = { color: props.textColor };
+  const style = { color: props.textColor };
 
   while (year >= props.minYear) {
     if (pos > 0) {
-      let spacer_key = year + "_spacer";
+      const spacer_key = year + "_spacer";
       if (pos % itemsPerLine === 0) {
         items.push(<br key={spacer_key} />);
       } else {
@@ -26,7 +26,7 @@ function Navigation(props: {
     }
 
     // TODO: Add event handler to log which year is clicked.
-    let link = "#/" + year;
+    const link = "#/" + year;
     items.push(
       <a href={link} key={year} style={style}>
         {year}

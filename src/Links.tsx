@@ -15,7 +15,7 @@ function Links(props: { track: TrackData; textColor: string }) {
     return true;
   }
 
-  let iconStyle = {
+  const iconStyle = {
     width: "24px",
     fill: props.textColor,
     paddingRight: "20px",

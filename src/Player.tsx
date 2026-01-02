@@ -10,15 +10,15 @@ import Logger from "./Logger";
 function Player(props: {
   tracks: TrackData[];
   currentTrackPos: number;
-  setCurrentTrackPos: Function;
+  setCurrentTrackPos: (pos: number) => void;
   textColor: string;
 }) {
-  let currentTrack = props.tracks[props.currentTrackPos];
+  const currentTrack = props.tracks[props.currentTrackPos];
   const [isPlaying, setIsPlaying] = useState(false);
 
   const audioRef = useRef(new Audio());
   audioRef.current.onended = () => {
-    let oldTrackPos = props.currentTrackPos + 1;
+    const oldTrackPos = props.currentTrackPos + 1;
     if (oldTrackPos < props.tracks.length) {
       props.setCurrentTrackPos(oldTrackPos);
     } else {
@@ -50,7 +50,7 @@ function Player(props: {
 
   function handlePlayPause(val: boolean): void {
     setIsPlaying(val);
-    let label = val ? "play" : "pause";
+    const label = val ? "play" : "pause";
     Logger.log("Player", "click", label, currentTrack.year);
   }
 
@@ -77,7 +77,7 @@ function Player(props: {
     } else {
       pause();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [isPlaying]);
 
   useEffect(() => {
@@ -97,12 +97,12 @@ function Player(props: {
   useEffect(() => {
     // Pause and clean up on unmount
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+       
       pause();
     };
   });
 
-  let iconStyle = { width: "50px", fill: props.textColor };
+  const iconStyle = { width: "50px", fill: props.textColor };
 
   return (
     <div className="Player">

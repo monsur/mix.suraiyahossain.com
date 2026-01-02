@@ -20,7 +20,7 @@ export default class Logger {
     label?: string,
     year?: number
   ) => {
-    var logstr = "[" + category + ", " + action + "] ";
+    let logstr = "[" + category + ", " + action + "] ";
     if (year) {
       logstr += year + ", ";
     }

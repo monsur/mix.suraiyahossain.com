@@ -3,7 +3,7 @@ import { TrackData } from "./Types";
 
 function AlbumArtLarge(props: { track: TrackData; width: number }) {
   const backImgStyle = { marginRight: 20 };
-  let imgWidth = (Math.min(props.width, 900) - backImgStyle.marginRight) / 2;
+  const imgWidth = (Math.min(props.width, 900) - backImgStyle.marginRight) / 2;
 
   return (
     <div className="AlbumArtLarge">
