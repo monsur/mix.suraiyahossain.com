@@ -1,73 +1,95 @@
-# Getting Started with Create React App
+# mix.suraiyahossain.com
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React + TypeScript music player for Suraiya's annual mixtape collection. Built with [Vite](https://vitejs.dev/).
 
 The biggest development since this README was first written: AI. If you get stuck, ask Claude for help.
 
-## First time
+## First Time Setup
 
-Update Node and npm
+1. **Install Node.js** (recommended: use nvm)
+   ```bash
+   nvm install node
+   npm install -g npm@latest
+   ```
 
-`nvm ls-remote`
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-`nvm install node`
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-`npm install -g npm@latest`
+## Annual Update Process
 
-Remove old deps
+When updating dependencies once a year:
 
-`rm -rf node_modules`
+```bash
+# Update Node and npm
+nvm ls-remote
+nvm install node
+npm install -g npm@latest
 
-`rm package-lock.json`
+# Clean install with updated packages
+rm -rf node_modules package-lock.json
+npm i -g npm-check-updates
+ncu -u
+npm install
 
-Update packages
-
-`npm i -g npm-check-updates`
-
-`ncu -u`
-
-`npm install`
+# Test everything works
+npm run dev
+npm run build
+```
 
 ## Available Scripts
 
-In the project directory, you can run:
+### `npm run dev`
 
-### `npm start`
+Starts the Vite development server with instant hot module replacement (HMR).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+npm run dev
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Open [http://localhost:5173](http://localhost:5173) to view it in the browser. The page reloads instantly when you make edits.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Why it's fast:** Vite uses native ES modules in development - no bundling required!
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm run build
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The build:
+- Runs TypeScript type checking first (`tsc`)
+- Bundles with Vite using Rollup
+- Optimizes and minifies code
+- Outputs to `build/` directory (ready for gh-pages)
 
-### `npm run eject`
+### `npm run preview`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Preview the production build locally before deploying.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run preview
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This serves the `build` folder so you can test the production build on [http://localhost:4173](http://localhost:4173).
 
 ### `npm run deploy`
 
-Pushes the site to the gh-pages branch.
+Deploys the site to GitHub Pages.
+
+```bash
+npm run deploy
+```
+
+This runs `npm run build` then pushes the `build` folder to the `gh-pages` branch.
 
 ## Adding a new year
 
@@ -83,8 +105,25 @@ Pushes the site to the gh-pages branch.
  * Upload all that to S3.
  * Update src/Globals.ts to the latest year
 
+## Tech Stack
+
+- **React 19** - UI framework
+- **TypeScript 5** - Type safety
+- **Vite 5** - Build tool and dev server
+- **React Router 7** - Hash-based routing
+- **vite-plugin-svgr** - SVG as React components
+
+## Configuration Files
+
+- `vite.config.ts` - Vite build configuration
+- `tsconfig.json` - TypeScript configuration for source code
+- `tsconfig.node.json` - TypeScript configuration for Vite config
+- `.eslintrc.cjs` - ESLint rules
+- `index.html` - Entry point (Vite uses this directly)
+
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Vite Documentation](https://vitejs.dev/)
+- [Vite Features Guide](https://vitejs.dev/guide/features.html)
+- [React Documentation](https://react.dev/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
