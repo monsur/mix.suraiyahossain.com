@@ -1,0 +1,83 @@
+  🔴 High Priority
+
+  1. Upgrade TypeScript from 4.9.5 to 5.x
+    - You're currently on 4.9.5 (from Dec 2022), latest is 5.9.3
+    - TypeScript 5 has better performance, smaller npm package, and improved features
+    - Should be a straightforward upgrade
+  2. Migrate from Create React App to Vite
+    - CRA is in maintenance mode and no longer actively developed
+    - Vite offers much faster dev server, faster builds, and better DX
+    - This is the biggest architectural change but future-proofs the project
+    - Alternative: Could stay on CRA if you want minimal maintenance
+  3. Update TypeScript compilation target
+    - Currently targeting ES5 (from 2009)
+    - Modern browsers support ES2020+, which produces smaller bundles
+    - Recommend ES2020 or ES2022 as target
+  4. Add Node.js version management
+    - No .nvmrc or .node-version file
+    - Helps ensure consistent Node version across environments
+    - Prevents "works on my machine" issues
+
+  🟡 Medium Priority
+
+  5. Add tests
+    - Testing infrastructure exists but no actual tests
+    - Consider adding basic component and integration tests
+    - Could help prevent regressions during annual updates
+  6. Add CI/CD pipeline
+    - No GitHub Actions workflow detected
+    - Could automate builds, tests, and deployments
+    - Catch issues before they reach production
+  7. Consider switching from HashRouter to BrowserRouter
+    - Currently using hash-based routing (#/2024)
+    - BrowserRouter gives cleaner URLs (/2024)
+    - Would need server configuration for gh-pages (might not be worth it)
+  8. Improve PWA manifest
+    - Missing 512x512 icon (recommended for PWA)
+    - Could add more descriptive name and description
+    - Consider adding screenshots for PWA installation
+  9. Add error boundaries
+    - No React error boundaries detected
+    - Would prevent full app crashes from component errors
+  10. Improve type safety
+    - setCurrentTrackPos prop typed as Function instead of specific function signature
+    - Several eslint-disable comments could be addressed
+  11. Update HTML meta description
+    - Currently: "Web site created using create-react-app"
+    - Should be descriptive of your actual site
+
+  🟢 Low Priority / Nice to Have
+
+  12. Add explicit ESLint and Prettier configs
+    - Currently using CRA defaults embedded in react-scripts
+    - Custom configs give you more control and work better with editors
+  13. Add dependency update automation
+    - Add Dependabot or Renovate
+    - Automates the annual dependency update process
+  14. Add bundle size monitoring
+    - Tool like webpack-bundle-analyzer or source-map-explorer
+    - Helps track bundle size over time
+  15. Add pre-commit hooks
+    - Husky + lint-staged for running linters before commits
+    - Ensures code quality consistency
+  16. Consider service worker for offline support
+    - Make the music player work offline
+    - Would improve PWA experience
+  17. Add code splitting
+    - Currently loading all year data at once
+    - Could lazy-load year data for faster initial load
+  18. Consider Google Analytics 4 best practices
+    - Using gtag.js correctly, but could add consent management
+    - Consider adding more structured event tracking
+
+  📊 Summary
+
+  If you only do 3 things:
+  1. Upgrade TypeScript to 5.x (quick, low risk)
+  2. Add .nvmrc file (quick, very helpful)
+  3. Decide on CRA vs Vite migration (biggest architectural decision)
+
+  Time vs Impact:
+  - Quick wins: #1, #4, #11 (< 30 min total)
+  - Medium effort: #3, #5, #6, #8 (few hours each)
+  - Large effort: #2 (several hours, but worth it for future maintenance)
