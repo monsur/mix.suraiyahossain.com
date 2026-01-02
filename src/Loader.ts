@@ -2,6 +2,18 @@ import Globals from "./Globals";
 import { TrackData } from "./Types";
 import UrlHelper from "./UrlHelper";
 
+interface MixData {
+  tracks: RawTrackData[];
+  [key: string]: unknown;
+}
+
+interface RawTrackData {
+  src: string;
+  title: string;
+  artist: string;
+  [key: string]: unknown;
+}
+
 export default class Loader {
   years: {
     [key: number]: TrackData[];
@@ -11,10 +23,10 @@ export default class Loader {
     this.years = {};
   }
 
-  static shuffleArray(arr: any[]): any[] {
+  static shuffleArray<T>(arr: T[]): T[] {
     for (let i = 0; i < arr.length; i++) {
-      let j = Math.floor(Math.random() * arr.length);
-      let temp = arr[i];
+      const j = Math.floor(Math.random() * arr.length);
+      const temp = arr[i];
       arr[i] = arr[j];
       arr[j] = temp;
     }
@@ -37,12 +49,12 @@ export default class Loader {
 
         // Create a source data object that has all the "global" fields.
         urlHelper.setData(data);
-        const sourceData: any = this.getSourceData(data, urlHelper);
+        const sourceData: Partial<TrackData> = this.getSourceData(data, urlHelper);
 
         // Add the "global" fields to each track.
-        let trackData: TrackData[] = [];
-        data.tracks.forEach((item: any) => {
-          let track = { ...item, ...sourceData };
+        const trackData: TrackData[] = [];
+        data.tracks.forEach((item: RawTrackData) => {
+          const track = { ...item, ...sourceData } as TrackData;
           track.url = urlHelper.getTrackUrl(track.src);
           trackData.push(track);
         });
@@ -54,10 +66,10 @@ export default class Loader {
       });
   }
 
-  private getSourceData(data: any, urlHelper: UrlHelper): any {
-    const sourceData: any = {};
-    for (var key in data) {
-      if (!data.hasOwnProperty(key)) {
+  private getSourceData(data: MixData, urlHelper: UrlHelper): Partial<TrackData> {
+    const sourceData: Record<string, unknown> = {};
+    for (const key in data) {
+      if (!Object.hasOwn(data, key)) {
         continue;
       }
       if (key === "tracks") {
@@ -68,13 +80,13 @@ export default class Loader {
     sourceData.albumArtFront = urlHelper.getFrontAlbumArtUrl();
     sourceData.albumArtBack = urlHelper.getBackAlbumArtUrl();
     sourceData.downloadUrl = urlHelper.getDownloadUrl();
-    return sourceData;
+    return sourceData as Partial<TrackData>;
   }
 
   loadAll(shuffle: boolean): Promise<unknown> {
     // TODO: Add support for reject().
     return new Promise((resolve) => {
-      let years: number[] = [];
+      const years: number[] = [];
       for (let year = Globals.MIN_YEAR; year <= Globals.MAX_YEAR; year++) {
         years.push(year);
       }
