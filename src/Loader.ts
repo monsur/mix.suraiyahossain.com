@@ -41,7 +41,7 @@ export default class Loader {
 
         // Add the "global" fields to each track.
         let trackData: TrackData[] = [];
-        data.tracks.forEach((item: any, i: number) => {
+        data.tracks.forEach((item: any) => {
           let track = { ...item, ...sourceData };
           track.url = urlHelper.getTrackUrl(track.src);
           trackData.push(track);
@@ -73,7 +73,7 @@ export default class Loader {
 
   loadAll(shuffle: boolean): Promise<unknown> {
     // TODO: Add support for reject().
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let years: number[] = [];
       for (let year = Globals.MIN_YEAR; year <= Globals.MAX_YEAR; year++) {
         years.push(year);

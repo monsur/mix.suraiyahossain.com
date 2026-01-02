@@ -1,8 +1,8 @@
 import { TrackData } from "./Types";
 import "./Links.css";
 import Logger from "./Logger";
-import { ReactComponent as DownloadIcon } from "./assets/download.svg";
-import { ReactComponent as SpotifyIcon } from "./assets/spotify.svg";
+import DownloadIcon from "./assets/download.svg?react";
+import SpotifyIcon from "./assets/spotify.svg?react";
 
 function Links(props: { track: TrackData; textColor: string }) {
   function handleDownloadClick(): boolean {

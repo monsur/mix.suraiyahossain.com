@@ -1,9 +1,9 @@
 import { TrackData } from "./Types";
 import { useState, useRef, useEffect } from "react";
-import { ReactComponent as NextIcon } from "./assets/nexttrack.svg";
-import { ReactComponent as PrevIcon } from "./assets/prevtrack.svg";
-import { ReactComponent as PlayIcon } from "./assets/play.svg";
-import { ReactComponent as PauseIcon } from "./assets/pause.svg";
+import NextIcon from "./assets/nexttrack.svg?react";
+import PrevIcon from "./assets/prevtrack.svg?react";
+import PlayIcon from "./assets/play.svg?react";
+import PauseIcon from "./assets/pause.svg?react";
 import "./Player.css";
 import Logger from "./Logger";
 
