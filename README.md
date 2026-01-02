@@ -2,23 +2,30 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+The biggest development since this README was first written: AI. If you get stuck, ask Claude for help.
+
 ## First time
 
 Update Node and npm
 
 `nvm ls-remote`
-`nvm install {VERSION_NUMBER}`
-`npm install -g npm@{VERSION_NUMBER}`
+
+`nvm install node`
+
+`npm install -g npm@latest`
 
 Remove old deps
 
 `rm -rf node_modules`
+
 `rm package-lock.json`
 
 Update packages
 
 `npm i -g npm-check-updates`
+
 `ncu -u`
+
 `npm install`
 
 ## Available Scripts
