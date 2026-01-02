@@ -1,0 +1,84 @@
+{
+ "year": 2025,
+ "mixTitle": "TwentyTwentyFive",
+ "backgroundColor": "#252222",
+ "textColor": "#DADDDD",
+ "spotify": "https://open.spotify.com/playlist/2zjYOADtbPddP3paCsZmZ7",
+ "tracks": [
+  {
+   "title": "Call Me When You Break Up",
+   "artist": "Selena Gomez & Gracie Abrams",
+   "src": "01-SelenaGomezGracieAbrams-CallMeWhenYouBreakUp.mp3"
+  },
+  {
+   "title": "Holiday",
+   "artist": "Stray Kids",
+   "src": "02-StrayKids-Holiday.mp3"
+  },
+  {
+   "title": "My Baby (Got Nothing at All)",
+   "artist": "Japanese Breakfast",
+   "src": "03-JapaneseBreakfast-MyBabyGotNothingatAll.mp3"
+  },
+  {
+   "title": "Kill",
+   "artist": "Star 99",
+   "src": "04-Star99-Kill.mp3"
+  },
+  {
+   "title": "Best Guess",
+   "artist": "Lucy Dacus",
+   "src": "05-LucyDacus-BestGuess.mp3"
+  },
+  {
+   "title": "Wanna Start a Band?",
+   "artist": "Sleigh Bells",
+   "src": "06-SleighBells-WannaStartaBand.mp3"
+  },
+  {
+   "title": "Radiya",
+   "artist": "Lina Makoul",
+   "src": "07-LinaMakoul-Radiya.mp3"
+  },
+  {
+   "title": "UFO",
+   "artist": "Braxe + Falcon & Phoenix",
+   "src": "08-BraxeFalconPhoenix-UFO.mp3"
+  },
+  {
+   "title": "undressed",
+   "artist": "Sombr",
+   "src": "09-Sombr-undressed.mp3"
+  },
+  {
+   "title": "MISUNDERSTOOD",
+   "artist": "Hannah Bahng",
+   "src": "10-HannahBahng-Misunderstood.mp3"
+  },
+  {
+   "title": "So Easy (To Fall In Love)",
+   "artist": "Olivia Dean",
+   "src": "11-OliviaDean-SoEasyToFallInLove.mp3"
+  },
+  {
+   "title": "Heathcliff",
+   "artist": "Snocaps",
+   "src": "12-Snocaps-Heathcliff.mp3"
+  },
+  {
+   "title": "Lover Girl",
+   "artist": "Laufey",
+   "src": "13-Laufey-LoverGirl.mp3"
+  },
+  {
+   "title": "NOT CUTE ANYMORE",
+   "artist": "ILLIT",
+   "src": "14-Illit-NotCuteAnymore.mp3"
+  },
+  {
+   "title": "A Stone Only Rolls Downhill",
+   "artist": "OK Go",
+   "src": "15-OkGo-AStoneOnlyRollsDownhill.mp3"
+  }
+ ]
+}
