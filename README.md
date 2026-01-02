@@ -8,9 +8,15 @@ The biggest development since this README was first written: AI. If you get stuc
 
 1. **Install Node.js** (recommended: use nvm)
    ```bash
-   nvm install node
+   # Automatically uses the version specified in .nvmrc
+   nvm install
+   nvm use
+
+   # Update npm to latest
    npm install -g npm@latest
    ```
+
+   > **Note:** This project includes `.nvmrc` and `.node-version` files that specify Node.js 24.12.0 LTS. Most version managers (nvm, fnm, asdf) will automatically detect and use this version.
 
 2. **Install dependencies**
    ```bash
@@ -27,18 +33,23 @@ The biggest development since this README was first written: AI. If you get stuc
 When updating dependencies once a year:
 
 ```bash
-# Update Node and npm
-nvm ls-remote
-nvm install node
+# 1. Update Node.js to latest LTS
+nvm ls-remote --lts
+nvm install --lts
+nvm use --lts
 npm install -g npm@latest
 
-# Clean install with updated packages
+# 2. Update .nvmrc and .node-version files
+node --version > .nvmrc
+node --version > .node-version
+
+# 3. Clean install with updated packages
 rm -rf node_modules package-lock.json
 npm i -g npm-check-updates
 ncu -u
 npm install
 
-# Test everything works
+# 4. Test everything works
 npm run dev
 npm run build
 ```
@@ -120,6 +131,8 @@ This runs `npm run build` then pushes the `build` folder to the `gh-pages` branc
 - `tsconfig.node.json` - TypeScript configuration for Vite config
 - `.eslintrc.cjs` - ESLint rules
 - `index.html` - Entry point (Vite uses this directly)
+- `.nvmrc` - Node.js version for nvm
+- `.node-version` - Node.js version for other version managers (fnm, asdf, etc.)
 
 ## Learn More
 
