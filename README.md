@@ -107,6 +107,7 @@ This runs `npm run build` then pushes the `build` folder to the `gh-pages` branc
  * Update node and deps (see above)
  * Create a new folder with the year under public/years
  * Add front.jpg and back.jpg album art into the new folder. Size: 1500 x 1500
+ * Minify album art using https://tinypng.com/
  * Create a new data.json file into the new folder.
  * Use AI to extract track names from back.jpg into the correct json format.
  * Run `node create_track_names.js {YEAR}` to add an `src` field with the track filename to the json.
