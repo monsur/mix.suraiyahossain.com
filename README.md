@@ -69,6 +69,20 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 Pushes the site to the gh-pages branch.
 
+## Adding a new year
+
+ * Update node and deps (see above)
+ * Create a new folder with the year under public/years
+ * Add front.jpg and back.jpg album art into the new folder. Size: 1500 x 1500
+ * Create a new data.json file into the new folder.
+ * Use AI to extract track names from back.jpg into the correct json format.
+ * Run `node create_track_names.js {YEAR}` to add an `src` field with the track filename to the json.
+ * Rename each MP3 file to those file names
+ * Edit MP3 ID3 tags
+ * Create a zip of MP3s titled year.zip
+ * Upload all that to S3.
+ * Update src/Globals.ts to the latest year
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
