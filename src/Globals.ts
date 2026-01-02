@@ -6,7 +6,7 @@ export default class Globals {
   static ENABLE_NEXT_TRACK_PRELOAD = true;
   static NEXT_TRACK_PRELOAD_SECONDS = 10;
 
-  // ENable to change background/text color based on album.
+  // Enable to change background/text color based on album.
   static ENABLE_DYNAMIC_COLORS = false;
 
   // Enable to use a test 5 second audio file.
