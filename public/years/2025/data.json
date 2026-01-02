@@ -1,0 +1,69 @@
+{
+  "year": 2025,
+  "mixTitle": "TwentyTwentyFive",
+  "backgroundColor": "#252222",
+  "textColor": "#DADDDD",
+  "spotify": "https://open.spotify.com/playlist/7c25ijVaQ6HV3FYGxvE6ar?si=2a10f5192bbb4ae2",
+  "tracks": [
+  {
+    "title": "Call Me When You Break Up",
+    "artist": "Selena Gomez & Gracie Abrams"
+  },
+  {
+    "title": "Holiday",
+    "artist": "Stray Kids"
+  },
+  {
+    "title": "My Baby (Got Nothing at All)",
+    "artist": "Japanese Breakfast"
+  },
+  {
+    "title": "Kill",
+    "artist": "Star 99"
+  },
+  {
+    "title": "Best Guess",
+    "artist": "Lucy Dacus"
+  },
+  {
+    "title": "Wanna Start a Band?",
+    "artist": "Sleigh Bells"
+  },
+  {
+    "title": "Radiya",
+    "artist": "Lina Makoul"
+  },
+  {
+    "title": "UFO",
+    "artist": "Braxe + Falcon & Phoenix"
+  },
+  {
+    "title": "undressed",
+    "artist": "Sombr"
+  },
+  {
+    "title": "Misunderstood",
+    "artist": "Hannah Bahng"
+  },
+  {
+    "title": "So Easy (To Fall In Love)",
+    "artist": "Olivia Dean"
+  },
+  {
+    "title": "Heathcliff",
+    "artist": "Snocaps"
+  },
+  {
+    "title": "Lover Girl",
+    "artist": "Laufey"
+  },
+  {
+    "title": "Not Cute Anymore",
+    "artist": "Illit"
+  },
+  {
+    "title": "A Stone Only Rolls Downhill",
+    "artist": "Ok Go"
+  }
+  ]
+ }
