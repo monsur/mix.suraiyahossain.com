@@ -8,7 +8,10 @@ test.describe('Music Player E2E Tests', () => {
 
   test('should load the homepage with all main components', async ({ page }) => {
     // Check that all main components are visible
-    await expect(page.locator('.AlbumArt')).toBeVisible()
+    // AlbumArt renders either AlbumArtLarge or AlbumArtSmall
+    const albumArt = page.locator('.AlbumArtLarge, .AlbumArtSmall')
+    await expect(albumArt.first()).toBeVisible()
+
     await expect(page.locator('.Player')).toBeVisible()
     await expect(page.locator('.TrackInfo')).toBeVisible()
     await expect(page.locator('.Links')).toBeVisible()
@@ -16,8 +19,8 @@ test.describe('Music Player E2E Tests', () => {
   })
 
   test('should display album art', async ({ page }) => {
-    // Wait for album art to load
-    const albumArt = page.locator('.AlbumArt img').first()
+    // Wait for album art to load (either large or small)
+    const albumArt = page.locator('.AlbumArtLarge img, .AlbumArtSmall img').first()
     await expect(albumArt).toBeVisible()
 
     // Verify image has src attribute
@@ -41,7 +44,7 @@ test.describe('Music Player E2E Tests', () => {
     await expect(trackInfo).toBeVisible()
 
     // Should show current track title
-    const title = trackInfo.locator('.title')
+    const title = trackInfo.locator('.TrackInfoTitle')
     await expect(title).toBeVisible()
     const titleText = await title.textContent()
     expect(titleText).toBeTruthy()
@@ -73,7 +76,7 @@ test.describe('Music Player E2E Tests', () => {
 
   test('should navigate to previous track when prev button is clicked', async ({ page }) => {
     // Get initial track info
-    const trackInfo = page.locator('.TrackInfo .title')
+    const trackInfo = page.locator('.TrackInfo .TrackInfoTitle')
     const initialTrack = await trackInfo.textContent()
 
     // Click next to advance, then click prev to go back
@@ -97,7 +100,7 @@ test.describe('Music Player E2E Tests', () => {
 
   test('should navigate to next track when next button is clicked', async ({ page }) => {
     // Get initial track info
-    const trackInfo = page.locator('.TrackInfo .title')
+    const trackInfo = page.locator('.TrackInfo .TrackInfoTitle')
     const initialTrack = await trackInfo.textContent()
 
     // Click next button
@@ -134,7 +137,8 @@ test.describe('Music Player E2E Tests', () => {
       expect(newUrl).not.toBe(initialUrl)
 
       // Should still show all main components
-      await expect(page.locator('.AlbumArt')).toBeVisible()
+      const albumArt = page.locator('.AlbumArtLarge, .AlbumArtSmall')
+      await expect(albumArt.first()).toBeVisible()
       await expect(page.locator('.Player')).toBeVisible()
     }
   })
@@ -151,12 +155,16 @@ test.describe('Music Player E2E Tests', () => {
     await page.setViewportSize({ width: 375, height: 667 })
 
     // All main components should still be visible
-    await expect(page.locator('.AlbumArt')).toBeVisible()
+    const albumArt = page.locator('.AlbumArtLarge, .AlbumArtSmall')
+    await expect(albumArt.first()).toBeVisible()
     await expect(page.locator('.Player')).toBeVisible()
     await expect(page.locator('.TrackInfo')).toBeVisible()
 
-    // Album art should show small version (single image)
-    const albumArtImages = page.locator('.AlbumArt img')
+    // Album art should show small version (single image) on mobile
+    const albumArtSmall = page.locator('.AlbumArtSmall')
+    await expect(albumArtSmall).toBeVisible()
+
+    const albumArtImages = albumArtSmall.locator('img')
     const imageCount = await albumArtImages.count()
     expect(imageCount).toBe(1) // Mobile shows only one image at a time
   })
@@ -166,7 +174,7 @@ test.describe('Music Player E2E Tests', () => {
     await page.setViewportSize({ width: 375, height: 667 })
 
     // Get initial image src
-    const albumArtImage = page.locator('.AlbumArt img').first()
+    const albumArtImage = page.locator('.AlbumArtSmall img').first()
     await expect(albumArtImage).toBeVisible()
     const initialSrc = await albumArtImage.getAttribute('src')
 
@@ -186,12 +194,13 @@ test.describe('Music Player E2E Tests', () => {
     await page.setViewportSize({ width: 1920, height: 1080 })
 
     // Album art should show large version (two images side by side)
-    await expect(page.locator('.AlbumArt')).toBeVisible()
+    const albumArtLarge = page.locator('.AlbumArtLarge')
+    await expect(albumArtLarge).toBeVisible()
 
-    // Should have multiple images visible on large screens
-    const albumArtImages = page.locator('.AlbumArt img')
+    // Should have two images visible on large screens
+    const albumArtImages = albumArtLarge.locator('img')
     const imageCount = await albumArtImages.count()
-    expect(imageCount).toBeGreaterThanOrEqual(1)
+    expect(imageCount).toBe(2) // Large shows front and back
   })
 
   test('should load without JavaScript errors', async ({ page }) => {
@@ -209,12 +218,16 @@ test.describe('Music Player E2E Tests', () => {
   })
 
   test('should handle hash-based routing', async ({ page }) => {
-    // App uses hash-based routing (React Router with HashRouter)
-    await page.goto('/')
+    // App uses hash-based routing (React Router with createHashRouter)
+    // Navigate to a specific year route
+    await page.goto('/#/2025')
+
+    // Wait for content to load
+    await page.locator('.Player').waitFor({ state: 'visible' })
 
     // URL should contain hash
     const url = page.url()
-    expect(url).toContain('#')
+    expect(url).toContain('#/2025')
   })
 })
 
