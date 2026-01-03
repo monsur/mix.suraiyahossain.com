@@ -50,13 +50,16 @@ ncu -u
 npm install
 
 # 4. Test everything works
+npm run test:run
 npm run dev
 npm run build
 ```
 
 ## Available Scripts
 
-### `npm run dev`
+### Development
+
+#### `npm run dev`
 
 Starts the Vite development server with instant hot module replacement (HMR).
 
@@ -68,7 +71,55 @@ Open [http://localhost:5173](http://localhost:5173) to view it in the browser. T
 
 **Why it's fast:** Vite uses native ES modules in development - no bundling required!
 
-### `npm run build`
+### Testing
+
+#### `npm test`
+
+Runs the test suite in watch mode. Tests will automatically re-run when you make changes.
+
+```bash
+npm test
+```
+
+This project uses [Vitest](https://vitest.dev/) with React Testing Library for comprehensive test coverage.
+
+#### `npm run test:run`
+
+Runs all tests once (useful for CI/CD).
+
+```bash
+npm run test:run
+```
+
+#### `npm run test:coverage`
+
+Generates a detailed code coverage report.
+
+```bash
+npm run test:coverage
+```
+
+Coverage reports are generated in the `coverage/` directory and displayed in the terminal.
+
+#### `npm run test:ui`
+
+Opens the Vitest UI for interactive test exploration and debugging.
+
+```bash
+npm run test:ui
+```
+
+**Test Coverage:** The project maintains 93%+ overall test coverage including:
+- Unit tests for utilities (UrlHelper, Loader, routing logic)
+- Component tests for all UI components
+- Integration tests for the Root component
+- Mock implementations for Audio API, Router, and external dependencies
+
+See [testing_plan.md](testing_plan.md) for detailed testing documentation.
+
+### Build & Deploy
+
+#### `npm run build`
 
 Builds the app for production to the `build` folder.
 
@@ -82,7 +133,7 @@ The build:
 - Optimizes and minifies code
 - Outputs to `build/` directory (ready for gh-pages)
 
-### `npm run preview`
+#### `npm run preview`
 
 Preview the production build locally before deploying.
 
@@ -92,7 +143,7 @@ npm run preview
 
 This serves the `build` folder so you can test the production build on [http://localhost:4173](http://localhost:4173).
 
-### `npm run deploy`
+#### `npm run deploy`
 
 Deploys the site to GitHub Pages.
 
@@ -119,21 +170,72 @@ This runs `npm run build` then pushes the `build` folder to the `gh-pages` branc
 
 ## Tech Stack
 
+### Core
 - **React 19** - UI framework
 - **TypeScript 5** - Type safety
-- **Vite 5** - Build tool and dev server
+- **Vite 7** - Build tool and dev server
 - **React Router 7** - Hash-based routing
 - **vite-plugin-svgr** - SVG as React components
 
+### Testing
+- **Vitest 4** - Fast unit test runner (compatible with Vite)
+- **React Testing Library** - Component testing utilities
+- **jsdom** - DOM environment for testing
+- **@vitest/coverage-v8** - Code coverage reporting
+
 ## Configuration Files
 
-- `vite.config.ts` - Vite build configuration
+- `vite.config.mts` - Vite build configuration
+- `vitest.config.ts` - Vitest test configuration
 - `tsconfig.json` - TypeScript configuration for source code
 - `tsconfig.node.json` - TypeScript configuration for Vite config
 - `.eslintrc.cjs` - ESLint rules
 - `index.html` - Entry point (Vite uses this directly)
 - `.nvmrc` - Node.js version for nvm
 - `.node-version` - Node.js version for other version managers (fnm, asdf, etc.)
+- `testing_plan.md` - Comprehensive testing documentation and strategy
+
+## Testing
+
+This project has comprehensive test coverage with **148 tests** across **11 test files**, maintaining **93%+ code coverage**.
+
+### Running Tests
+
+```bash
+# Watch mode - tests re-run on changes
+npm test
+
+# Run once (for CI/CD)
+npm run test:run
+
+# Generate coverage report
+npm run test:coverage
+
+# Interactive UI
+npm run test:ui
+```
+
+### Test Structure
+
+```
+src/
+├── UrlHelper.test.ts           # URL generation utilities
+├── Loader.test.ts              # Data loading and caching
+├── App.test.tsx                # Routing logic
+├── Player.test.tsx             # Audio player controls
+├── AlbumArt.test.tsx           # Responsive album art
+├── AlbumArtSmall.test.tsx      # Small album art with flip
+├── AlbumArtLarge.test.tsx      # Large dual-image display
+├── Navigation.test.tsx         # Year navigation
+├── TrackInfo.test.tsx          # Track metadata display
+├── Links.test.tsx              # Download & Spotify links
+├── Root.test.tsx               # Integration tests
+└── test/
+    ├── setup.ts                # Test environment setup
+    └── mocks/                  # Mock data and utilities
+```
+
+For detailed testing documentation, see [testing_plan.md](testing_plan.md).
 
 ## Learn More
 
@@ -141,3 +243,5 @@ This runs `npm run build` then pushes the `build` folder to the `gh-pages` branc
 - [Vite Features Guide](https://vitejs.dev/guide/features.html)
 - [React Documentation](https://react.dev/)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Vitest Documentation](https://vitest.dev/)
+- [React Testing Library](https://testing-library.com/react)
