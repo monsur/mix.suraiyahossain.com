@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import AlbumArt from './AlbumArt'
 import { mockTrackData } from './test/mocks/trackData'
 
@@ -115,5 +115,38 @@ describe('AlbumArt', () => {
     )
 
     addEventListenerSpy.mockRestore()
+  })
+
+  it('should update width and re-render when window is resized', () => {
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 600,
+    })
+
+    const { rerender } = render(<AlbumArt track={mockTrackData} />)
+
+    // Initially renders large version
+    expect(screen.getByTestId('album-art-large')).toBeInTheDocument()
+    expect(screen.queryByTestId('album-art-small')).not.toBeInTheDocument()
+
+    // Simulate resize to small viewport
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 400,
+    })
+
+    // Trigger the resize event with act() to avoid warnings
+    act(() => {
+      window.dispatchEvent(new Event('resize'))
+    })
+
+    // Force re-render to see the effect
+    rerender(<AlbumArt track={mockTrackData} />)
+
+    // Should switch to small version
+    expect(screen.getByTestId('album-art-small')).toBeInTheDocument()
+    expect(screen.queryByTestId('album-art-large')).not.toBeInTheDocument()
   })
 })
