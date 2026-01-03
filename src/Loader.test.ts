@@ -99,7 +99,7 @@ describe('Loader', () => {
 
       const result = await loader.loadYear(2025)
 
-      result.forEach((track, index) => {
+      result.forEach((track) => {
         expect(track.url).toContain('/tracks/')
         expect(track.url).toContain('.mp3')
       })
@@ -138,7 +138,7 @@ describe('Loader', () => {
       Globals.MIN_YEAR = 2023
       Globals.MAX_YEAR = 2025
 
-      const result = await loader.loadAll(false)
+      await loader.loadAll(false)
 
       expect(mockFetch).toHaveBeenCalledTimes(3) // 2023, 2024, 2025
 

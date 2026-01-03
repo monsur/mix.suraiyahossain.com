@@ -18,7 +18,7 @@ vi.mock('./AlbumArt', () => ({
 }))
 
 vi.mock('./Player', () => ({
-  default: ({ tracks, currentTrackPos, setCurrentTrackPos, textColor }: any) => (
+  default: ({ tracks, currentTrackPos, textColor }: any) => (
     <div data-testid="player">
       Player - Track {currentTrackPos + 1} of {tracks.length} - Color: {textColor}
     </div>
@@ -26,7 +26,7 @@ vi.mock('./Player', () => ({
 }))
 
 vi.mock('./TrackInfo', () => ({
-  default: ({ currentTrack, nextTrack, textColor }: any) => (
+  default: ({ currentTrack, nextTrack }: any) => (
     <div data-testid="track-info">
       TrackInfo - {currentTrack.title}
       {nextTrack && ` - Next: ${nextTrack.title}`}
@@ -35,13 +35,13 @@ vi.mock('./TrackInfo', () => ({
 }))
 
 vi.mock('./Links', () => ({
-  default: ({ track, textColor }: any) => (
+  default: ({ track }: any) => (
     <div data-testid="links">Links - {track.title}</div>
   ),
 }))
 
 vi.mock('./Navigation', () => ({
-  default: ({ textColor, minYear, maxYear }: any) => (
+  default: ({ minYear, maxYear }: any) => (
     <div data-testid="navigation">
       Navigation - {minYear} to {maxYear}
     </div>

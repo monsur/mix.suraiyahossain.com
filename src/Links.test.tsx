@@ -124,7 +124,7 @@ describe('Links', () => {
     render(<Links track={mockTrackData} textColor="#FFFFFF" />)
 
     const downloadIcon = screen.getByTestId('download-icon')
-    const result = fireEvent.click(downloadIcon)
+    fireEvent.click(downloadIcon)
 
     expect(Logger.log).toHaveBeenCalled()
     // Event is not prevented, so link should work normally
@@ -134,7 +134,7 @@ describe('Links', () => {
     render(<Links track={mockTrackData} textColor="#FFFFFF" />)
 
     const spotifyIcon = screen.getByTestId('spotify-icon')
-    const result = fireEvent.click(spotifyIcon)
+    fireEvent.click(spotifyIcon)
 
     expect(Logger.log).toHaveBeenCalled()
     // Event is not prevented, so link should work normally
