@@ -117,6 +117,59 @@ npm run test:ui
 
 See [testing_plan.md](testing_plan.md) for detailed testing documentation.
 
+#### E2E Testing
+
+The project includes comprehensive End-to-End tests using [Playwright](https://playwright.dev/) that run in real browsers.
+
+##### `npm run test:e2e`
+
+Runs E2E tests in all configured browsers (Chromium, Firefox, WebKit) in headless mode.
+
+```bash
+npm run test:e2e
+```
+
+##### `npm run test:e2e:ui`
+
+Opens Playwright's interactive UI for running and debugging tests.
+
+```bash
+npm run test:e2e:ui
+```
+
+##### `npm run test:e2e:headed`
+
+Runs tests with visible browsers (useful for watching test execution).
+
+```bash
+npm run test:e2e:headed
+```
+
+##### `npm run test:e2e:debug`
+
+Opens tests in debug mode with step-by-step execution.
+
+```bash
+npm run test:e2e:debug
+```
+
+##### `npm run test:e2e:report`
+
+Opens the HTML test report showing results, screenshots, and traces.
+
+```bash
+npm run test:e2e:report
+```
+
+**E2E Test Coverage:** 18 tests covering:
+- Full user workflows (play, pause, navigate tracks)
+- Cross-browser compatibility (Chromium, Firefox, WebKit)
+- Mobile responsiveness (Pixel 5, iPhone 12)
+- Real network requests and Audio API interactions
+- Performance and accessibility checks
+
+See [e2e-testing.md](e2e-testing.md) for complete E2E testing documentation.
+
 ### Build & Deploy
 
 #### `npm run build`
@@ -182,11 +235,13 @@ This runs `npm run build` then pushes the `build` folder to the `gh-pages` branc
 - **React Testing Library** - Component testing utilities
 - **jsdom** - DOM environment for testing
 - **@vitest/coverage-v8** - Code coverage reporting
+- **Playwright 1.57** - E2E testing framework with real browsers
 
 ## Configuration Files
 
 - `vite.config.mts` - Vite build configuration
 - `vitest.config.ts` - Vitest test configuration
+- `playwright.config.ts` - Playwright E2E test configuration
 - `tsconfig.json` - TypeScript configuration for source code
 - `tsconfig.node.json` - TypeScript configuration for Vite config
 - `.eslintrc.cjs` - ESLint rules
@@ -194,10 +249,13 @@ This runs `npm run build` then pushes the `build` folder to the `gh-pages` branc
 - `.nvmrc` - Node.js version for nvm
 - `.node-version` - Node.js version for other version managers (fnm, asdf, etc.)
 - `testing_plan.md` - Comprehensive testing documentation and strategy
+- `e2e-testing.md` - E2E testing guide with Playwright
 
 ## Testing
 
-This project has comprehensive test coverage with **148 tests** across **11 test files**, maintaining **93%+ code coverage**.
+This project has comprehensive test coverage:
+- **Unit & Integration Tests**: 148 tests across 11 test files, maintaining 93%+ code coverage
+- **E2E Tests**: 18 tests running across 5 browsers (Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari)
 
 ### Running Tests
 
@@ -233,9 +291,14 @@ src/
 └── test/
     ├── setup.ts                # Test environment setup
     └── mocks/                  # Mock data and utilities
+
+e2e/
+└── music-player.spec.ts        # E2E tests with Playwright
 ```
 
-For detailed testing documentation, see [testing_plan.md](testing_plan.md).
+For detailed testing documentation:
+- [testing_plan.md](testing_plan.md) - Unit and integration testing
+- [e2e-testing.md](e2e-testing.md) - E2E testing guide
 
 ## Learn More
 
@@ -245,3 +308,4 @@ For detailed testing documentation, see [testing_plan.md](testing_plan.md).
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Vitest Documentation](https://vitest.dev/)
 - [React Testing Library](https://testing-library.com/react)
+- [Playwright Documentation](https://playwright.dev/)
