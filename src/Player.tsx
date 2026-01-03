@@ -1,5 +1,6 @@
 import { TrackData } from "./Types";
 import { useState, useRef, useEffect } from "react";
+import * as Sentry from "@sentry/react";
 import NextIcon from "./assets/nexttrack.svg?react";
 import PrevIcon from "./assets/prevtrack.svg?react";
 import PlayIcon from "./assets/play.svg?react";
@@ -25,6 +26,24 @@ function Player(props: {
       setIsPlaying(false);
       props.setCurrentTrackPos(0);
     }
+  };
+
+  // Handle audio errors
+  audioRef.current.onerror = () => {
+    const error = new Error(`Audio playback error: ${currentTrack.url}`);
+    Logger.error("Player", "audio-error", error.message, currentTrack.year);
+    Sentry.captureException(error, {
+      tags: {
+        component: "Player",
+        errorType: "audio-playback",
+      },
+      extra: {
+        trackUrl: currentTrack.url,
+        trackTitle: currentTrack.title,
+        trackArtist: currentTrack.artist,
+        year: currentTrack.year,
+      },
+    });
   };
 
   function handleNext(): void {
@@ -62,6 +81,19 @@ function Player(props: {
         // Revisit this if there are other valid use cases that are
         // being ignored.
       } else {
+        // Capture unexpected play errors
+        Logger.error("Player", "play-error", e.message, currentTrack.year);
+        Sentry.captureException(e, {
+          tags: {
+            component: "Player",
+            errorType: "play-failed",
+          },
+          extra: {
+            trackUrl: currentTrack.url,
+            trackTitle: currentTrack.title,
+            year: currentTrack.year,
+          },
+        });
         throw e;
       }
     });

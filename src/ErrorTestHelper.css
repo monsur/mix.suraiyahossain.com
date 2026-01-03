@@ -1,0 +1,104 @@
+.error-test-helper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  max-width: 320px;
+}
+
+.error-test-header {
+  margin-bottom: 12px;
+}
+
+.error-test-header h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  color: #2d3748;
+}
+
+.error-test-header p {
+  margin: 0;
+  font-size: 12px;
+  color: #718096;
+}
+
+.error-test-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.test-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: white;
+}
+
+.test-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.test-button.red {
+  background: #f56565;
+}
+
+.test-button.red:hover {
+  background: #e53e3e;
+}
+
+.test-button.orange {
+  background: #ed8936;
+}
+
+.test-button.orange:hover {
+  background: #dd6b20;
+}
+
+.test-button.blue {
+  background: #4299e1;
+}
+
+.test-button.blue:hover {
+  background: #3182ce;
+}
+
+.test-button.purple {
+  background: #9f7aea;
+}
+
+.test-button.purple:hover {
+  background: #805ad5;
+}
+
+.error-test-info {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 12px;
+}
+
+.error-test-info small {
+  font-size: 11px;
+  line-height: 1.4;
+  color: #718096;
+  display: block;
+}
+
+.error-test-info code {
+  background: #edf2f7;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: "Monaco", "Menlo", monospace;
+  font-size: 10px;
+  color: #2d3748;
+}

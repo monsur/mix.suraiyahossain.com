@@ -48,6 +48,7 @@ describe('Loader', () => {
   describe('loadYear', () => {
     it('should fetch and transform track data', async () => {
       const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
         json: () => Promise.resolve(mockMixData),
       })
       global.fetch = mockFetch
@@ -77,6 +78,7 @@ describe('Loader', () => {
 
     it('should cache data after first load', async () => {
       const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
         json: () => Promise.resolve(mockMixData),
       })
       global.fetch = mockFetch
@@ -93,6 +95,7 @@ describe('Loader', () => {
 
     it('should add track URL to each track', async () => {
       const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
         json: () => Promise.resolve(mockMixData),
       })
       global.fetch = mockFetch
@@ -113,6 +116,7 @@ describe('Loader', () => {
       }
 
       const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
         json: () => Promise.resolve(mockData2010),
       })
       global.fetch = mockFetch
@@ -128,6 +132,7 @@ describe('Loader', () => {
   describe('loadAll', () => {
     it('should load all years from MIN_YEAR to MAX_YEAR', async () => {
       const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
         json: () => Promise.resolve(mockMixData),
       })
       global.fetch = mockFetch
@@ -149,6 +154,7 @@ describe('Loader', () => {
 
     it('should return all tracks without shuffle when shuffle is false', async () => {
       const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
         json: () => Promise.resolve(mockMixData),
       })
       global.fetch = mockFetch
@@ -169,6 +175,7 @@ describe('Loader', () => {
 
     it('should shuffle tracks when shuffle is true', async () => {
       const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
         json: () => Promise.resolve(mockMixData),
       })
       global.fetch = mockFetch
@@ -198,6 +205,7 @@ describe('Loader', () => {
 
     it('should flatten arrays from multiple years', async () => {
       const mockFetch = vi.fn().mockResolvedValue({
+        ok: true,
         json: () => Promise.resolve(mockMixData),
       })
       global.fetch = mockFetch
@@ -234,9 +242,11 @@ describe('Loader', () => {
 
       const mockFetch = vi.fn()
         .mockResolvedValueOnce({
+          ok: true,
           json: () => Promise.resolve(mockData2024),
         })
         .mockResolvedValueOnce({
+          ok: true,
           json: () => Promise.resolve(mockData2025),
         })
       global.fetch = mockFetch

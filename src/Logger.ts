@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/react";
+
 export default class Logger {
   static logToServer = (category: string, action: string, label: string) => {
     if (window["console"]) {
@@ -30,8 +32,39 @@ export default class Logger {
     Logger.logToServer(category, action, logstr);
   };
 
-  // TODO: Should probably log some errors in some places.
-  static error = (e: Error) => {
-    Logger.logToServer("error", "error", e.toString());
+  static error = (
+    category: string,
+    action: string,
+    message: string,
+    year?: number
+  ) => {
+    let logstr = "[" + category + ", " + action + "] " + message;
+    if (year) {
+      logstr += " (year: " + year + ")";
+    }
+
+    // Log to console
+    if (window["console"]) {
+      window["console"].error(logstr);
+    }
+
+    // Log to Google Analytics
+    if (window["gtag"]) {
+      window["gtag"]("event", "error", {
+        event_category: category,
+        event_label: logstr,
+      });
+    }
+
+    // Send breadcrumb to Sentry for context
+    Sentry.addBreadcrumb({
+      category: category,
+      message: message,
+      level: "error",
+      data: {
+        action,
+        year,
+      },
+    });
   };
 }

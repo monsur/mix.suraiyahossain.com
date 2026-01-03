@@ -1,6 +1,8 @@
+import * as Sentry from "@sentry/react";
 import Globals from "./Globals";
 import { TrackData } from "./Types";
 import UrlHelper from "./UrlHelper";
+import Logger from "./Logger";
 
 interface MixData {
   tracks: RawTrackData[];
@@ -41,7 +43,12 @@ export default class Loader {
 
     const urlHelper = new UrlHelper(year);
     return fetch(urlHelper.getDataFileUrl())
-      .then((resp) => resp.json())
+      .then((resp) => {
+        if (!resp.ok) {
+          throw new Error(`Failed to load data for year ${year}: ${resp.status} ${resp.statusText}`);
+        }
+        return resp.json();
+      })
       .then((data) => {
         // Move the top-level fields that are common across a single year down to the track level.
         // Doing this so that each track contains all the data to render itself.
@@ -63,6 +70,21 @@ export default class Loader {
         this.years[year] = trackData;
 
         return trackData;
+      })
+      .catch((error) => {
+        const errorMessage = `Failed to load tracks for year ${year}`;
+        Logger.error("Loader", "load-year-error", errorMessage, year);
+        Sentry.captureException(error, {
+          tags: {
+            component: "Loader",
+            errorType: "data-loading",
+          },
+          extra: {
+            year: year,
+            dataUrl: urlHelper.getDataFileUrl(),
+          },
+        });
+        throw new Error(errorMessage, { cause: error });
       });
   }
 
@@ -83,22 +105,36 @@ export default class Loader {
     return sourceData as Partial<TrackData>;
   }
 
-  loadAll(shuffle: boolean): Promise<unknown> {
-    // TODO: Add support for reject().
-    return new Promise((resolve) => {
+  loadAll(shuffle: boolean): Promise<TrackData[]> {
+    return new Promise((resolve, reject) => {
       const years: number[] = [];
       for (let year = Globals.MIN_YEAR; year <= Globals.MAX_YEAR; year++) {
         years.push(year);
       }
 
       let tracks: TrackData[] = [];
-      Promise.all(years.map((year) => this.loadYear(year))).then((data) => {
-        tracks = data.flat();
-        if (shuffle) {
-          tracks = Loader.shuffleArray(tracks);
-        }
-        resolve(tracks);
-      });
+      Promise.all(years.map((year) => this.loadYear(year)))
+        .then((data) => {
+          tracks = data.flat();
+          if (shuffle) {
+            tracks = Loader.shuffleArray(tracks);
+          }
+          resolve(tracks);
+        })
+        .catch((error) => {
+          Logger.error("Loader", "load-all-error", "Failed to load all tracks", 0);
+          Sentry.captureException(error, {
+            tags: {
+              component: "Loader",
+              errorType: "data-loading-all",
+            },
+            extra: {
+              yearRange: `${Globals.MIN_YEAR}-${Globals.MAX_YEAR}`,
+              shuffle,
+            },
+          });
+          reject(error);
+        });
     });
   }
 }

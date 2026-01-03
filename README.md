@@ -4,6 +4,10 @@ A React + TypeScript music player for Suraiya's annual mixtape collection. Built
 
 The biggest development since this README was first written: AI. If you get stuck, ask Claude for help.
 
+## Error Tracking
+
+This project uses [Sentry](https://sentry.io) for error tracking and monitoring. See [SENTRY_SETUP.md](SENTRY_SETUP.md) for complete setup instructions.
+
 ## First Time Setup
 
 1. **Install Node.js** (recommended: use nvm)
