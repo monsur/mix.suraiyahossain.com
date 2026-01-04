@@ -1,12 +1,8 @@
 # mix.suraiyahossain.com
 
-A React + TypeScript music player for Suraiya's annual mixtape collection. Built with [Vite](https://vitejs.dev/).
+A React + TypeScript music player for our annual mixtape collection. Built with [Vite](https://vitejs.dev/).
 
 The biggest development since this README was first written: AI. If you get stuck, ask Claude for help.
-
-## Error Tracking
-
-This project uses [Sentry](https://sentry.io) for error tracking and monitoring. See [docs/SENTRY_SETUP.md](docs/SENTRY_SETUP.md) for complete setup instructions.
 
 ## First Time Setup
 
@@ -31,6 +27,10 @@ This project uses [Sentry](https://sentry.io) for error tracking and monitoring.
    ```bash
    npm run dev
    ```
+
+4. **Configure error tracking**
+   This project uses [Sentry](https://sentry.io) for error tracking and monitoring. See [docs/SENTRY_SETUP.md](docs/SENTRY_SETUP.md) for complete setup instructions.
+
 
 ## Annual Update Process
 
@@ -58,6 +58,21 @@ npm run test:run
 npm run dev
 npm run build
 ```
+
+## Adding a new year
+
+ * Update node and deps (see above)
+ * Create a new folder with the year under public/years
+ * Add front.jpg and back.jpg album art into the new folder. Size: 1500 x 1500
+ * Minify album art using https://tinypng.com/
+ * Create a new data.json file into the new folder.
+ * Use AI to extract track names from back.jpg into the correct json format.
+ * Run `node create_track_names.js {YEAR}` to add an `src` field with the track filename to the json.
+ * Rename each MP3 file to those file names
+ * Edit MP3 ID3 tags
+ * Create a zip of MP3s titled year.zip
+ * Upload all that to S3.
+ * Update src/Globals.ts to the latest year
 
 ## Available Scripts
 
@@ -210,21 +225,6 @@ npm run deploy
 
 This runs `npm run build` then pushes the `build` folder to the `gh-pages` branch.
 
-## Adding a new year
-
- * Update node and deps (see above)
- * Create a new folder with the year under public/years
- * Add front.jpg and back.jpg album art into the new folder. Size: 1500 x 1500
- * Minify album art using https://tinypng.com/
- * Create a new data.json file into the new folder.
- * Use AI to extract track names from back.jpg into the correct json format.
- * Run `node create_track_names.js {YEAR}` to add an `src` field with the track filename to the json.
- * Rename each MP3 file to those file names
- * Edit MP3 ID3 tags
- * Create a zip of MP3s titled year.zip
- * Upload all that to S3.
- * Update src/Globals.ts to the latest year
-
 ## Tech Stack
 
 ### Core
@@ -256,62 +256,3 @@ This runs `npm run build` then pushes the `build` folder to the `gh-pages` branc
 - `docs/e2e-testing.md` - E2E testing guide with Playwright
 - `docs/SENTRY_SETUP.md` - Sentry error tracking setup guide
 - `docs/SENTRY_IMPLEMENTATION_SUMMARY.md` - Technical implementation details
-
-## Testing
-
-This project has comprehensive test coverage:
-- **Unit & Integration Tests**: 148 tests across 11 test files, maintaining 93%+ code coverage
-- **E2E Tests**: 18 tests running across 5 browsers (Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari)
-
-### Running Tests
-
-```bash
-# Watch mode - tests re-run on changes
-npm test
-
-# Run once (for CI/CD)
-npm run test:run
-
-# Generate coverage report
-npm run test:coverage
-
-# Interactive UI
-npm run test:ui
-```
-
-### Test Structure
-
-```
-src/
-├── UrlHelper.test.ts           # URL generation utilities
-├── Loader.test.ts              # Data loading and caching
-├── App.test.tsx                # Routing logic
-├── Player.test.tsx             # Audio player controls
-├── AlbumArt.test.tsx           # Responsive album art
-├── AlbumArtSmall.test.tsx      # Small album art with flip
-├── AlbumArtLarge.test.tsx      # Large dual-image display
-├── Navigation.test.tsx         # Year navigation
-├── TrackInfo.test.tsx          # Track metadata display
-├── Links.test.tsx              # Download & Spotify links
-├── Root.test.tsx               # Integration tests
-└── test/
-    ├── setup.ts                # Test environment setup
-    └── mocks/                  # Mock data and utilities
-
-e2e/
-└── music-player.spec.ts        # E2E tests with Playwright
-```
-
-For detailed testing documentation:
-- [docs/testing_plan.md](docs/testing_plan.md) - Unit and integration testing
-- [docs/e2e-testing.md](docs/e2e-testing.md) - E2E testing guide
-
-## Learn More
-
-- [Vite Documentation](https://vitejs.dev/)
-- [Vite Features Guide](https://vitejs.dev/guide/features.html)
-- [React Documentation](https://react.dev/)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- [Vitest Documentation](https://vitest.dev/)
-- [React Testing Library](https://testing-library.com/react)
-- [Playwright Documentation](https://playwright.dev/)
