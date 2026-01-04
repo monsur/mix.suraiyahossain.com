@@ -14,8 +14,8 @@ Complete error tracking and monitoring system using Sentry for your music player
 
 ### Configuration
 - **`.env.example`** - Environment variable template with Sentry configuration
-- **`SENTRY_SETUP.md`** - Complete setup and testing guide
-- **`SENTRY_IMPLEMENTATION_SUMMARY.md`** - This file
+- **`docs/SENTRY_SETUP.md`** - Complete setup and testing guide
+- **`docs/SENTRY_IMPLEMENTATION_SUMMARY.md`** - This file
 
 ## Files Modified
 
@@ -158,7 +158,7 @@ That's it! Errors will now be automatically reported to Sentry.
 
 ## Testing
 
-See [SENTRY_SETUP.md](SENTRY_SETUP.md) for detailed testing instructions.
+See [SENTRY_SETUP.md](./SENTRY_SETUP.md) for detailed testing instructions.
 
 Quick test:
 1. Use the `ErrorTestHelper` component (import in App.tsx)
@@ -216,7 +216,7 @@ For a personal project, this is more than enough!
 
 ## Support
 
-- Full setup guide: [SENTRY_SETUP.md](SENTRY_SETUP.md)
+- Full setup guide: [SENTRY_SETUP.md](./SENTRY_SETUP.md)
 - Sentry docs: https://docs.sentry.io/platforms/javascript/guides/react/
 - Questions? Review the code comments or ask Claude!
 

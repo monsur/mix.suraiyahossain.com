@@ -6,7 +6,7 @@ The biggest development since this README was first written: AI. If you get stuc
 
 ## Error Tracking
 
-This project uses [Sentry](https://sentry.io) for error tracking and monitoring. See [SENTRY_SETUP.md](SENTRY_SETUP.md) for complete setup instructions.
+This project uses [Sentry](https://sentry.io) for error tracking and monitoring. See [docs/SENTRY_SETUP.md](docs/SENTRY_SETUP.md) for complete setup instructions.
 
 ## First Time Setup
 
@@ -119,7 +119,7 @@ npm run test:ui
 - Integration tests for the Root component
 - Mock implementations for Audio API, Router, and external dependencies
 
-See [testing_plan.md](testing_plan.md) for detailed testing documentation.
+See [docs/testing_plan.md](docs/testing_plan.md) for detailed testing documentation.
 
 #### E2E Testing
 
@@ -172,7 +172,7 @@ npm run test:e2e:report
 - Real network requests and Audio API interactions
 - Performance and accessibility checks
 
-See [e2e-testing.md](e2e-testing.md) for complete E2E testing documentation.
+See [docs/e2e-testing.md](docs/e2e-testing.md) for complete E2E testing documentation.
 
 ### Build & Deploy
 
@@ -252,8 +252,10 @@ This runs `npm run build` then pushes the `build` folder to the `gh-pages` branc
 - `index.html` - Entry point (Vite uses this directly)
 - `.nvmrc` - Node.js version for nvm
 - `.node-version` - Node.js version for other version managers (fnm, asdf, etc.)
-- `testing_plan.md` - Comprehensive testing documentation and strategy
-- `e2e-testing.md` - E2E testing guide with Playwright
+- `docs/testing_plan.md` - Comprehensive testing documentation and strategy
+- `docs/e2e-testing.md` - E2E testing guide with Playwright
+- `docs/SENTRY_SETUP.md` - Sentry error tracking setup guide
+- `docs/SENTRY_IMPLEMENTATION_SUMMARY.md` - Technical implementation details
 
 ## Testing
 
@@ -301,8 +303,8 @@ e2e/
 ```
 
 For detailed testing documentation:
-- [testing_plan.md](testing_plan.md) - Unit and integration testing
-- [e2e-testing.md](e2e-testing.md) - E2E testing guide
+- [docs/testing_plan.md](docs/testing_plan.md) - Unit and integration testing
+- [docs/e2e-testing.md](docs/e2e-testing.md) - E2E testing guide
 
 ## Learn More
 
