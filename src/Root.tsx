@@ -11,15 +11,25 @@ import Links from "./Links";
 function Root() {
   const tracks = useLoaderData() as TrackData[];
   const [currentTrackPos, setCurrentTrackPos] = useState(0);
+  const [prevTracks, setPrevTracks] = useState(tracks);
 
-  const currentTrack = tracks[currentTrackPos];
+  // Reset track position synchronously when tracks change so that the very
+  // first render with new data never reads an out-of-bounds index.
+  let safeTrackPos = currentTrackPos;
+  if (prevTracks !== tracks) {
+    setPrevTracks(tracks);
+    setCurrentTrackPos(0);
+    safeTrackPos = 0;
+  }
+
+  const currentTrack = tracks[safeTrackPos];
   const textColor = Globals.ENABLE_DYNAMIC_COLORS
     ? currentTrack.textColor
     : "#ffffff";
 
   let nextTrack: TrackData | null = null;
-  if (currentTrackPos < tracks.length - 1) {
-    nextTrack = tracks[currentTrackPos + 1];
+  if (safeTrackPos < tracks.length - 1) {
+    nextTrack = tracks[safeTrackPos + 1];
   }
 
   useEffect(() => {
@@ -29,13 +39,6 @@ function Root() {
       document.body.style.backgroundImage = "none";
     }
   });
-
-  // Reset track position when navigating to a different year/mix
-  // This is an intentional setState in effect to reset UI state when data changes
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCurrentTrackPos(0);
-  }, [tracks]);
 
   const audioRef = useRef(new Audio());
   useEffect(() => {
@@ -60,7 +63,7 @@ function Root() {
       <AlbumArt track={currentTrack} />
       <Player
         tracks={tracks}
-        currentTrackPos={currentTrackPos}
+        currentTrackPos={safeTrackPos}
         setCurrentTrackPos={setCurrentTrackPos}
         textColor={textColor}
       ></Player>
