@@ -20,7 +20,7 @@ function getYear(queryStr: string | undefined): number {
 
 const loader = new Loader();
 
-function ThrowOnRender() {
+function ThrowOnRender(): never {
   throw new Error("Test: Route render error from ThrowOnRender");
 }
 
