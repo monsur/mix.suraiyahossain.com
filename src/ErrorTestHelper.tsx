@@ -18,9 +18,12 @@
  */
 
 import * as Sentry from "@sentry/react";
+import { useNavigate } from "react-router-dom";
 import "./ErrorTestHelper.css";
 
 export function ErrorTestHelper() {
+  const navigate = useNavigate();
+
   const triggerComponentError = () => {
     throw new Error("Test: Component error from ErrorTestHelper");
   };
@@ -49,6 +52,9 @@ export function ErrorTestHelper() {
       </div>
 
       <div className="error-test-buttons">
+        <button onClick={() => navigate("/test-route-error")} className="test-button red">
+          Route Error
+        </button>
         <button onClick={triggerComponentError} className="test-button red">
           Component Error
         </button>

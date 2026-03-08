@@ -1,8 +1,27 @@
+import { useEffect } from "react";
+import { useRouteError, useNavigate } from "react-router-dom";
+import * as Sentry from "@sentry/react";
 import "./ErrorFallback.css";
 
 interface ErrorFallbackProps {
   error: Error | unknown;
   resetError?: () => void;
+}
+
+// Used as the route-level errorElement. React Router catches render errors
+// before they reach Sentry.ErrorBoundary, so this component captures them
+// to Sentry manually and renders the same ErrorFallback UI.
+export function RouteErrorFallback() {
+  const error = useRouteError();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    Sentry.captureException(error, { tags: { source: "route-error" } });
+  }, [error]);
+
+  return (
+    <ErrorFallback error={error} resetError={() => navigate(0)} />
+  );
 }
 
 export function ErrorFallback({ error, resetError }: ErrorFallbackProps) {

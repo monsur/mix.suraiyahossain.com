@@ -2,6 +2,7 @@ import Root from "./Root";
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import Globals from "./Globals";
 import Loader from "./Loader";
+import { RouteErrorFallback } from "./ErrorFallback";
 
 function getYear(queryStr: string | undefined): number {
   if (!queryStr) {
@@ -19,10 +20,20 @@ function getYear(queryStr: string | undefined): number {
 
 const loader = new Loader();
 
+function ThrowOnRender() {
+  throw new Error("Test: Route render error from ThrowOnRender");
+}
+
+const devRoutes = import.meta.env.DEV
+  ? [{ path: "/test-route-error", element: <ThrowOnRender />, errorElement: <RouteErrorFallback /> }]
+  : [];
+
 const router = createHashRouter([
+  ...devRoutes,
   {
     path: "/shuffle",
     element: <Root />,
+    errorElement: <RouteErrorFallback />,
     loader: async () => {
       return loader.loadAll(true);
     },
@@ -30,6 +41,7 @@ const router = createHashRouter([
   {
     path: "/*",
     element: <Root />,
+    errorElement: <RouteErrorFallback />,
     loader: async ({ params }) => {
       const year = getYear(params["*"]);
       return loader.loadYear(year);
