@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Root from './Root'
 import { mockTrackList } from './test/mocks/trackData'
 import Globals from './Globals'
@@ -18,9 +18,10 @@ vi.mock('./AlbumArt', () => ({
 }))
 
 vi.mock('./Player', () => ({
-  default: ({ tracks, currentTrackPos, textColor }: any) => (
+  default: ({ tracks, currentTrackPos, setCurrentTrackPos, textColor }: any) => (
     <div data-testid="player">
       Player - Track {currentTrackPos + 1} of {tracks.length} - Color: {textColor}
+      <button onClick={() => setCurrentTrackPos(currentTrackPos + 1)}>Next</button>
     </div>
   ),
 }))
@@ -227,6 +228,24 @@ describe('Root', () => {
     expect(screen.getByTestId('track-info')).toBeInTheDocument()
     expect(screen.getByTestId('links')).toBeInTheDocument()
     expect(screen.getByTestId('navigation')).toBeInTheDocument()
+  })
+
+  it('should not crash when navigating to a year with fewer tracks than current position', () => {
+    // Reproduce: user is at track 2 of 2, then navigates to a year with only 1 track.
+    // Before the fix, tracks[currentTrackPos] was undefined on the first render with
+    // new data, causing "undefined is not an object (evaluating 'e.track.albumArtFront')".
+    const { rerender } = render(<Root />) // 2 tracks loaded
+
+    // Advance to the second track (position 1)
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }))
+    expect(screen.getByText(/Track 2 of 2/)).toBeInTheDocument()
+
+    // Navigate to a different year that has only 1 track
+    vi.mocked(useLoaderData).mockReturnValue([mockTrackList[0]])
+    expect(() => rerender(<Root />)).not.toThrow()
+
+    // Should reset to track 1 of the new year without crashing
+    expect(screen.getByText(/Track 1 of 1/)).toBeInTheDocument()
   })
 
   it('should handle tracks with all required fields', () => {
