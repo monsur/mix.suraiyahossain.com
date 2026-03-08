@@ -1,26 +1,24 @@
 import "./AlbumArtSmall.css";
 import { TrackData } from "./Types";
-import { MouseEvent } from "react";
+import { useState } from "react";
 import Logger from "./Logger";
-import UrlHelper from "./UrlHelper";
 
 function AlbumArtSmall(props: { track: TrackData; width: number }) {
-  function handleClick(e: MouseEvent): void {
-    const img = e.target as HTMLImageElement;
-    if (img.src.endsWith(UrlHelper.FRONT_IMG)) {
-      img.src = props.track.albumArtBack;
-    } else {
-      img.src = props.track.albumArtFront;
-    }
-    Logger.log("AlbumArtSmall", "click", img.src, props.track.year);
+  const [showFront, setShowFront] = useState(true);
+
+  function handleClick(): void {
+    const next = !showFront;
+    setShowFront(next);
+    const src = next ? props.track.albumArtFront : props.track.albumArtBack;
+    Logger.log("AlbumArtSmall", "click", src, props.track.year);
   }
 
   return (
     <div className="AlbumArtSmall">
       <img
-        src={props.track.albumArtFront}
+        src={showFront ? props.track.albumArtFront : props.track.albumArtBack}
         width={props.width}
-        onClick={(e) => handleClick(e)}
+        onClick={handleClick}
         alt="album art"
       />
     </div>
