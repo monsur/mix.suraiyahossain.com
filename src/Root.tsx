@@ -7,6 +7,7 @@ import TrackInfo from "./TrackInfo";
 import Globals from "./Globals";
 import Player from "./Player";
 import Links from "./Links";
+import Footer from "./Footer";
 
 function Root() {
   const tracks = useLoaderData() as TrackData[];
@@ -78,6 +79,7 @@ function Root() {
         minYear={Globals.MIN_YEAR}
         maxYear={Globals.MAX_YEAR}
       ></Navigation>
+      <Footer textColor={textColor} />
     </div>
   );
 }
