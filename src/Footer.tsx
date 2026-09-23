@@ -5,8 +5,12 @@ function Footer(props: { textColor: string }) {
 
   return (
     <div className="Footer" style={style}>
-      a yearly playlist designed to reflect moments and memory through song
-      selection, typography, photography and color
+      <div className="FooterLine">
+        a yearly playlist designed to reflect moments and memory
+      </div>
+      <div className="FooterLine">
+        through song selection, typography, photography and color
+      </div>
     </div>
   );
 }
